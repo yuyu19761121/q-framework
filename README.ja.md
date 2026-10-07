@@ -6,7 +6,7 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 > **本リポジトリは実際に稼働しているシステムを記録しますが、プロダクション用の中核エンジンは公開しません。**
 
-**Version:** Development & Validation Whitepaper v1.0 RC2  
+**Version:** Evidence Whitepaper v1.0 RC3  
 **Snapshot:** 2026-10-07
 
 [English](README.md) · [繁體中文](README.zh-TW.md)
@@ -44,3 +44,9 @@ Q-Framework は「構想」「実装」「部分的検証」「実証済み」�
 
 本リポジトリでは、実運用の pressure scoring、page/residency selection、eviction/prefetch、restore sequencing、scheduler weight、Qsearch ranking、production streamed-QKV、資格情報・内部ネットワーク情報を公開しません。
 \n\n## Validation Evidence\n\n[Validated Execution Paths](docs/validated-execution-paths.md)\n
+
+## RC3
+
+最新のEvidence Whitepaper（日本語Markdown）：[Q-Framework-v1.0-RC3-JA.md](whitepaper/Q-Framework-v1.0-RC3-JA.md)
+
+RC3では、実測証拠を公開しながら、production mechanismをブラックボックスとして維持します。
