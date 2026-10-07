@@ -112,13 +112,13 @@ If this continues to hold under harder conditions, it may have implications for 
 
 These are research directions, not unbenchmarked performance promises.
 
-## 11. The next technical boundaries
+## 11. Subsequent validation stages
 
 RC3 is not an endpoint. Q-Framework development is not framed as a binary success/failure story.
 
 > **Every solved engineering problem creates a harder test.**
 
-Current boundaries include:
+Current validation priorities include:
 
 - longer continuous workloads;
 - wider GPU generation / driver / runtime combinations;
@@ -126,23 +126,23 @@ Current boundaries include:
 - lower wasted recomputation and shorter time-to-result;
 - repeatability across more runs, nodes and hardware.
 
-## 12. Why follow the progress
+## 12. Public progress and future milestones
 
 Future public milestones may include longer completed outputs, new SHA receipts, repeated-run statistics, broader hardware matrices, pause/persist/resume evidence, worker-takeover evidence, time-to-result comparisons and new QSTATIC/QmRNA controlled-equivalence results.
 
-The whitepaper is therefore a moving public evidence timeline, not a final announcement.
+This whitepaper is intended to remain a continuously updated public technical record. Future revisions will incorporate additional measurements, validation results and evidence as they become suitable for disclosure.
 
 ## 13. Experimental Preview
 
-Q-Framework plans a limited **Experimental Preview** so external users can interact with selected validated capabilities without receiving the complete production engine.
+Q-Framework plans a limited **Experimental Preview** to allow external researchers, developers and prospective collaborators to evaluate selected validated capabilities under controlled conditions without receiving the complete production engine.
 
 Possible preview surfaces include limited continuation experiments, pause/persist/resume demonstrations, receipt verification, reference-state consistency tests and selected heterogeneous-worker demonstrations.
 
 The Preview is intended to be packaged and constrained. Proprietary production mechanisms remain black-box.
 
-Future releases may follow a challenge-build model:
+Future preview releases may use a staged build model:
 
-**Experimental Preview — Challenge Build #001 / #002 / #003 ...**
+**Experimental Preview — Build #001 / #002 / #003 ...**
 
 ## 14. Disclosure boundary
 
@@ -170,4 +170,4 @@ The next objective is to push this chain toward longer, faster, more heterogeneo
 
 The production mechanism remains black-box.
 
-**Real evidence. Black-box mechanism. Follow the boundary as it moves.**
+**Real evidence. Black-box mechanism. Future progress will be reported through verifiable results.**
