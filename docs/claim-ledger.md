@@ -20,3 +20,5 @@
 | Q-Framework eliminates OOM | **Not claimed** | Goal is controlled pressure handling and recoverability |
 | Q-Framework provides unlimited VRAM | **Not claimed** | Physical memory remains finite |
 | Q-Framework universally outperforms datacenter GPUs | **Not claimed** | No such benchmark claim is made |
+
+Additional validated A/B evidence: under the same QSTATIC reference and seed, the QmRNA-enabled run and baseline produced identical decoded frame hashes for all 22 frames. Container file hashes differed, as expected.
