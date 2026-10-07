@@ -154,3 +154,8 @@ Published: architecture roles, state lifecycles, smoke/runtime outcomes, hashes,
 Not published: production QmRNA pressure scoring, adaptive-feed equations, page/residency selection, eviction/prefetch policy, Qvram production serialization/restore ordering, Qsearch ranking, scheduler weights/fencing/retry authority, and the production streamed-QKV data plane.
 
 **Open Specification · Open Evidence · Open Reference Interfaces · Closed Production Engine**
+
+
+## Supplementary validation: QSTATIC + QmRNA A/B equivalence
+
+In a controlled A/B test using the same QSTATIC reference, the same seed, and the same H3 settings, the baseline and QmRNA-enabled paths produced different MP4 container hashes, but all 22 decoded frame hashes matched exactly. The two framemd5 manifests also had the same SHA256: `FF55120ADF80F99D74405C5DECA7A9B54116B01F987591A012BD1FF01467F5D7`. In this test, QmRNA changed runtime-control behavior while preserving the decoded visual output exactly.
