@@ -22,4 +22,20 @@ QSTATIC は単なる media index / asset library ではなく、parallel GPU Wor
 
 本結果は、テストした smoke configuration における **VALIDATED shared-state consistency** と位置付ける。すべての model / identity representation / heterogeneous GPU combination で perceptual identity が自動的に保証されるという主張ではないが、共通 identity / continuity state を複数の独立 GPU Worker に配布し、SHA で equality を検証した後に異なる execution branch へ分岐できることを示している。
 
+### Node-to-GPU computation consistency
+
+同じ CURRENT の development evidence には、共有 state が node 側で解決され GPU execution に渡された後も、parallel worker 間の node-side / GPU-side computation fingerprint が非常に近い状態を維持したことが記録されている。QSTATIC multi-worker smoke では独立した node/GPU path であるにもかかわらず、computation-state SHA はほぼ一致した。
+
+この結果は exact transfer proof と区別して記述する。制御された state transport では、20-step sampler handoff が bitwise equal / max absolute difference 0.0 を達成し、250 MiB の GPU→CPU→SharedMemory→GPU round trip では source / Bridge RAM / target GPU read-back の SHA-256 が完全一致した。
+
+一方、QSTATIC 4-worker execution は **near-consistent computation fingerprints** と表現し、任意の GPU inference に対する universal bitwise determinism は主張しない。
+
+したがって evidence は三層に分けることができる。
+
+1. Controlled compute-state transport では exact SHA / bitwise match を証明できる。
+2. Parallel branch 前の authoritative identity / continuity state は SHA で equality を検証できる。
+3. Independent node + GPU execution でも computation fingerprint を高い一致度に保ちながら、その後の action / shot branch は異なる final media を生成できる。
+
+この点は、Q-Framework が GPU を identity / lineage / workload state の owner ではなく execution worker として扱う根拠の一つである。
+
 単一22GB GPUで最新 full-length working-set virtualization を用いて最終15秒 H3 workload を production quality で完了した、という主張はまだ行いません。
