@@ -11,6 +11,10 @@ permissions:
   contents: write
 
 concurrency:
+  group: publication-pdfs
+  cancel-in-progress: false
+
+concurrency:
   group: q-framework-publication-pdfs-main
   cancel-in-progress: true
 
@@ -19,6 +23,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Sync latest main
+        run: git pull --ff-only origin main
         with:
           fetch-depth: 0
 
