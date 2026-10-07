@@ -45,7 +45,7 @@ Q-Framework は「構想」「実装」「部分的検証」「実証済み」�
 本リポジトリでは、実運用の pressure scoring、page/residency selection、eviction/prefetch、restore sequencing、scheduler weight、Qsearch ranking、production streamed-QKV、資格情報・内部ネットワーク情報を公開しません。
 \n\n## Validation Evidence\n\n[Validated Execution Paths](docs/validated-execution-paths.md)\n
 
-## RC3
+## RC3 公開版
 
 最新のEvidence Whitepaper（日本語Markdown）：[Q-Framework-v1.0-RC3-JA.md](whitepaper/Q-Framework-v1.0-RC3-JA.md)
 
