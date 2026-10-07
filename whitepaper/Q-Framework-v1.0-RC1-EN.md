@@ -46,6 +46,36 @@ The combined evidence supports a three-layer interpretation:
 
 This is one reason Q-Framework treats the GPU as an execution worker rather than the owner of identity, lineage or the full workload state.
 
+## Four validated execution paths
+
+The CURRENT evidence now supports four distinct execution paths. These are not four marketing labels for the same mechanism; they exercise different placement and continuation contracts.
+
+| Execution path | Status | Demonstrated behavior |
+|---|---|---|
+| **Mixed-GPU compute / continuation** | VALIDATED | State can freeze on one GPU, move through CPU/RAM or Bridge storage, restore on another GPU, and continue the same lineage. A 20-step deterministic POC finished bitwise equal with max diff 0.0; a 250 MiB transport preserved exact source/Bridge/target SHA; controlled H3 rescue completed B0 checkpoint -> B1 restore -> MP4 output. |
+| **Same-GPU resume** | VALIDATED SMOKE | A story chain can remain pinned to one owner slot with `same_gpu_resume=true`, preserving lineage/state across segment boundaries and continuing from the retained chain state. |
+| **H3 Memory Static / Reference-State compute** | VALIDATED | H3 audio, visual and face reference states were measured as explicit tensor blocks with shape/bytes/SHA. Identical input reproduced identical state SHA, and the same face reference on Node A and Node B produced the same visual-latent SHA. |
+| **Mixed-GPU cross-file / cross-shot compute** | VALIDATED SMOKE | SHOT XCOPY / Motion Bridge used boundary state across separate shot artifacts; Job #135 accepted dual boundary references and crossed B0 PRE-OOM -> A0 restore before producing H3 output. |
+
+These paths share one systems principle: **GPU residency is temporary; lineage and verifiable compute state remain authoritative outside any single execution slot.**
+
+### SHA semantics: transport, compute revision and cross-environment arithmetic
+
+Q-Framework deliberately distinguishes three kinds of SHA evidence.
+
+1. **Exact transport SHA** — the same frozen state must remain bitwise identical while moving through GPU -> CPU/RAM/Bridge -> GPU. The 250 MiB XCOPY test met this condition.
+2. **Progressive revision SHA** — after a restored state is actually computed further, the next freeze is expected to create a new revision and therefore a new SHA. When no step advances, the SHA remains unchanged. This separates real continuation from simple file movement.
+3. **Cross-environment computed-result SHA** — real production sampler arithmetic was independently evaluated by Utility01, H410 and a Node B PyTorch reference. All three produced the same recomputed-x SHA. Relative to the original production source, reverse/forward float32 reconstruction differed only within rounding tolerance (max abs 4.768e-7; mean abs about 2.03e-8).
+
+Therefore the public claim is **reproducible numerical behavior across the tested node/runtime paths**, not universal bitwise determinism for every intermediate tensor or every future model.
+
+### QSTATIC four-GPU shared identity state
+
+In the four-worker QSTATIC smoke, A0/A1/B0/B1 resolved the same authoritative identity/continuity state before action branching. The shared identity/state SHA matched across the workers, and the recorded node+GPU computation fingerprints were highly consistent before branch-specific execution.
+
+After the branch point, workers were free to render different actions or shots. Their final media hashes are therefore not expected to match. The invariant is the common identity/state root and lineage before divergence.
+
+
 The complete target of a final production-quality 15-second full-length H3 task on a single 22GB GPU through the newest full-length working-set virtualization path is still under validation and is not presented as completed fact.
 
 ## Disclosure boundary
