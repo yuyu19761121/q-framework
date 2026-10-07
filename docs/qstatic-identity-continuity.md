@@ -101,3 +101,33 @@ This is deliberately not worded as universal bitwise GPU determinism. Q-Framewor
 - **Near-consistent:** multi-worker generative execution where the node+GPU computation fingerprint remains highly aligned before workers execute different action branches.
 
 The distinction protects the claim boundary while still recording the practical observation that heterogeneous workers can remain anchored to the same computational lineage.
+
+
+## Parallel timeline execution
+
+The four-worker test was not a fixed sequential 0-3s / 3-6s split. Q-Framework's global frame queue can dispatch different absolute timeline units to independent workers. A retained first-wave assignment was:
+
+- B0 -> F265-F269
+- B1 -> F235-F239
+- A0 -> F355-F359
+- A1 -> F155-F159
+
+Every unit carried the same Character Master/reference and immutable identity, wardrobe and scene constraints. Its bounded Call Sheet contained only the action/camera/dialogue contract for that absolute timeline range. A worker finishing early could claim another pending unit through work stealing.
+
+## Two computation-consistency evidence classes
+
+The project deliberately separates two observations.
+
+**Multi-worker generative smoke:** the independent node + GPU computation fingerprints / SHA values were highly aligned and near-matching before workers diverged into different action branches. This is evidence of practical computation-state alignment, not a universal bitwise-GPU-determinism claim.
+
+**Controlled cross-environment solver:** a real production sampler state was recomputed independently by Utility01, H410, and the Node B PyTorch reference. All three produced the exact same recomputed-x SHA:
+
+`330271d14ee7086e27f875a4a56e720f169cdef1523e908ad94696bb70df15a4`
+
+Relative to the original source state, reverse-to-forward float32 reconstruction had max absolute error `4.76837158203125e-07` and mean absolute error about `2.03e-08`. The exact equality therefore applies to the three recomputed results; it is not generalized to every arbitrary inference path.
+
+A separate H3 reference-state test also produced a bit-identical visual-latent SHA on Node A and Node B for the same 512x512 face reference:
+
+`1488ccf08323200643d5759046f2d47e1e16d44a70f278a79346aec53103d937`
+
+Together, these results distinguish shared authoritative state, near-consistent parallel generative execution, and exact controlled solver/reference-state reproducibility.
