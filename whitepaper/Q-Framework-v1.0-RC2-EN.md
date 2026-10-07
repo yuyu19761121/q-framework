@@ -117,6 +117,14 @@ Relative to the source state, reverse→forward float32 reconstruction produced:
 
 The correct claim is not universal bitwise determinism. The evidence shows that real production state can leave the original ComfyUI process and be solved in another node/runtime while reproducing the same computed-result hash.
 
+### Node + GPU computation-fingerprint near-match
+
+In addition to the exact recomputed-x SHA across the three solver environments above, the four-worker QSTATIC smoke retained a different class of evidence: under the same shared state, lineage, and compatible execution contract, independent node+GPU paths produced **near-matching / highly consistent computation-state fingerprints**.
+
+This must not be confused with Exact Transport SHA. It describes consistency after state has entered independent node+GPU execution paths. Because GPU kernels, drivers, precision, execution order, and later action branches can introduce legitimate differences, RC2 does not convert this observation into a universal bitwise-determinism claim.
+
+RC2 therefore labels this evidence separately as **Node + GPU Computation Fingerprint Near-Match**. Together with exact transport, progressive QREV, and cross-environment recomputed SHA, it forms a fourth SHA/fingerprint evidence class.
+
 ## 4. Interpreting SHA evidence
 
 Q-Framework uses three distinct SHA meanings:
