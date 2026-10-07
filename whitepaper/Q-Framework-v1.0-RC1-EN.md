@@ -24,6 +24,14 @@ The public paper reports observable architecture, development milestones, valida
 
 Demonstrated evidence includes deterministic state/hash verification across GPU continuation paths, real GPU→CPU/RAM→GPU rescue lineages, candidate QmRNA execution inside H3 model-forward blocks, exact FFN token chunking, and CPU-only global streamed-attention reference tests matching full attention within floating-point tolerance.
 
+### QSTATIC four-GPU identity-state consistency
+
+QSTATIC is not only a media-indexing layer. In the production design it can act as a shared continuity/identity-state source for parallel GPU workers. A four-worker smoke test exercised the independent A0/A1/B0/B1 execution slots with a common Character Master / identity-state package while branch-specific shot/action work was assigned independently.
+
+The retained validation record reports that the shared identity/state SHA was consistent across the participating workers and that the node-side computation-state SHA was also consistent before branch-specific action execution. This matters because the invariant being preserved is the authoritative shared state, not byte-identical final videos. Once different action or shot branches execute, their final output hashes are expected to diverge.
+
+This result is classified as **VALIDATED shared-state consistency under the tested smoke configuration**. It does not claim that every model, every identity representation, or every heterogeneous GPU combination will preserve perceptual identity without additional QC. It does demonstrate that Q-Framework can distribute a common identity/continuity state to independent workers and verify state equality cryptographically before allowing the workers to diverge into different execution branches.
+
 The complete target of a final production-quality 15-second full-length H3 task on a single 22GB GPU through the newest full-length working-set virtualization path is still under validation and is not presented as completed fact.
 
 ## Disclosure boundary
