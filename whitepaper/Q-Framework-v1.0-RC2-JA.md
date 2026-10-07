@@ -97,6 +97,14 @@ source state に対する reverse→forward float32 reconstruction の max abs e
 
 これは universal bitwise GPU determinism の主張ではない。真の production state を元 runtime から分離し、別 node/runtime solver で同じ computed-result hash を再現できたという証拠である。
 
+### Node + GPU computation fingerprint near-match
+
+上記の三つの solver environment で recomputed-x SHA が完全一致した証拠とは別に、4-worker QSTATIC smoke では、同一 shared state、same lineage、compatible execution contract の下で、独立した node + GPU path の computation-state fingerprint が**ほぼ一致／高い一致度**を維持した。
+
+これは Exact Transport SHA とは異なる。state が独立した node + GPU execution path に入った後の computation consistency を示すものであり、GPU kernel、driver、precision、execution order、後続 action branch の差異まで含めて universal bitwise determinism を主張するものではない。
+
+RC2 ではこの証拠を **Node + GPU Computation Fingerprint Near-Match** として独立分類する。
+
 ## 4. SHA の三つの意味
 
 - **Exact Transport SHA**: state が変化していない場合 SOURCE = BRIDGE = TARGET。
