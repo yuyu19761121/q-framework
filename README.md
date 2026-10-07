@@ -11,6 +11,10 @@ Q-Framework is an experimental AI compute architecture focused on making long-ru
 
 [繁體中文](README.zh-TW.md) · [日本語](README.ja.md)
 
+## Whitepaper PDFs
+
+**[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
+
 ## What Q-Framework is exploring
 
 Conventional generative AI pipelines often treat GPU memory exhaustion as a terminal boundary. Q-Framework explores a different systems model:
