@@ -30,4 +30,20 @@ QSTATIC 不只是媒體索引或素材庫；在 production architecture 中，�
 
 因此，本項成果在本白皮書中列為 **已驗證（VALIDATED）的 shared-state consistency smoke proof**。它不代表任意模型、任意角色表示法或任意異構 GPU 都必然不需要額外 QC；它證明的是：Q-Framework 可以把共同 identity／continuity state 分送到多個獨立 GPU Worker，先用 SHA 驗證狀態一致，再讓各 Worker 分別執行不同的動作分支。
 
+### 節點到 GPU 的運算一致性
+
+CURRENT 同一條開發證據鏈還記錄了第二個、需要獨立描述的現象：共享狀態在節點端完成解析並交給 GPU 執行後，各平行 Worker 的 **node-side / GPU-side computation fingerprint 仍呈現高度一致**。在 QSTATIC 多 Worker smoke 中，參與的節點＋GPU 路徑雖然是獨立裝置，但 computation-state SHA 幾乎一致。
+
+這裡必須與 Q-Framework 已完成的「exact transfer proof」分開解讀。受控狀態搬運實驗中，我們已經有完全相等的證據：20-step sampler handoff 的最終結果 bitwise equal、max absolute difference = 0.0；另一個 250 MiB GPU→CPU→SharedMemory→GPU round trip 則從 source、Bridge RAM 到 target GPU read-back 都維持完全相同的 SHA-256。
+
+相較之下，QSTATIC 四 Worker 的節點＋GPU 運算結果，白皮書採用 **高度一致／近一致的 computation fingerprint** 描述，而不是宣稱任意 GPU inference 都能保證 bitwise deterministic。
+
+因此完整證據應分成三層：
+
+1. **受控 Compute State 搬運可做到 exact SHA／bitwise match。**
+2. **平行 Worker 分支前的 identity／continuity authoritative state 可用 SHA 證明一致。**
+3. **獨立 node + GPU 執行路徑的 computation fingerprint 可維持高度一致，同時允許後續 action／shot branch 產生不同的最終影片。**
+
+這也是 Q-Framework 把 GPU 定義為 execution worker、而不是 identity／lineage／完整 workload state owner 的重要依據。
+
 「單張 22GB GPU 透過最新 full-length working-set virtualization 完成最終 15 秒 production-quality H3 任務」目前仍在驗證，因此不寫成已完成。
