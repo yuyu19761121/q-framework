@@ -218,7 +218,7 @@ Q-Framework 正在測試另一種可能：
 
 ---
 
-## 10. 現在的技術邊界在哪裡？
+## 10. 後續驗證階段
 
 RC3 不是「完成版」。
 
@@ -226,7 +226,7 @@ RC3 不是「完成版」。
 
 > **每解掉一個難題，就把下一次測試推到更困難的條件。**
 
-目前正在持續往前推的公開方向：
+目前後續驗證重點如下：
 
 ### Challenge A — Longer Continuous Workload
 把已驗證 continuation 推向更長的生成工作。
@@ -245,7 +245,7 @@ RC3 不是「完成版」。
 
 ---
 
-## 11. 為什麼公開進度值得追
+## 11. 公開進度與後續里程碑
 
 未來每當 Q-Framework 解掉一個新的技術難題，公開更新應該帶來至少一種新的可驗證資訊：
 
@@ -260,17 +260,17 @@ RC3 不是「完成版」。
 - before/after time-to-result；
 - 新的 QSTATIC / QmRNA equivalence result。
 
-因此這份白皮書不是終點，而是一條持續更新的公開技術時間線。
+因此，本白皮書將作為持續更新的公開技術紀錄，後續版本將依新的驗證結果、量測資料與可公開證據進行增補。
 
 ---
 
-## 12. Experimental Preview：讓外界不只看，還能玩
+## 12. Experimental Preview：受限技術預覽
 
 Q-Framework 規劃推出 **Experimental Preview**。
 
 它不會是完整 production engine，也不會包含足以重建核心技術的所有元件。
 
-Preview 的目標是讓外部使用者可以實際接觸部分已驗證能力，例如：
+Experimental Preview 的目的，是提供外部研究者、開發者與潛在合作單位在受限條件下進行功能評估與驗證，例如：
 
 - limited continuation experiment；
 - pause / persist / resume experiment；
@@ -284,7 +284,7 @@ Preview 將採受限、封裝、黑箱方式提供。核心演算法與 producti
 
 **Experimental Preview — Challenge Build #001 / #002 / #003 ...**
 
-讓每個 build 對應新的公開能力與驗證關卡。
+使不同 build 對應不同的公開驗證範圍與功能成熟度。
 
 ---
 
@@ -348,4 +348,4 @@ Q-Framework 到目前為止最重要的成果，不是某一個單獨的 SHA，�
 
 而真正讓這一切運作的 production mechanism，仍然留在黑箱裡。
 
-**真實證據。核心黑箱。下一個突破，用結果說話。**
+**真實證據。核心黑箱。後續進展以可驗證結果為準。**
