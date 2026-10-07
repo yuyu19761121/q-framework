@@ -32,6 +32,20 @@ The retained validation record reports that the shared identity/state SHA was co
 
 This result is classified as **VALIDATED shared-state consistency under the tested smoke configuration**. It does not claim that every model, every identity representation, or every heterogeneous GPU combination will preserve perceptual identity without additional QC. It does demonstrate that Q-Framework can distribute a common identity/continuity state to independent workers and verify state equality cryptographically before allowing the workers to diverge into different execution branches.
 
+### Node-to-GPU computation consistency
+
+The same development record also contains a second, distinct observation: once the shared state was resolved by the node and handed into GPU execution, node-side and GPU-side computation fingerprints remained highly consistent across the parallel workers. In the QSTATIC multi-worker smoke, these computation-state SHA values were near-identical across the participating node/GPU paths even though the workers were independent devices.
+
+This observation is intentionally separated from Q-Framework's exact-transfer proofs. In controlled state-transport experiments, Q-Framework has already produced exact results: a 20-step sampler handoff finished with bitwise equality and max absolute difference 0.0, and a 250 MiB GPU→CPU→shared-memory→GPU round trip preserved the exact SHA-256 value end to end. By contrast, the multi-worker QSTATIC execution result is reported as **near-consistent computation fingerprints**, not as a universal bitwise-determinism claim for arbitrary GPU inference.
+
+The combined evidence supports a three-layer interpretation:
+
+1. **Exact state transport can be proven** when the transported object and computation are controlled.
+2. **Shared identity/continuity state can be proven equal** before parallel branch execution.
+3. **Independent node+GPU execution can remain numerically/structurally highly consistent** while still allowing branch-specific actions and non-identical final media.
+
+This is one reason Q-Framework treats the GPU as an execution worker rather than the owner of identity, lineage or the full workload state.
+
 The complete target of a final production-quality 15-second full-length H3 task on a single 22GB GPU through the newest full-length working-set virtualization path is still under validation and is not presented as completed fact.
 
 ## Disclosure boundary
