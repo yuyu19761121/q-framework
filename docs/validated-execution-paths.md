@@ -1,143 +1,55 @@
-# Validated Execution Paths
+# Validated Execution Outcomes
 
-This document separates Q-Framework's validated execution paths from still-experimental full-length residency-virtualization work.
+This document summarizes **what was observed**, not how the production mechanism works.
 
-## 1. Mixed-GPU stateful continuation
+## Deterministic continuation
+Bitwise equality was observed in a controlled continuation test.
 
-A compute lineage can freeze on one GPU, move through CPU/RAM-backed transport, restore on another GPU, and continue.
+- max absolute difference: 0.0
+- mean absolute difference: 0.0
+- SHA-256: `ae04c23d4daed035632855260f85c360a857c28a8d46544f5c92f91baff823a3`
 
-Evidence includes:
+## Large-state transport integrity
+A ~250 MiB computation object preserved exact SHA through the tested transport path.
 
-- **20-step deterministic handoff:** GPU0 steps 1-10 -> CPU/RAM -> GPU1 steps 11-20; final result was bitwise equal with max absolute difference 0.0.
-- **250 MiB state XCOPY:** source GPU SHA, Bridge/RAM SHA, and target GPU read-back SHA matched exactly; `bitwise_sha_match=true`.
-- **Controlled H3 rescue:** B0 checkpoint -> B1 restore -> sampler continuation -> MP4 output.
+SHA-256: `330674e23bf109a4f5e3983608ce118274373deae669e3d3bacee2f77639d5a6`
 
-This validates state migration and continuation. It does not mean multiple GPUs become one physically aggregated GPU.
+## Real H3 continuation
+A real H3 workload completed after continuation on another GPU worker.
 
-## 2. Fixed-owner same-GPU resume
+Output SHA-256: `307828DE5D0D54F36004EF9C97B2E4DAE5178E59A9C8EF74775F07522B788AB3`
 
-Q-Framework also supports a fixed-owner execution chain.
+## Four-worker production-class execution
+A 15.000-second / 540-frame workload completed with four independent RTX 2080 Ti 22 GB workers participating.
 
-With `same_gpu_resume=true`:
+Final SHA-256: `23CDBA13DBFF7B8EC234DB1D7DE61625597E128BD6684849FCB6CD33650ADF57`
 
-- a story chain remains pinned to its owner slot;
-- lineage/state is preserved across segment boundaries;
-- continuation can stay local instead of migrating when migration is unnecessary.
-
-This path is useful when locality is preferable and the owner GPU remains available.
-
-## 3. H3 Memory Static / Reference-State compute
-
-H3 reference information has been measured as explicit state blocks rather than treated only as source media.
-
-Validated observations include:
-
-- repeated visual-reference input reproduced the same raw-state SHA;
-- changed input at the same tensor shape produced a different state SHA;
-- audio, visual, and face reference states were recorded with explicit shape, byte size, and SHA;
-- the same 512x512 face reference, encoded on Node A and Node B with the same H3 Video VAE path, produced the same visual-latent SHA.
-
-This demonstrates reproducible reference-state computation on the tested paths. A reference latent is not the entire H3 model or the full inference working set.
-
-## 4. Mixed-GPU cross-file / cross-shot stateful compute
-
-SHOT XCOPY / Motion Bridge allows state from one shot/artifact boundary to participate in another shot's computation instead of reducing continuity to an RGB-only handoff.
-
-Job #135 smoke:
-
-- RS01 tail reference SHA and RS02 head reference SHA were recorded separately;
-- H3 accepted the two boundary references;
-- the path entered B0, hit PRE-OOM, restored on A0, and continued to H3 output;
-- smoke output SHA256: `7A909C59636C1A18C6B1A1C7CD2037120F25DDC2C7F36CD2E62B4C70A43212E1`.
-
-This demonstrates that a lineage can cross both **artifact/shot boundaries** and **GPU-worker boundaries**.
-
-## 5. QSTATIC four-worker shared identity state
-
-QSTATIC can serve as a shared identity/continuity authority for independent GPU workers.
-
-In the four-worker smoke:
-
-- A0, A1, B0, and B1 resolved the same authoritative identity/continuity state before action branching;
-- the shared identity/state SHA matched across participating workers;
-- node + GPU computation fingerprints were highly consistent / near-matching before branch-specific execution;
-- after validation of the common root, the workers could execute different action/shot branches.
-
-Final media hashes are not expected to remain identical after different branches execute. The invariant is the common pre-branch identity/state authority and lineage.
-
-## 6. QSTATIC + QmRNA output-equivalence proof
-
-A controlled A/B test isolated the effect of adding QmRNA runtime control to the same QSTATIC reference.
-
-Fixed conditions:
-- same Visual Static reference;
-- same seed;
-- H3 at 480x832 / 24 fps;
-- 22 frames / 10 steps;
-- baseline path versus QmRNA-enabled path.
-
-The MP4 container hashes differed, which can happen because container metadata and encoding layout are not the same thing as decoded visual content.
-
-After decoding both outputs, **all 22 frame hashes matched exactly**. The two framemd5 manifests also produced the same SHA256:
-
-`FF55120ADF80F99D74405C5DECA7A9B54116B01F987591A012BD1FF01467F5D7`
-
-In that same single-run comparison, the QmRNA checkpoint window was about 76 seconds versus about 81 seconds for baseline.
-
-The scoped conclusion is: **QmRNA changed runtime/control behavior while preserving the decoded QSTATIC-conditioned output exactly in this controlled same-Static / same-seed test.**
-
-## 6. SHA interpretation
-
-Q-Framework uses SHA evidence in three distinct ways.
-
-### Exact transport SHA
-
-When the same frozen object is moved through:
-
-```text
-GPU -> CPU/RAM -> Bridge/SharedMemory -> GPU
-```
-
-its hash should remain exactly identical.
-
-The ~250 MiB XCOPY test met this requirement end-to-end.
-
-### Progressive revision SHA
-
-When a restored state is actually computed further, the next freeze should produce a **new state revision** and therefore a new SHA.
-
-Development logs show:
-
-- real step progression -> new QREV / new SHA;
-- no step progression -> state SHA remains unchanged.
-
-This distinguishes real continuation from simply copying the same file.
-
-### Cross-environment computed-result SHA
-
-A real production sampler-state arithmetic test was independently executed on:
-
-- Utility01 without the ComfyUI/PyTorch math path;
-- H410 without the ComfyUI math path;
-- Node B using the PyTorch reference path.
-
-All three produced the same recomputed-x SHA:
+## Cross-environment numerical consistency
+Three execution environments produced the same recomputed-result SHA:
 
 `330271d14ee7086e27f875a4a56e720f169cdef1523e908ad94696bb70df15a4`
 
-Compared with the original production source reconstructed through reverse/forward float32 arithmetic:
+Max absolute reconstruction error versus source: `4.76837158203125e-07`
 
-- max absolute error: `4.76837158203125e-07`
-- mean absolute error: approximately `2.03e-08`
+## Shared identity/reference-state consistency
+A cross-node reference-state validation produced the same SHA-256:
 
-This is evidence of **reproducible numerical consistency across the tested environments**.
+`1488ccf08323200643d5759046f2d47e1e16d44a70f278a79346aec53103d937`
 
-It is not a claim that arbitrary GPU inference, every intermediate tensor, or every future model is universally bitwise deterministic.
+## QSTATIC + QmRNA controlled equivalence
+In one controlled A/B test, 22 / 22 decoded frame hashes matched.
 
-## 7. Evidence boundary
+framemd5 manifest SHA-256:
+`FF55120ADF80F99D74405C5DECA7A9B54116B01F987591A012BD1FF01467F5D7`
 
-The validated paths above should not be confused with the newest full-length residency-virtualization target.
+## Cross-boundary continuation
+Recorded completed-output hashes include:
 
-Q-Framework does **not** yet claim that a single 22 GB GPU has completed the final 15-second / 311-aligned-frame H3 target through the newest full-length working-set virtualization path.
+- `7A909C59636C1A18C6B1A1C7CD2037120F25DDC2C7F36CD2E62B4C70A43212E1`
+- `C35FAECFE3C1BD0B5338CC4BE0EB8A854A10CE0FEEF86D39CA750DE6BB4A357C`
 
-That remains a separate acceptance milestone.
+## Evidence boundary
+
+This document intentionally omits internal state schemas, control equations, threshold values, serialization, restore sequence, scheduler policy, QmRNA representation, QSTATIC contracts, Qvram implementation and production source code.
+
+**Real evidence. Black-box mechanism.**
