@@ -128,3 +128,8 @@ Unlimited VRAM、zero OOM、全 model への universal applicability、任意 GP
 非公開：production QmRNA pressure scoring、adaptive feed equation、page/residency selection、eviction/prefetch、Qvram serializer/restore order、Qsearch ranking、scheduler weight/fencing/retry authority、production streamed-QKV data-plane。
 
 **Open Specification · Open Evidence · Open Reference Interfaces · Closed Production Engine**
+
+
+## 追加検証：QSTATIC + QmRNA A/B equivalence
+
+同一 QSTATIC reference、同一 seed、同一 H3 設定による controlled A/B test では、baseline と QmRNA-enabled path の MP4 container hash は異なったが、22 frame の decoded frame hash はすべて完全一致した。二つの framemd5 manifest の SHA256 も `FF55120ADF80F99D74405C5DECA7A9B54116B01F987591A012BD1FF01467F5D7` で一致した。このテストでは、QmRNA が runtime-control behavior を変更しながら decoded visual output を保持した。
