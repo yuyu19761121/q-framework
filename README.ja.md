@@ -15,6 +15,12 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 **[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
 
+## Sponsor Q-Framework
+
+**[Sponsorship Overview](SPONSORSHIP.md)** · **[繁體中文贊助說明](SPONSORSHIP.zh-TW.md)** · **[Sponsorship Prospectus PDF](sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.pdf)**
+
+Funding, hardware, cloud credits and research collaboration can expand Q-Framework validation capacity while the production engine remains proprietary.
+
 ## 公開している概念
 
 - **QmRNA** — runtime telemetry / control plane
