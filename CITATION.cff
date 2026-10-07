@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you discuss Q-Framework, please cite this repository and the corresponding whitepaper version."
+title: "Q-Framework: Compute-State Virtualization and Adaptive Flow Control for Heterogeneous AI Infrastructure"
+type: software
+authors:
+  - family-names: "Lai"
+    given-names: "Yuyu"
+repository-code: "https://github.com/yuyu19761121/q-framework"
+version: "1.0-RC1"
+date-released: "2026-10-07"
