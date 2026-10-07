@@ -251,6 +251,14 @@ HF_QWORKER_LITE V0.1 使用真實 production sampler state，讓：
 - 這不是宣稱任何任意 GPU workload 都 universal bitwise deterministic。
 - 它證明真實 production state 可以脫離原 ComfyUI process，由另一個 node/runtime solver 重現一致的運算結果。
 
+### Node + GPU computation fingerprint near-match
+
+除了上述三個 runtime 的 **recomputed-x SHA 完全一致**之外，四 Worker / QSTATIC smoke 還保留另一層不同性質的證據：在同一 shared state、same lineage 與相容 execution contract 下，獨立節點＋GPU 路徑的 computation-state fingerprint 呈現**幾乎一致／高度一致**。
+
+這一項不應與 Exact Transport SHA 混為一談。它代表的是：當 state 已進入各自的 node + GPU execution path 後，不同 worker 的運算指紋仍維持極高一致性；但因 GPU kernel、driver、precision、execution order 與後續 action branch 可能產生差異，本白皮書不把它寫成「任意 GPU 都 bitwise identical」。
+
+因此 RC2 把這項證據獨立標示為：**Node + GPU Computation Fingerprint Near-Match**。它和 exact transport、progressive QREV、cross-environment recomputed SHA 一起，構成四種不同的 SHA／fingerprint 證據。
+
 ---
 
 ## 4. SHA 證據如何解讀
