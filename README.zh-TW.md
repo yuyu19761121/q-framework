@@ -11,6 +11,10 @@ Q-Framework 是一套正在實際開發與運行的 AI 運算架構，核心研�
 
 [English](README.md) · [日本語](README.ja.md)
 
+## 白皮書 PDF
+
+**[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
+
 ## 目前公開的核心概念
 
 - **QmRNA**：runtime telemetry 與控制平面
