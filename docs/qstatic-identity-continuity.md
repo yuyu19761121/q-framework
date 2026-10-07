@@ -89,3 +89,15 @@ QSTATIC shared-state consistency complements the previously demonstrated compute
 - multi-worker timeline execution with common Character Master / identity locks.
 
 Together, these results support the broader architecture in which GPU workers are independent execution resources operating from externally managed, verifiable state and lineage.
+
+
+## Node-to-GPU computation fingerprint
+
+The retained CURRENT evidence records an additional result beyond shared input/state identity: the node-side and GPU-side computation fingerprints across the four parallel paths were highly consistent, with computation-state SHA values nearly matching across the participating node/GPU workers.
+
+This is deliberately not worded as universal bitwise GPU determinism. Q-Framework keeps two classes of evidence separate:
+
+- **Exact:** controlled sampler/state transport tests with bitwise equality or exact SHA-256 equality.
+- **Near-consistent:** multi-worker generative execution where the node+GPU computation fingerprint remains highly aligned before workers execute different action branches.
+
+The distinction protects the claim boundary while still recording the practical observation that heterogeneous workers can remain anchored to the same computational lineage.
