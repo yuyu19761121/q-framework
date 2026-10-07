@@ -58,6 +58,12 @@ Job268 では QRS0001 が 24 frames / 1s context を完了し、Face QC PASS（m
 
 4-worker smoke では A0/A1/B0/B1 が branch 前に同一 authoritative identity/continuity state を SHA で確認し、その後別々の action/shot branch を実行できることも確認した。
 
+この parallel execution は固定された時系列分割ではない。global frame queue は timeline 上の異なる absolute frame range を同時に各 Worker へ配布する。検証済み first-wave assignment の一例は B0→F265-F269、B1→F235-F239、A0→F355-F359、A1→F155-F159 である。各 Frame Unit は同一 Character Master/reference と immutable identity / wardrobe / scene constraints を共有し、個別 Call Sheet はその timeline range の action / camera / dialogue のみを持つ。先に完了した Worker は work stealing で次の pending unit を取得できる。
+
+branch 前の authoritative identity/continuity state SHA は 4 Worker で一致した。CURRENT の multi-worker smoke では、independent node + GPU path の computation fingerprint / SHA も branch 前に高い一致度を示し、ほぼ一致した。この near-consistency observation は exact transport proof および controlled-solver exact computed-result SHA とは区別し、任意 GPU inference の universal bitwise determinism としては主張しない。
+
+異なる action / shot を実行した後の final media SHA は一致する必要がない。保持される invariant は shared root / authoritative state / lineage である。
+
 ### 2.4 Mixed-GPU Cross-File / Cross-Shot Stateful Compute
 
 Shot XCOPY / Motion Bridge は、RGB final-frame のみを渡すのではなく Boundary Memory / QBlock を介して shot/file boundary を越える。
