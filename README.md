@@ -6,14 +6,14 @@ Q-Framework is an experimental AI compute architecture focused on making long-ru
 
 > **This repository documents a running system. It does not publish the proprietary production engine.**
 
-**Status:** Development & Validation Whitepaper v1.0 RC1  
+**Status:** Development & Validation Whitepaper v1.0 RC2  
 **Snapshot date:** 2026-10-07
 
 [繁體中文](README.zh-TW.md) · [日本語](README.ja.md)
 
 ## Whitepaper PDFs
 
-**[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
+**[English PDF](whitepaper/Q-Framework-v1.0-RC2-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC2-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC2-JA.pdf)**
 
 ## Sponsor Q-Framework
 
