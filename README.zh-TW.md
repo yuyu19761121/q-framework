@@ -1,73 +1,65 @@
 # Q-Framework
 
-**異構 AI 基礎設施的運算狀態虛擬化與自適應流量控制架構**
+**可驗證的異構 AI 運算延續架構**
 
-Q-Framework 是一套正在實際開發與運行的 AI 運算架構，核心研究方向是：讓長時間生成式 AI 工作不再把 GPU 顯存不足視為唯一終點，而是把運算狀態變成可觀察、可控制、可凍結、可保存、可恢復、可移動的資源。
+Q-Framework 是一套正在實際運行與驗證的 AI 運算研究系統。
 
-> **這個 repository 記錄的是一套正在運行的系統，但不公開 proprietary production engine。**
+> **公開原則：一半真實，一半黑箱。**
 
-**版本：** Development & Validation Whitepaper v1.0 RC2  
-**進度快照：** 2026-10-07
+「真實」是指：公開的測試結果、SHA、bitwise / numerical comparison、完成案例與硬體級別皆來自實際驗證紀錄。
 
-[English](README.md) · [日本語](README.ja.md)
+「黑箱」是指：足以重建 production engine 的核心方法不公開。
 
-## 白皮書 PDF
+**目前公開版本：** Evidence Whitepaper v1.0 RC3  
+**快照日期：** 2026-10-07
 
-**[English PDF](whitepaper/Q-Framework-v1.0-RC2-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC2-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC2-JA.pdf)**
+[English](README.md)
 
-## 贊助 Q-Framework
+## 公開什麼
 
-**[贊助說明](SPONSORSHIP.zh-TW.md)** · **[English Sponsorship Page](SPONSORSHIP.md)** · **[完整募資 Prospectus PDF](sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.pdf)**
+- 真正觀察到 exact equality 的 SHA / bitwise 證據；
+- numerical tolerance 結果；
+- 已完成輸出的 hash；
+- 去敏感化後的 workload / hardware 級別；
+- 明確的 claim boundary。
 
-資金、GPU／硬體、Cloud Credit 與研究合作，都可以直接擴大 Q-Framework 的驗證能力；production engine 與核心演算法仍維持封閉。
+詳見 **[Public Proof Pack](docs/public-proof-pack.md)**。
 
-## 目前公開的核心概念
+## 黑箱什麼
 
-- **QmRNA**：runtime telemetry 與控制平面
-- **Qvram**：持久化運算狀態、checkpoint 與 residency 管理層
-- **Qsearch**：狀態與 working-set 搜尋／取回層
-- **Qanswer**：CPU/GPU 異構運算協調層
-- **QSTATIC**：預先分析與保存的 Static / visual-state 來源層
-- **QSTATE / QBLOCK / QLINEAGE / QREV**：狀態、區塊、血統與版本原語
+以下維持 proprietary：
 
-## 我們怎麼寫成果
+- production state 真實資料結構；
+- checkpoint packing / restore sequencing；
+- QmRNA 訊號格式、控制方程、係數與判斷邏輯；
+- QSTATIC 內部 contract、索引與選擇方式；
+- Qvram residency 真實實作；
+- memory-pressure threshold；
+- eviction / prefetch policy；
+- scheduler、worker selection、lease / fencing / retry 邏輯；
+- production model-forward 修改；
+- 私有 topology、endpoint 與 source code。
 
-Q-Framework 不把推測寫成成果，而是把技術分成：
+詳見 **[Disclosure Boundary](docs/disclosure-boundary.md)**。
 
-- **Demonstrated**：已有 runtime / hash / receipt / output 證據
-- **Partial**：部分路徑已跑通，但完整 acceptance 還沒完成
-- **In Progress**：已進入實作或 candidate 階段
-- **Proposed**：架構方向與 roadmap
+## 已公開驗證結果
 
-目前已能公開說明的結果包含：
+- Deterministic continuation：bitwise-identical，max absolute difference = 0.0。
+- 約 250 MiB state transport：exact SHA preserved。
+- 真實 H3 continuation：跨 GPU continuation 後成功產出。
+- 四 Worker production-class execution：15.000 秒 / 540 frames，由四張獨立 RTX 2080 Ti 22 GB worker 共同參與。
+- 跨環境數值一致性：三個 execution environment 得到相同 recomputed-result SHA。
+- QSTATIC + QmRNA controlled equivalence：22 / 22 decoded frame hash 一致。
 
-- 跨 GPU sampler state transport 與 hash 驗證；
-- GPU → CPU/RAM → shared memory → GPU 的 continuation/rescue；
-- continuation lineage 與 checkpoint identity；
-- QmRNA 已進入 MiniMax H3 model forward 的 candidate 路徑，而不只是外部監控；
-- exact FFN token chunking 已在 live candidate 中執行；
-- CPU-only streamed/global attention reference 與完整 attention 的數學驗證，在測試 shape 下落於一般浮點誤差範圍。
+## 不宣稱
 
-尚未宣稱完成的部分包括：
+Q-Framework 不宣稱無限 VRAM、零 OOM、universal bitwise determinism、任意模型通用，或多張 GPU 在物理上合併成一張大 GPU。
 
-- 單張 22GB GPU 完整 15 秒 H3 full-length 的最終 production PASS；
-- streamed Q/K/V 在完整 H3 forward 的 production data-plane；
-- 任意模型都可通用的 working-set virtualization；
-- RAM/Disk spill/prefetch 的完整 production policy。
+## 白皮書
 
-## 公開原則
+- [RC3 Evidence Whitepaper - English](whitepaper/Q-Framework-v1.0-RC3-EN.md)
+- [RC3 Evidence Whitepaper - 繁體中文](whitepaper/Q-Framework-v1.0-RC3-ZH-TW.md)
 
-**公開架構 · 公開證據 · 公開介面 · 核心引擎保密**
+舊 RC2 保留作歷史快照，但不再代表目前的公開邊界。
 
-本 repo 不會公開：
-
-- QmRNA 真正 pressure score 與 adaptive policy；
-- residency / page selection；
-- eviction / prefetch；
-- Qvram production serializer 與 restore sequencing；
-- Qsearch ranking / cache heuristics；
-- scheduler weights / lease / fencing / retry authority；
-- production streamed-QKV data-plane；
-- IP、token、憑證、LAN topology 與 private infrastructure。
-
-詳見 [docs/disclosure-boundary.md](docs/disclosure-boundary.md)，以及 [四大已驗證運算路徑](docs/validated-execution-paths.md)。
+**真實證據，核心黑箱。**
