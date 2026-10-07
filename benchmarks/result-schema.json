@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Q-Framework Public Benchmark Result",
+  "type": "object",
+  "required": ["benchmark_id", "evidence_level", "workload", "hardware", "result"],
+  "properties": {
+    "benchmark_id": {"type": "string"},
+    "evidence_level": {"enum": ["L0", "L1", "L2", "L3", "L4"]},
+    "workload": {"type": "object"},
+    "hardware": {"type": "object"},
+    "result": {"type": "object"}
+  }
+}
