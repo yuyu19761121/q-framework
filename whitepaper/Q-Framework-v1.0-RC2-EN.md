@@ -61,7 +61,13 @@ This is direct evidence of environment-decoupled state for the tested H3 referen
 
 The Dynamic Static loop also entered production flow. In Job268, QRS0001 completed a 24-frame / 1-second context, reached QMRNA_COMPLETE, passed Face QC (median similarity 0.310109; minimum 0.245260; threshold 0.22), emitted a real tail, and then a CPU QWorker generated `dynamic_static_QRS0002.json` with `computed_by=QW9`, `image_authority=PREVIOUS_GPU_TAIL`, and `identity_authority=USER_UPLOAD`. Only then was QRS0002 dispatched.
 
-A four-worker QSTATIC/Character-Master smoke also validated equal authoritative shared identity/continuity state across A0/A1/B0/B1 before the workers branched into different shot/action work. Final video hashes are not expected to match after divergent actions; the invariant is the shared pre-branch state.
+A four-worker QSTATIC/Character-Master smoke also validated equal authoritative shared identity/continuity state across A0/A1/B0/B1 before the workers branched into different shot/action work.
+
+The parallel execution model was not a fixed sequential split. The global frame queue assigned different absolute timeline ranges to the four workers; one verified first wave was B0→F265-F269, B1→F235-F239, A0→F355-F359, and A1→F155-F159. Every unit carried the same Character Master/reference plus immutable identity, wardrobe, and scene constraints, while its bounded Call Sheet contained the action/camera/dialogue requirements for only that timeline range. A worker that finished early could claim another pending unit through work stealing.
+
+At the pre-branch boundary, the authoritative identity/continuity state SHA was equal across the participating workers. The retained multi-worker smoke record also showed node+GPU computation fingerprints remaining highly aligned / near-matching across the independent paths before divergent action execution. This near-consistency observation is deliberately separated from the exact transport and exact controlled-solver proofs described elsewhere in this paper.
+
+Final video hashes are not expected to match after divergent actions. The invariant is the shared pre-branch identity/continuity state and lineage; branch-specific motion is intentionally allowed to produce different media.
 
 ### 2.4 Mixed-GPU Cross-File / Cross-Shot Stateful Compute
 
