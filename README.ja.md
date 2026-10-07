@@ -6,14 +6,14 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 > **本リポジトリは実際に稼働しているシステムを記録しますが、プロダクション用の中核エンジンは公開しません。**
 
-**Version:** Development & Validation Whitepaper v1.0 RC1  
+**Version:** Development & Validation Whitepaper v1.0 RC2  
 **Snapshot:** 2026-10-07
 
 [English](README.md) · [繁體中文](README.zh-TW.md)
 
 ## ホワイトペーパー PDF
 
-**[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
+**[English PDF](whitepaper/Q-Framework-v1.0-RC2-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC2-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC2-JA.pdf)**
 
 ## Sponsor Q-Framework
 
