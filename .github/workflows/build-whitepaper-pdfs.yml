@@ -48,7 +48,7 @@ jobs:
           """
 
           patterns = [
-              "whitepaper/Q-Framework-v1.0-RC1-*.md",
+              "whitepaper/Q-Framework-v1.0-RC*-*.md",
               "sponsorship/Q-Framework-Sponsorship-Prospectus-*.md",
           ]
 
