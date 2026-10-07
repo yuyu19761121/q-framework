@@ -335,3 +335,8 @@ RC2 增加已驗證證據，但仍不宣稱：
 - production streamed-QKV data-plane。
 
 **Open Specification · Open Evidence · Open Reference Interfaces · Closed Production Engine**
+
+
+## 補充驗證：QSTATIC + QmRNA A/B 等價性
+
+同一 QSTATIC、同一 seed 與相同 H3 設定的受控 A/B 測試中，Baseline 與 QmRNA 路徑的 MP4 container hash 不同，但 22 個 decoded frame 的逐幀 hash 全部一致。這表示在該測試條件下，QmRNA 改變 runtime control 行為，但沒有改變解碼後的影像內容。
