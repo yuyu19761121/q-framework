@@ -68,7 +68,7 @@ Q-Framework does **not** currently claim:
 - equivalence to a specific datacenter GPU;
 - that the complete production control algorithm is published here.
 
-See [docs/claim-ledger.md](docs/claim-ledger.md).
+See [docs/claim-ledger.md](docs/claim-ledger.md) and [Validated Execution Paths](docs/validated-execution-paths.md).
 
 ## Public repository scope
 
