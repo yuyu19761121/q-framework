@@ -39,5 +39,23 @@ Separates CPU-suitable orchestration, deterministic preprocessing, scheduling an
 ## QSTATIC
 Stores precomputed or extracted visual/static state for later planning/rendering stages.
 
+QSTATIC also participates in identity and continuity distribution. In the validated four-worker smoke path, independent GPU workers received the same authoritative Character Master / identity-state package. Shared-state SHA and node-side computation-state SHA were checked before branch-specific action execution.
+
+The architectural rule is:
+
+```text
+ONE AUTHORITATIVE IDENTITY / CONTINUITY STATE
+                 |
+        SHA / lineage verify
+                 |
+       +---------+---------+---------+
+       |         |         |         |
+      A0        A1        B0        B1
+       |         |         |         |
+   action A  action B  action C  action D
+```
+
+State equality is required before branching. Final media hashes may differ because the workers intentionally execute different action/shot branches.
+
 ## Multi-node execution
 GPUs remain independent execution resources. Continuation identity is preserved outside any single GPU.
