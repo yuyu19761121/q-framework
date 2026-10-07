@@ -1,0 +1,345 @@
+# Q-Framework Evidence Whitepaper v1.0 RC3
+
+## 検証可能な異種AIコンピューティング継続アーキテクチャ
+
+**公開スナップショット：2026年10月7日**
+
+Q-Framework は、実際に開発・運用・検証が進められている独自の異種AIコンピューティング・アーキテクチャです。
+
+中心となる問いは、複数GPUを「物理的に1枚の巨大GPUとして扱えるか」ではありません。
+
+> **実行中のAI workloadは、必ずしも1枚のGPU、1つのprocess、1つのnodeに恒久的に縛られなければならないのか？**
+
+Q-Framework は、compute state、continuation、heterogeneous workers、reference-state consistency、cross-boundary execution について、実運用に近い検証結果を積み上げています。
+
+RC3 では、公開方針を明確にしています。
+
+> **半分は真実、半分はブラックボックス。**
+
+「真実」とは、公開する測定値、SHA、bitwise comparison、numerical comparison、完成出力、ハードウェア級別がすべて実際の検証記録に基づくことを意味します。
+
+「ブラックボックス」とは、production engineを再構築できる内部state schema、アルゴリズム、制御式、係数、restore sequencing、scheduler policy、source codeを公開しないことを意味します。
+
+---
+
+## 1. なぜQ-Frameworkを作るのか
+
+大規模な生成AI workloadでは、単一のexecution resourceがボトルネックになりやすく、VRAM pressure、process interruption、worker availability、長時間ジョブなどによって、すでに計算した作業を捨てて再計算するケースがあります。
+
+Q-Framework が探っているのは別のシステムモデルです。
+
+- すでに完了した計算結果を、検証可能な形で残せるか
+- workloadを別のexecution resource上で継続できるか
+- 共通のidentity/reference authorityを複数workerで共有できるか
+- 異なるnode/runtimeが同じ数値状態から一致する結果を再現できるか
+- 長時間workloadを一時停止し、保存し、あとで再開できるか
+- 独立した複数GPUが1つのexecution lineageに参加できるか
+
+---
+
+## 2. 4つの検証済み能力
+
+### 2.1 Mixed-GPU Compute Continuation
+
+20-step deterministic testでは、control pathとcontinuation pathの最終結果が以下の通り一致しました。
+
+- bitwise equality：**true**
+- allclose：**true**
+- max absolute difference：**0.0**
+- mean absolute difference：**0.0**
+- SHA-256：
+  `ae04c23d4daed035632855260f85c360a857c28a8d46544f5c92f91baff823a3`
+
+重要なのは、単にデータを移動できたという点ではなく、継続後の最終計算結果が、検証条件下で完全一致したことです。
+
+### 2.2 Same-Worker / Same-GPU Continuation
+
+Q-Frameworkは、常にcross-GPU migrationを必要とするわけではありません。
+
+同じworker/GPUを継続利用できる場合には、固定owner型のcontinuationも検証されています。
+
+checkpoint構造、locality policy、resume sequencingの内部仕様は非公開です。
+
+### 2.3 H3 Memory Static / Shared Reference-State Compute
+
+異なるexecution workerが共通のauthoritative reference stateを基準に処理する経路も検証されています。
+
+Cross-node reference-state validationでは、同一のSHA-256が得られました。
+
+`1488ccf08323200643d5759046f2d47e1e16d44a70f278a79346aec53103d937`
+
+これは、少なくとも検証条件下では、異なるnode間で共通referenceから再現可能な計算状態を形成できることを示しています。
+
+### 2.4 Mixed-GPU Cross-Boundary Compute
+
+実際の長尺映像や複雑なAI workloadは、1つのartifactやshotだけで完結するとは限りません。
+
+Q-Frameworkでは、GPU worker、node、media/artifact boundaryをまたぐexecution lineageが検証されています。
+
+記録済みのsmoke output SHA-256：
+
+`7A909C59636C1A18C6B1A1C7CD2037120F25DDC2C7F36CD2E62B4C70A43212E1`
+
+後続のcompleted artifact：
+
+`C35FAECFE3C1BD0B5338CC4BE0EB8A854A10CE0FEEF86D39CA750DE6BB4A357C`
+
+Boundary representationおよびcontinuity contractはブラックボックスです。
+
+---
+
+## 3. 約250 MiBのState Transport検証
+
+約**250 MiB**のfrozen computation objectについて、transport integrity testを実施しました。
+
+結果：
+
+- source / staged / restored read-back SHAが完全一致
+- SHA-256：
+  `330674e23bf109a4f5e3983608ce118274373deae669e3d3bacee2f77639d5a6`
+- bitwise SHA match：**true**
+- restore前にsource execution allocationを解放
+- end-to-end measured test time：約**3.675秒**
+
+これはtransport integrityの証拠であり、任意モデルや任意stateへの一般化を意味するものではありません。
+
+---
+
+## 4. Controlled Proofから実H3 workloadへ
+
+Q-Frameworkはsynthetic state testだけでは終わっていません。
+
+実際のH3 workloadで、別GPU workerへのcontinuation後にmedia artifactの生成を完了しています。
+
+- 480 × 832
+- 24 fps
+- 39 frames
+- output SHA-256：
+  `307828DE5D0D54F36004EF9C97B2E4DAE5178E59A9C8EF74775F07522B788AB3`
+
+これは、「stateが保持できるか」から「実モデルのworkloadが継続し、出力まで完了できるか」へ検証段階を進めた結果です。
+
+---
+
+## 5. 4枚の独立22GB GPUによるproduction-class test
+
+4枚の独立したRTX 2080 Ti 22 GB workerが、同一のproduction-class execution lineageに参加しました。
+
+最終artifact：
+
+- duration：**15.000秒**
+- frames：**540**
+- participating GPU workers：**4**
+- final SHA-256：
+  `23CDBA13DBFF7B8EC234DB1D7DE61625597E128BD6684849FCB6CD33650ADF57`
+
+重要な点：
+
+> **Q-Frameworkは、4枚の22GB GPUが物理的に1枚の88GB GPUになるとは主張していません。**
+
+検証しているのは、複数の独立GPU workerが同一の継続可能なexecution体系に参加できることです。
+
+---
+
+## 6. Node + GPU：Cross-Environment Numerical Consistency
+
+production-derived numerical taskを、3つの異なるexecution environmentで独立再計算しました。
+
+3環境すべてで同じrecomputed-result SHA：
+
+`330271d14ee7086e27f875a4a56e720f169cdef1523e908ad94696bb70df15a4`
+
+production sourceに対するfloat32 reconstruction comparison：
+
+- max absolute error：
+  `4.76837158203125e-07`
+- mean absolute error：約
+  `2.03e-08`
+
+Exact hash一致と浮動小数点近似は、異なる証拠として明確に分けています。
+
+---
+
+## 7. QSTATIC + QmRNA Controlled Equivalence
+
+同じreference、同じseed、同じgeneration conditionsでcontrolled A/B testを行いました。
+
+MP4 container hashは異なりましたが、decoded visual contentを比較すると：
+
+- decoded frames：**22**
+- exact matching frame hashes：**22 / 22**
+- framemd5 manifest SHA-256：
+  `FF55120ADF80F99D74405C5DECA7A9B54116B01F987591A012BD1FF01467F5D7`
+
+このcontrolled runでは、alternate runtime/control pathを使ってもdecoded visual resultが一致しました。
+
+QmRNAの内部表現、QSTATIC contract、production control pathは非公開です。
+
+---
+
+## 8. SHA証拠の意味
+
+Q-Frameworkでは、SHAをすべて同じ意味で扱いません。
+
+主に以下を区別します。
+
+1. **Transport Integrity** — 同一のfrozen objectが移送後も完全一致するか
+2. **Computed Result Consistency** — 異なるexecution environmentで同一の計算結果が得られるか
+3. **Decoded Output Equivalence** — containerが異なってもdecoded frameが一致するか
+
+これにより、「見た目が似ている」と「検証可能に一致している」を分離できます。
+
+---
+
+## 9. Q-Frameworkが本当に変えたいもの
+
+従来のAI infrastructureでは、GPUがworkloadの中心であり続けることが前提になりがちです。
+
+Q-Frameworkは別の仮説を検証しています。
+
+> **GPUはexecution workerであり、workload lifecycleの恒久的ownerである必要はない。**
+
+この仮説が、より長く、より異種で、より複雑なworkloadで成立し続けるなら、以下に影響する可能性があります。
+
+- consumer GPU utilization
+- mixed-generation GPU fleet
+- edge / workstation AI
+- interrupted workload recovery
+- long-running generative workloads
+- heterogeneous compute economics
+
+これらは研究・製品化の方向性であり、未検証の性能保証ではありません。
+
+---
+
+## 10. 次に克服すべき技術課題
+
+RC3は完成版ではありません。
+
+Q-Frameworkの開発は「成功／失敗」の二分法では捉えていません。
+
+> **1つの難題を解けば、次のより難しい条件が現れる。**
+
+現在の公開チャレンジ：
+
+### Challenge A — Longer Continuous Workload
+より長い生成workloadへverified continuationを拡張する。
+
+### Challenge B — Wider Heterogeneous Fleet
+より多くのGPU generation、driver、runtime、node combinationを検証する。
+
+### Challenge C — Persist Now, Resume Later
+workloadを意図的にpauseし、persistし、後でcontinuationできるようにする。
+
+### Challenge D — Time-to-Result
+「できる」だけではなく、wasted recomputationを減らし、end-to-end completion timeを短縮する。
+
+### Challenge E — Repeatability at Scale
+より多くのrun、worker、node、hardwareで同一クラスのproofを再現する。
+
+---
+
+## 11. なぜ進捗を追う価値があるのか
+
+今後Q-Frameworkが新しい技術課題を解決するたびに、少なくとも以下のような新しい検証可能情報を公開する予定です。
+
+- completed artifact
+- new SHA receipt
+- longer duration
+- more participating workers
+- new hardware/runtime combination
+- repeat-run statistics
+- pause/persist/resume evidence
+- worker takeover evidence
+- before/after time-to-result
+- new QSTATIC / QmRNA equivalence result
+
+つまりこのwhitepaperは最終発表ではなく、継続更新される公開技術タイムラインです。
+
+---
+
+## 12. Experimental Preview
+
+Q-Frameworkは、外部ユーザーが一部の検証済み能力を実際に触れることができる、限定版 **Experimental Preview** の公開を予定しています。
+
+Previewは完全なproduction engineではありません。
+
+候補となる機能：
+
+- limited continuation experiment
+- pause / persist / resume experiment
+- SHA / receipt verification
+- reference-state consistency experiment
+- selected heterogeneous-worker demonstration
+
+Previewは封装・制限・ブラックボックス方式で提供し、核心アルゴリズムとproduction implementationは公開しません。
+
+将来的には：
+
+**Experimental Preview — Challenge Build #001 / #002 / #003 ...**
+
+という形式で、各buildごとに新しい公開能力や検証課題を解放することも可能です。
+
+---
+
+## 13. 公開とブラックボックスの境界
+
+### 公開
+- 実測benchmark result
+- output / proof hash
+- bitwise / numerical comparison
+- sanitized hardware class
+- workload metadata
+- completed artifact evidence
+- milestone / challenge progress
+
+### ブラックボックス
+- production state schema
+- state serialization / packing
+- restore sequencing
+- QmRNA signal representation
+- QmRNA control equation / coefficients
+- QSTATIC internal contracts
+- Qvram residency implementation
+- memory-pressure threshold
+- eviction / prefetch policy
+- scheduler / worker-selection
+- lease / fencing / retry implementation
+- production model-forward modifications
+- private topology / endpoints
+- proprietary source code
+
+ブラックボックスは偽データを意味しません。
+
+> **証拠は真実でなければならない。実装をすべて公開する必要はない。**
+
+---
+
+## 14. Claim Discipline
+
+Q-Frameworkは現時点で以下を検証済み結論としては主張しません。
+
+- unlimited VRAM
+- zero OOM probability
+- universal model compatibility
+- universal bitwise determinism
+- 複数GPUの物理的VRAM統合
+- benchmarkのないuniversal acceleration
+
+Claimは常にevidenceの後に続きます。
+
+---
+
+## 15. 結論
+
+Q-Frameworkで重要なのは、単一のSHAや単発の動画成功ではありません。
+
+徐々に形成されているevidence chainは：
+
+**verifiable state → result-preserving continuation → real H3 continuation → multi-GPU participation → cross-environment consistency → cross-node reference consistency → controlled runtime-path output equivalence**
+
+次の目標は、このevidence chainをさらに長く、速く、異種化し、再現性を高めることです。
+
+production mechanismは引き続きブラックボックスです。
+
+**Real evidence. Black-box mechanism. Follow the boundary as it moves.**
