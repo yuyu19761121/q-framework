@@ -212,7 +212,7 @@ Q-Frameworkは別の仮説を検証しています。
 
 ---
 
-## 10. 次に克服すべき技術課題
+## 10. 今後の検証段階
 
 RC3は完成版ではありません。
 
@@ -220,7 +220,7 @@ Q-Frameworkの開発は「成功／失敗」の二分法では捉えていませ
 
 > **1つの難題を解けば、次のより難しい条件が現れる。**
 
-現在の公開チャレンジ：
+現在の主な検証項目：
 
 ### Challenge A — Longer Continuous Workload
 より長い生成workloadへverified continuationを拡張する。
@@ -239,7 +239,7 @@ workloadを意図的にpauseし、persistし、後でcontinuationできるよう
 
 ---
 
-## 11. なぜ進捗を追う価値があるのか
+## 11. 公開進捗と今後のマイルストーン
 
 今後Q-Frameworkが新しい技術課題を解決するたびに、少なくとも以下のような新しい検証可能情報を公開する予定です。
 
@@ -254,13 +254,13 @@ workloadを意図的にpauseし、persistし、後でcontinuationできるよう
 - before/after time-to-result
 - new QSTATIC / QmRNA equivalence result
 
-つまりこのwhitepaperは最終発表ではなく、継続更新される公開技術タイムラインです。
+本whitepaperは最終発表ではなく、今後の検証結果・測定値・公開可能な証拠に応じて更新される技術記録です。
 
 ---
 
 ## 12. Experimental Preview
 
-Q-Frameworkは、外部ユーザーが一部の検証済み能力を実際に触れることができる、限定版 **Experimental Preview** の公開を予定しています。
+Q-Frameworkは、外部の研究者、開発者、協力候補が一部の検証済み能力を制限された条件下で評価できる **Experimental Preview** の公開を予定しています。
 
 Previewは完全なproduction engineではありません。
 
@@ -276,9 +276,9 @@ Previewは封装・制限・ブラックボックス方式で提供し、核心�
 
 将来的には：
 
-**Experimental Preview — Challenge Build #001 / #002 / #003 ...**
+**Experimental Preview — Build #001 / #002 / #003 ...**
 
-という形式で、各buildごとに新しい公開能力や検証課題を解放することも可能です。
+という形式で、各buildごとに公開検証範囲と機能成熟度を段階的に拡張する方式を想定しています。
 
 ---
 
@@ -342,4 +342,4 @@ Q-Frameworkで重要なのは、単一のSHAや単発の動画成功ではあり
 
 production mechanismは引き続きブラックボックスです。
 
-**Real evidence. Black-box mechanism. Follow the boundary as it moves.**
+**Real evidence. Black-box mechanism. 今後の進展は検証可能な結果に基づいて公開します。**
