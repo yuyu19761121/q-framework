@@ -12,6 +12,7 @@
 | Dynamic Static can evolve from a real GPU output through CPU/QWorker analysis into the next GPU segment | Demonstrated production flow | Job268 QRS0001→tail→QW9 dynamic_static_QRS0002→next dispatch ran end-to-end |
 | Cross-shot / cross-file boundary memory can be used by H3 while the active lineage also crosses GPUs | Demonstrated smoke + runtime lineage | Motion Bridge used RS01 tail + RS02 head and completed a multi-GPU s01→s20 lineage |
 | Real production sampler state can be recomputed in different node/runtime environments to the same computed-result SHA | Demonstrated | Utility01, H410, and Node B PyTorch reference produced identical recomputed-x SHA |
+| Independent node+GPU execution paths can retain near-matching computation-state fingerprints under the same shared state / lineage | Demonstrated smoke observation | Reported as near-match / highly consistent, not universal bitwise determinism |
 | Cross-environment reconstruction is universally bitwise-identical to the original source state | **Not claimed** | Float32 reverse→forward reconstruction showed max abs error ~4.77e-7 versus source |
 | QmRNA can operate inside an H3 model-forward candidate path | Demonstrated candidate behavior | It entered H3 model-forward and executed exact FFN token chunking |
 | CPU reference streamed/global attention can reproduce full attention within floating-point tolerance | Demonstrated reference test | Mathematical/reference validation only |
