@@ -70,4 +70,4 @@ Q-Framework 不把推測寫成成果，而是把技術分成：
 - production streamed-QKV data-plane；
 - IP、token、憑證、LAN topology 與 private infrastructure。
 
-詳見 [docs/disclosure-boundary.md](docs/disclosure-boundary.md)。
+詳見 [docs/disclosure-boundary.md](docs/disclosure-boundary.md)，以及 [四大已驗證運算路徑](docs/validated-execution-paths.md)。
