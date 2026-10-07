@@ -43,3 +43,4 @@ Q-Framework は「構想」「実装」「部分的検証」「実証済み」�
 **Open Specification · Open Evidence · Open Reference Interfaces · Closed Production Engine**
 
 本リポジトリでは、実運用の pressure scoring、page/residency selection、eviction/prefetch、restore sequencing、scheduler weight、Qsearch ranking、production streamed-QKV、資格情報・内部ネットワーク情報を公開しません。
+\n\n## Validation Evidence\n\n[Validated Execution Paths](docs/validated-execution-paths.md)\n
