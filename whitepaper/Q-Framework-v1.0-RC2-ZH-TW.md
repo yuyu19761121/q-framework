@@ -162,7 +162,18 @@ Job268 的 QRS0001 已實際完成：
 
 QSTATIC／Character Master 架構也完成過四 Worker smoke。共同 identity／continuity state 在 A0／A1／B0／B1 分支前以 SHA 驗證一致；之後各卡可以接不同 action／shot。
 
-這裡需要保持一致的是 **共享 root / authoritative state**，不是不同動作完成後的最終影片 SHA。
+這不是固定依時間順序切成 0-3s、3-6s 的假平行。global frame queue 會把整條 timeline 上不同 absolute frame range 同時派給四個獨立 Worker；一組已驗證的 first-wave assignment 為：
+
+- B0 → F265-F269
+- B1 → F235-F239
+- A0 → F355-F359
+- A1 → F155-F159
+
+每個 Frame Unit 都攜帶同一份 Character Master／reference，以及不可變的 identity、wardrobe、scene constraint；個別 Call Sheet 只帶該 absolute timeline range 需要的 action／camera／dialogue。先完成的 GPU 可以透過 work stealing 再取得下一個 pending unit。
+
+在 action branch 分岔前，四個 Worker 的 authoritative identity／continuity state SHA 一致。CURRENT 的 multi-worker smoke 也記錄到：獨立 node + GPU 路徑的 computation fingerprint／SHA 在分支前維持高度一致、幾乎相同。這個「near-consistent」觀察與本白皮書其他章節的 exact SHA transport、controlled solver exact computed-result SHA 分開描述，不把它誇大成任意 GPU inference 都 universal bitwise deterministic。
+
+這裡需要保持一致的是 **共享 root / authoritative state / lineage**，不是不同動作完成後的最終影片 SHA。不同 action／shot 本來就應該允許產生不同 final media。
 
 ---
 
