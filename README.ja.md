@@ -11,6 +11,10 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 [English](README.md) · [繁體中文](README.zh-TW.md)
 
+## ホワイトペーパー PDF
+
+**[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
+
 ## 公開している概念
 
 - **QmRNA** — runtime telemetry / control plane
