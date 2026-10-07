@@ -65,6 +65,27 @@ In the four-worker smoke:
 
 Final media hashes are not expected to remain identical after different branches execute. The invariant is the common pre-branch identity/state authority and lineage.
 
+## 6. QSTATIC + QmRNA output-equivalence proof
+
+A controlled A/B test isolated the effect of adding QmRNA runtime control to the same QSTATIC reference.
+
+Fixed conditions:
+- same Visual Static reference;
+- same seed;
+- H3 at 480x832 / 24 fps;
+- 22 frames / 10 steps;
+- baseline path versus QmRNA-enabled path.
+
+The MP4 container hashes differed, which can happen because container metadata and encoding layout are not the same thing as decoded visual content.
+
+After decoding both outputs, **all 22 frame hashes matched exactly**. The two framemd5 manifests also produced the same SHA256:
+
+`FF55120ADF80F99D74405C5DECA7A9B54116B01F987591A012BD1FF01467F5D7`
+
+In that same single-run comparison, the QmRNA checkpoint window was about 76 seconds versus about 81 seconds for baseline.
+
+The scoped conclusion is: **QmRNA changed runtime/control behavior while preserving the decoded QSTATIC-conditioned output exactly in this controlled same-Static / same-seed test.**
+
 ## 6. SHA interpretation
 
 Q-Framework uses SHA evidence in three distinct ways.
