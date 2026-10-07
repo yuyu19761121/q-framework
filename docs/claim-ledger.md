@@ -2,14 +2,20 @@
 
 | Claim | Status | Public wording |
 |---|---|---|
-| Cross-GPU compute-state transport can preserve deterministic state identity | Demonstrated | Verified in controlled development tests with state/hash checks |
-| GPU -> CPU/RAM -> shared memory -> GPU continuation has executed in a real rescue lineage | Demonstrated | Runtime evidence exists |
-| QSTATIC can distribute one authoritative identity/continuity state to four independent GPU workers with matching shared-state SHA before branch execution | Demonstrated | Four-worker smoke test recorded matching identity/state SHA across A0/A1/B0/B1 |
-| Node-side computation-state SHA can remain consistent across the same four-worker QSTATIC smoke before action branches diverge | Demonstrated | Equality applies to the shared pre-branch state; final branch output hashes are not expected to match |
-| Independent node+GPU paths in the QSTATIC multi-worker smoke produced near-consistent computation-state SHA fingerprints before divergent actions | Demonstrated smoke observation | Reported as near-consistent, not as universal bitwise determinism |
-| QmRNA can operate inside an H3 model-forward candidate path | Demonstrated candidate behavior | It has entered model-forward; this alone is not a full-length PASS |
-| Exact FFN token chunking can reduce instantaneous FFN working set without changing per-token FFN semantics | Demonstrated candidate behavior | Live candidate path executed exact chunking |
-| CPU reference streamed/global attention can reproduce full attention within normal floating-point tolerance | Demonstrated in CPU reference test | Mathematical/reference validation only |
-| A single 22GB GPU completed the full target 15s H3 workload through newest full-length virtualization | **Not yet claimed** | Requires final output + valid continuation receipts |
+| A controlled ~250 MiB GPU→CPU/SharedMemory→GPU state transfer can preserve exact state identity | Demonstrated | Source / Bridge / target SHA-256 matched exactly; bitwise_sha_match=true |
+| A live H3 lineage can checkpoint on one GPU and resume on another GPU | Demonstrated | Controlled B0→B1 continuation completed to MP4 output |
+| Progressive state blocks create new QREV/SHA after real compute progression | Demonstrated | Exact SHA is expected during transport; a new revision hash after compute is evidence of progress |
+| Q-Framework supports a fixed-owner same-GPU resume mode | Demonstrated implementation path | qmrna_vvram_same_gpu pins story chains to owner slots with same_gpu_resume=true and stable lineage |
+| H3 reference-state blocks can produce reproducible SHA signatures | Demonstrated | Repeated audio/visual reference encoding produced identical state SHA for identical input |
+| The same H3 face-reference block can be bit-identical across Node A and Node B | Demonstrated | Same 512×512 face input and H3 VAE produced identical visual-latent SHA on both nodes |
+| QSTATIC / Character Master can distribute one authoritative identity/continuity root to four independent GPU workers before divergent actions | Demonstrated smoke | Shared pre-branch state is the invariant; final media hashes may diverge after different actions |
+| Dynamic Static can evolve from a real GPU output through CPU/QWorker analysis into the next GPU segment | Demonstrated production flow | Job268 QRS0001→tail→QW9 dynamic_static_QRS0002→next dispatch ran end-to-end |
+| Cross-shot / cross-file boundary memory can be used by H3 while the active lineage also crosses GPUs | Demonstrated smoke + runtime lineage | Motion Bridge used RS01 tail + RS02 head and completed a multi-GPU s01→s20 lineage |
+| Real production sampler state can be recomputed in different node/runtime environments to the same computed-result SHA | Demonstrated | Utility01, H410, and Node B PyTorch reference produced identical recomputed-x SHA |
+| Cross-environment reconstruction is universally bitwise-identical to the original source state | **Not claimed** | Float32 reverse→forward reconstruction showed max abs error ~4.77e-7 versus source |
+| QmRNA can operate inside an H3 model-forward candidate path | Demonstrated candidate behavior | It entered H3 model-forward and executed exact FFN token chunking |
+| CPU reference streamed/global attention can reproduce full attention within floating-point tolerance | Demonstrated reference test | Mathematical/reference validation only |
+| A single 22GB GPU completed the full target 15s / 311-aligned-frame H3 workload through newest residency virtualization | **Not yet claimed** | Requires final output + valid continuation receipts |
 | Q-Framework eliminates OOM | **Not claimed** | Goal is controlled pressure handling and recoverability |
 | Q-Framework provides unlimited VRAM | **Not claimed** | Physical memory remains finite |
+| Q-Framework universally outperforms datacenter GPUs | **Not claimed** | No such benchmark claim is made |
