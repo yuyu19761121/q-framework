@@ -6,14 +6,14 @@ Q-Framework 是一套正在實際開發與運行的 AI 運算架構，核心研�
 
 > **這個 repository 記錄的是一套正在運行的系統，但不公開 proprietary production engine。**
 
-**版本：** Development & Validation Whitepaper v1.0 RC1  
+**版本：** Development & Validation Whitepaper v1.0 RC2  
 **進度快照：** 2026-10-07
 
 [English](README.md) · [日本語](README.ja.md)
 
 ## 白皮書 PDF
 
-**[English PDF](whitepaper/Q-Framework-v1.0-RC1-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC1-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC1-JA.pdf)**
+**[English PDF](whitepaper/Q-Framework-v1.0-RC2-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC2-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC2-JA.pdf)**
 
 ## 贊助 Q-Framework
 
