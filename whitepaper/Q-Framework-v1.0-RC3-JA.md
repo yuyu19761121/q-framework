@@ -61,6 +61,33 @@ production path は、実際の MiniMax H3 / ComfyUI 系 workload の execution 
 
 ただし claim discipline は維持します。これは「どのモデルでも絶対に OOM しない」「zero OOM probability」を意味しません。正確な主張は、**VRAM pressure / OOM recovery の場面で、実際の AI workload state を保存・解放・復元・継続する execution path を実装し検証している**ということです。
 
+### ComfyUIへの実装位置：外部クラウドから監視しているだけではない
+
+現在の H3 recovery path は、**Windows 上のローカル ComfyUI runtime に実際に統合されています**。外部のクラウドサービスが ComfyUI を監視しているだけではありません。
+
+公開可能な非再構築レベルでは、統合は次の4層です。
+
+1. **ComfyUI process 内の node-local runtime hook / custom-node layer** が QmRNA / QVRAM control state を受け取り、checkpoint を作成し、PRE-OOM / HARD-OOM recovery contract に参加し、検証済み H3 path では対応する low-memory attention / paging candidate を選択する。
+2. **Resilient submit / Master layer** が Job seed、lineage、QSTATE、QREV、worker ownership、recovery receipt を維持し、same-GPU re-arm または mixed-GPU rescue を制御する。
+3. **Bridge / backing-store layer** が CPU RAM / SSD backing、cold-store、restore、cross-worker continuation を担当する。
+4. **Live Compute** は上記の実行状態と証拠を表示するだけで、recovery engine そのものではない。
+
+つまり Q-Framework は、ComfyUI を別の外部 scheduler に置き換えて OOM 解決を主張するものではありません。ComfyUI は引き続き model graph / sampler を実行し、その execution path の内外に node-local runtime control、state checkpoint / restore、lineage orchestration を追加します。
+
+また、現時点では **ComfyUI Manager からワンクリックで導入できる汎用 plugin 製品ではありません**。production implementation は、検証に使用している ComfyUI + MiniMax H3 runtime に統合されています。一般ユーザー向け installer 化は Experimental Preview / productization の別工程です。
+
+### 過大解釈を防ぐ境界
+
+RC3 は以下を主張しません。
+
+- 任意の PyTorch operator の次の contiguous VRAM allocation を常に正確に予測できること。
+- 任意モデル／任意 Attention を OOM 前に自動で chunked execution へ書き換えられること。
+- ComfyUI native memory manager を完全に置き換えること。
+
+検証済みの主張は、対応する H3 execution path において、QmRNA / QVRAM / recovery layer が checkpoint、spill / release / restore、same-GPU / mixed-GPU continuation を行い、対応する検証済み candidate では low-memory attention / page-execution control を使用できる、というものです。
+
+つまり、**実際に動作した recovery capability を公開し、実験中の内部機構を universal PyTorch feature として一般化しません。**
+
 ### 名称の明確化
 
 本プロジェクトは Unity QFramework、NVIDIA CUDA-Q、その他の同名・類似名 framework とは技術的な所属関係がありません。本 repository における **Q-Framework** は、ここで記述する heterogeneous AI state virtualization、OOM-aware recovery、compute continuation architecture を指します。
