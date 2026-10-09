@@ -76,6 +76,26 @@ production path は、実際の MiniMax H3 / ComfyUI 系 workload の execution 
 
 また、現時点では **ComfyUI Manager からワンクリックで導入できる汎用 plugin 製品ではありません**。production implementation は、検証に使用している ComfyUI + MiniMax H3 runtime に統合されています。一般ユーザー向け installer 化は Experimental Preview / productization の別工程です。
 
+### 統合モデル：Extension Layer であり、ComfyUI Core の「魔改」ではない
+
+Q-Framework と ComfyUI の正式な関係は **runtime integration / extension layer** です。Q-Framework は ComfyUI core fork として定義されておらず、検証済み path では公式 source tree を private modified distribution に置き換えることを前提にしていません。
+
+現在検証済みの Windows + H3 path では：
+
+- node-local integration は ComfyUI の **custom-node / runtime-extension layer** に配置される；
+- recovery、QmRNA gate、checkpoint / restore は Q-Framework integration component が担当する；
+- Master、Bridge、QSEARCH、QSTATE / QREV lineage orchestration は ComfyUI process 外部に存在する；
+- 検証済み low-memory attention candidate は **controlled model instance / execution path** に適用され、ComfyUI の global backend を恒久的に置き換えない；
+- 検証済み path は Q-Framework が ComfyUI の `execution.py`、`model_management.py`、または公式 source tree 全体を置換することを要求しない。
+
+したがって「core source の魔改」「作者独自の ComfyUI fork」「作者の fork を入れないと動かない」という表現は、この architecture の正確な説明ではありません。
+
+正確な表現は：
+
+> **Q-Framework integrates with ComfyUI through a node-local runtime extension plus external state/orchestration layers; it does not define itself as a fork of ComfyUI core.**
+
+この設計は ComfyUI core file への直接依存を減らすことを意図していますが、将来のすべての ComfyUI version に自動互換であることを意味しません。対応 version / model path ごとに検証が必要です。
+
 ### 過大解釈を防ぐ境界
 
 RC3 は以下を主張しません。
@@ -355,7 +375,7 @@ Previewは封装・制限・ブラックボックス方式で提供し、核心�
 - QmRNA signal representation
 - QmRNA control equation / coefficients
 - QSTATIC internal contracts
-- Qvram residency implementation
+- QVRAM residency implementation
 - memory-pressure threshold
 - eviction / prefetch policy
 - scheduler / worker-selection
