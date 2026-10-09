@@ -20,7 +20,35 @@ Measured results, hashes, comparison metrics, completed outputs and sanitized ha
 
 Q-Framework explores whether completed computation can remain useful after resource pressure or execution interruption; whether workloads can continue across heterogeneous workers; whether independent workers can share a verifiable reference authority; and whether long-running work can eventually be intentionally persisted and resumed.
 
-## 3. Four validated capability families
+## 3. This is not a monitoring system: OOM control is part of the execution path
+
+The public **Live Compute** page is an observation and evidence surface. It displays GPU / VRAM state, QmRNA, QSTATE, branch progress, node heartbeat and runtime progress, but **telemetry is not the core Q-Framework mechanism**.
+
+The production path has been exercised inside real MiniMax H3 / ComfyUI-class workloads. At a high level, validated behavior includes:
+
+- creating recoverable checkpoint / QSTATE / QREV state under VRAM pressure / PRE-OOM conditions;
+- spilling retained computation state to CPU RAM or SSD-backed storage rather than merely logging memory usage;
+- releasing GPU residency to recover usable VRAM;
+- restoring saved state to the same GPU for **same-GPU continuation**;
+- or restoring it to another GPU worker for **mixed-GPU continuation / rescue**;
+- continuing sampler / model execution after restore instead of restarting the entire workload;
+- verifying continuation lineage with receipts, SHA and numerical evidence.
+
+The engineering objective is therefore not to "observe OOM." It is to change the workload lifecycle around memory pressure: **preserve useful computation before failure where possible, release residency, restore state, and continue execution.**
+
+This differs from a VRAM monitor/debug node. It is also not equivalent to merely calling `empty_cache()`, reducing resolution, quantizing a model, or lowering an attention chunk size. Those techniques can be compatible local optimizations; Q-Framework addresses a higher-level problem: **stateful memory-pressure recovery plus resumable execution**.
+
+Public evidence already includes real H3 continuation, completed output after cross-GPU restore, bitwise integrity of an approximately 250 MiB transported state object, and multi-worker execution lineage. Production pressure scoring, state packing, residency/eviction policy, restore sequencing and model-forward modifications remain proprietary.
+
+> **Q-Framework is an OOM-aware execution / recovery implementation, not an OOM telemetry dashboard.**
+
+Claim discipline still applies: this does not mean "every model can never OOM" or "zero OOM probability." The supported claim is that **Q-Framework has implemented and validated execution paths that can preserve, release, restore and continue real AI workload state under VRAM-pressure and OOM-recovery scenarios.**
+
+### Name clarification
+
+This project is not affiliated with Unity QFramework, NVIDIA CUDA-Q, or other similarly named frameworks. In this repository, **Q-Framework** refers specifically to the heterogeneous AI state-virtualization, OOM-aware recovery and compute-continuation architecture documented here.
+
+## 4. Four validated capability families
 
 ### Mixed-GPU Compute Continuation
 A controlled 20-step continuation test produced bitwise equality, allclose=true, max absolute difference 0.0 and SHA-256:
@@ -42,7 +70,7 @@ Execution lineage has crossed GPU-worker, node and media/artifact boundaries. Re
 
 `C35FAECFE3C1BD0B5338CC4BE0EB8A854A10CE0FEEF86D39CA750DE6BB4A357C`
 
-## 4. Large-state transport integrity
+## 5. Large-state transport integrity
 
 A ~250 MiB frozen computation object preserved exact SHA through the tested transport path.
 
@@ -52,7 +80,7 @@ SHA-256:
 
 Bitwise SHA match was true and measured end-to-end test time was approximately 3.675 seconds.
 
-## 5. From controlled proof to real H3 workload
+## 6. From controlled proof to real H3 workload
 
 A real H3 workload completed after continuation on another GPU worker.
 
@@ -62,7 +90,7 @@ A real H3 workload completed after continuation on another GPU worker.
 - output SHA-256:
   `307828DE5D0D54F36004EF9C97B2E4DAE5178E59A9C8EF74775F07522B788AB3`
 
-## 6. Four independent 22 GB GPU workers
+## 7. Four independent 22 GB GPU workers
 
 A production-class test used four independent RTX 2080 Ti 22 GB workers within one execution lineage.
 
@@ -74,7 +102,7 @@ A production-class test used four independent RTX 2080 Ti 22 GB workers within o
 
 This is not a claim that four 22 GB GPUs physically become one 88 GB GPU.
 
-## 7. Cross-environment numerical consistency
+## 8. Cross-environment numerical consistency
 
 Three execution environments independently produced the same recomputed-result SHA:
 
@@ -87,7 +115,7 @@ Float32 reconstruction comparison against source:
 
 Exact hashes and numerical tolerance are deliberately reported as different forms of evidence.
 
-## 8. QSTATIC + QmRNA controlled equivalence
+## 9. QSTATIC + QmRNA controlled equivalence
 
 A controlled A/B test used the same reference, seed and generation conditions. MP4 container hashes differed, so decoded visual content was compared.
 
@@ -98,11 +126,11 @@ A controlled A/B test used the same reference, seed and generation conditions. M
 
 The internal QmRNA representation, QSTATIC contracts and production control path remain proprietary.
 
-## 9. Why the evidence matters
+## 10. Why the evidence matters
 
 Q-Framework separates transport integrity, computed-result consistency and decoded-output equivalence. This avoids treating “looks similar” as equivalent to cryptographically or numerically verifiable consistency.
 
-## 10. The larger hypothesis
+## 11. The larger hypothesis
 
 Q-Framework is testing a different systems model:
 
@@ -112,7 +140,7 @@ If this continues to hold under harder conditions, it may have implications for 
 
 These are research directions, not unbenchmarked performance promises.
 
-## 11. Subsequent validation stages
+## 12. Subsequent validation stages
 
 RC3 is not an endpoint. Q-Framework development is not framed as a binary success/failure story.
 
@@ -126,13 +154,13 @@ Current validation priorities include:
 - lower wasted recomputation and shorter time-to-result;
 - repeatability across more runs, nodes and hardware.
 
-## 12. Public progress and future milestones
+## 13. Public progress and future milestones
 
 Future public milestones may include longer completed outputs, new SHA receipts, repeated-run statistics, broader hardware matrices, pause/persist/resume evidence, worker-takeover evidence, time-to-result comparisons and new QSTATIC/QmRNA controlled-equivalence results.
 
 This whitepaper is intended to remain a continuously updated public technical record. Future revisions will incorporate additional measurements, validation results and evidence as they become suitable for disclosure.
 
-## 13. Experimental Preview
+## 14. Experimental Preview
 
 Q-Framework plans a limited **Experimental Preview** to allow external researchers, developers and prospective collaborators to evaluate selected validated capabilities under controlled conditions without receiving the complete production engine.
 
@@ -144,7 +172,7 @@ Future preview releases may use a staged build model:
 
 **Experimental Preview — Build #001 / #002 / #003 ...**
 
-## 14. Disclosure boundary
+## 15. Disclosure boundary
 
 Public: measured outcomes, hashes, comparison metrics, sanitized hardware/workload metadata, completed-artifact evidence and milestone progress.
 
@@ -154,13 +182,13 @@ Black-box does not mean false evidence.
 
 > **The evidence must be real. The implementation does not have to be given away.**
 
-## 15. Claim discipline
+## 16. Claim discipline
 
 Q-Framework does not currently claim unlimited VRAM, zero OOM probability, universal model compatibility, universal bitwise determinism, physical VRAM aggregation, or universal acceleration without benchmark support.
 
 Claims follow evidence.
 
-## 16. Conclusion
+## 17. Conclusion
 
 The emerging evidence chain is:
 
