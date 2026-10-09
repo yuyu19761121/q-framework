@@ -37,7 +37,35 @@ Q-Framework が探っているのは別のシステムモデルです。
 
 ---
 
-## 2. 4つの検証済み能力
+## 2. これは監視システムではない：OOM制御は実行経路そのものに組み込まれている
+
+公開されている **Live Compute** ページは、Q-Framework の観測・証拠インターフェースです。GPU / VRAM、QmRNA、QSTATE、branch progress、node heartbeat、runtime progress を表示しますが、**telemetry 自体が Q-Framework の中核機能ではありません。**
+
+production path は、実際の MiniMax H3 / ComfyUI 系 workload の execution lifecycle に介入します。公開可能な高レベル動作には以下が含まれます。
+
+- VRAM pressure / PRE-OOM 条件で recoverable checkpoint / QSTATE / QREV を作成する；
+- 保持すべき computation state を CPU RAM または SSD backing store へ spill する；
+- 不要な GPU residency を解放し、利用可能な VRAM を回復する；
+- 保存した state を同じ GPU に restore して **same-GPU continuation** を行う；
+- または別の GPU worker に restore して **mixed-GPU continuation / rescue** を行う；
+- restore 後に sampler / model execution を継続し、workload 全体を最初から再計算しない；
+- receipt、SHA、numerical evidence により continuation lineage を検証する。
+
+したがって目的は「OOM を監視する」ことではありません。memory pressure の前後で workload lifecycle を変え、**可能な限り有効な計算状態を保存し、residency を解放し、state を復元して実行を継続すること**です。
+
+これは単純な VRAM monitor/debug node とは異なります。また `empty_cache()`、解像度低下、量子化、attention chunk size の縮小だけと同義でもありません。それらは局所的な最適化として併用可能ですが、Q-Framework が扱うのはより上位の **stateful memory-pressure recovery + resumable execution** です。
+
+公開証拠には、実 H3 continuation、cross-GPU restore 後の completed output、約 250 MiB state transport の bitwise integrity、multi-worker execution lineage が含まれます。production pressure scoring、state packing、residency / eviction policy、restore sequencing、model-forward modification はブラックボックスのままです。
+
+> **Q-Framework は OOM-aware execution / recovery implementation であり、OOM telemetry dashboard ではありません。**
+
+ただし claim discipline は維持します。これは「どのモデルでも絶対に OOM しない」「zero OOM probability」を意味しません。正確な主張は、**VRAM pressure / OOM recovery の場面で、実際の AI workload state を保存・解放・復元・継続する execution path を実装し検証している**ということです。
+
+### 名称の明確化
+
+本プロジェクトは Unity QFramework、NVIDIA CUDA-Q、その他の同名・類似名 framework とは技術的な所属関係がありません。本 repository における **Q-Framework** は、ここで記述する heterogeneous AI state virtualization、OOM-aware recovery、compute continuation architecture を指します。
+
+## 3. 4つの検証済み能力
 
 ### 2.1 Mixed-GPU Compute Continuation
 
@@ -88,7 +116,7 @@ Boundary representationおよびcontinuity contractはブラックボックス�
 
 ---
 
-## 3. 約250 MiBのState Transport検証
+## 4. 約250 MiBのState Transport検証
 
 約**250 MiB**のfrozen computation objectについて、transport integrity testを実施しました。
 
@@ -105,7 +133,7 @@ Boundary representationおよびcontinuity contractはブラックボックス�
 
 ---
 
-## 4. Controlled Proofから実H3 workloadへ
+## 5. Controlled Proofから実H3 workloadへ
 
 Q-Frameworkはsynthetic state testだけでは終わっていません。
 
@@ -121,7 +149,7 @@ Q-Frameworkはsynthetic state testだけでは終わっていません。
 
 ---
 
-## 5. 4枚の独立22GB GPUによるproduction-class test
+## 6. 4枚の独立22GB GPUによるproduction-class test
 
 4枚の独立したRTX 2080 Ti 22 GB workerが、同一のproduction-class execution lineageに参加しました。
 
@@ -141,7 +169,7 @@ Q-Frameworkはsynthetic state testだけでは終わっていません。
 
 ---
 
-## 6. Node + GPU：Cross-Environment Numerical Consistency
+## 7. Node + GPU：Cross-Environment Numerical Consistency
 
 production-derived numerical taskを、3つの異なるexecution environmentで独立再計算しました。
 
@@ -160,7 +188,7 @@ Exact hash一致と浮動小数点近似は、異なる証拠として明確に�
 
 ---
 
-## 7. QSTATIC + QmRNA Controlled Equivalence
+## 8. QSTATIC + QmRNA Controlled Equivalence
 
 同じreference、同じseed、同じgeneration conditionsでcontrolled A/B testを行いました。
 
@@ -177,7 +205,7 @@ QmRNAの内部表現、QSTATIC contract、production control pathは非公開で
 
 ---
 
-## 8. SHA証拠の意味
+## 9. SHA証拠の意味
 
 Q-Frameworkでは、SHAをすべて同じ意味で扱いません。
 
@@ -191,7 +219,7 @@ Q-Frameworkでは、SHAをすべて同じ意味で扱いません。
 
 ---
 
-## 9. Q-Frameworkが本当に変えたいもの
+## 10. Q-Frameworkが本当に変えたいもの
 
 従来のAI infrastructureでは、GPUがworkloadの中心であり続けることが前提になりがちです。
 
@@ -212,7 +240,7 @@ Q-Frameworkは別の仮説を検証しています。
 
 ---
 
-## 10. 今後の検証段階
+## 11. 今後の検証段階
 
 RC3は完成版ではありません。
 
@@ -239,7 +267,7 @@ workloadを意図的にpauseし、persistし、後でcontinuationできるよう
 
 ---
 
-## 11. 公開進捗と今後のマイルストーン
+## 12. 公開進捗と今後のマイルストーン
 
 今後Q-Frameworkが新しい技術課題を解決するたびに、少なくとも以下のような新しい検証可能情報を公開する予定です。
 
@@ -258,7 +286,7 @@ workloadを意図的にpauseし、persistし、後でcontinuationできるよう
 
 ---
 
-## 12. Experimental Preview
+## 13. Experimental Preview
 
 Q-Frameworkは、外部の研究者、開発者、協力候補が一部の検証済み能力を制限された条件下で評価できる **Experimental Preview** の公開を予定しています。
 
@@ -282,7 +310,7 @@ Previewは封装・制限・ブラックボックス方式で提供し、核心�
 
 ---
 
-## 13. 公開とブラックボックスの境界
+## 14. 公開とブラックボックスの境界
 
 ### 公開
 - 実測benchmark result
@@ -315,7 +343,7 @@ Previewは封装・制限・ブラックボックス方式で提供し、核心�
 
 ---
 
-## 14. Claim Discipline
+## 15. Claim Discipline
 
 Q-Frameworkは現時点で以下を検証済み結論としては主張しません。
 
@@ -330,7 +358,7 @@ Claimは常にevidenceの後に続きます。
 
 ---
 
-## 15. 結論
+## 16. 結論
 
 Q-Frameworkで重要なのは、単一のSHAや単発の動画成功ではありません。
 
