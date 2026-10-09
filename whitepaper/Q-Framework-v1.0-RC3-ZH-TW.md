@@ -76,6 +76,26 @@ Q-Framework 目前的 H3 recovery 路徑**已實際接進 Windows 本地 ComfyUI
 
 目前它也**不是一個可在 ComfyUI Manager 一鍵安裝的通用插件產品**。Production implementation 是針對我們目前驗證的 ComfyUI + MiniMax H3 runtime 所做的整合；是否封裝成一般使用者可直接安裝的版本，屬於後續 Experimental Preview / productization 工作。
 
+### 整合模式：Extension Layer，不是「魔改 ComfyUI Core」
+
+Q-Framework 對 ComfyUI 的正式定位是 **runtime integration / extension layer**，不是 ComfyUI core fork，也不是把官方核心原始碼改成另一套私有版本。
+
+在目前已驗證的 Windows + H3 路徑中：
+
+- Q-Framework 的 node-local integration 位於 ComfyUI 的 **custom-node / runtime extension layer**；
+- recovery、QmRNA gate、checkpoint / restore 等能力由 Q-Framework 自己的 integration component 提供；
+- Master、Bridge、QSEARCH、QSTATE / QREV lineage 等 orchestration 位於 ComfyUI process 外部；
+- 已驗證 candidate 對低記憶體 attention 的介入是作用於**受控的 model instance / execution path**，不是永久替換 ComfyUI 的全域 backend；
+- 該驗證路徑不要求以 Q-Framework 私有版本取代 ComfyUI 的 `execution.py`、`model_management.py` 或整個官方 source tree。
+
+因此，使用「核心原始碼層級魔改」「魔改版 ComfyUI」「必須下載作者 fork 才能運作」來描述 Q-Framework，都是不精準的。
+
+更準確的術語是：
+
+> **Q-Framework integrates with ComfyUI through a node-local runtime extension plus external state/orchestration layers; it does not define itself as a fork of ComfyUI core.**
+
+這個設計刻意降低對 ComfyUI core file 的直接耦合，但這不等於宣稱對所有未來 ComfyUI 版本自動相容；每個支援版本與模型路徑仍需個別驗證。
+
 ### 避免誤讀：我們沒有宣稱的細節
 
 為避免外部讀者把「OOM-aware」自行延伸成不存在的機制，RC3 明確限制以下說法：
@@ -362,7 +382,7 @@ Preview 將採受限、封裝、黑箱方式提供。核心演算法與 producti
 - QmRNA signal representation
 - QmRNA control equation / coefficients
 - QSTATIC internal contracts
-- Qvram residency implementation
+- QVRAM residency implementation
 - memory-pressure thresholds
 - eviction / prefetch policy
 - scheduler / worker-selection policy
