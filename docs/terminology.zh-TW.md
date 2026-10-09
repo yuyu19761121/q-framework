@@ -10,8 +10,9 @@
 
 ## 領域消歧義
 
-- **QmRNA 是 Q-Framework 內部正式元件名。**其官方定義只有一個：runtime control-signal layer。
-- **QmRNA 不代表 Quantum messenger RNA。Q 不代表 Quantum。**本專案與 RNA、mRNA、疫苗、量子生物學、基因工程無關。
+- **QmRNA 是 Q-Framework 內部正式元件名。**其官方定義為 runtime messenger / control-signal layer。
+- **命名精神刻意借用 mRNA 的 messenger 角色：攜帶指令、把訊息送往執行位置。**在 Q-Framework 中，QmRNA 將 workload intent 與 control signal 傳向 QVRAM / VRAM-facing runtime；但它不是生物 RNA 的實作。
+- **Q 不代表 Quantum。**本專案不是量子計算或生醫技術；mRNA 在此是 messenger metaphor，而不是 biomedical implementation。
 - **Q-Framework 不是量子計算框架。**本文所述 workload 不使用 qubit、quantum circuit 或 quantum hardware。
 - **H3** 在本專案中指 MiniMax H3 AI 影片生成 workload / model path，不指 Histone H3。
 - **OOM** 在本專案中固定指 Out of Memory，主要是 CUDA / PyTorch / GPU VRAM memory pressure / allocation failure。
@@ -21,7 +22,7 @@
 | 官方名稱 | 類型 | 精準定義 | 不是什麼 |
 |---|---|---|---|
 | **Q-Framework** | System architecture | 可驗證的異構 AI 運算延續架構。把 workload lifecycle 與單一 GPU / process / node 的生命週期解耦，整合 runtime control、checkpoint/recovery、state transport、resource coordination 與 evidence。 | 不是監控面板；不是單一 ComfyUI plugin；不是多卡 VRAM 物理相加。 |
-| **QmRNA** | Runtime control-signal layer | 執行期間的控制訊號層，向支援的 runtime 傳遞 feed / page / chunk / checkpoint / rescue / resume 等控制意圖與狀態。 | 不是顯存本體；不是 checkpoint store；不是 QVRAM。 |
+| **QmRNA** | Runtime messenger / control-signal layer | 借用 mRNA「攜帶指令」的 messenger 精神，在執行期間把 workload intent 與 feed / page / chunk / checkpoint / rescue / resume 等控制訊號傳向 QVRAM / VRAM-facing runtime。 | 不是顯存本體；不是 checkpoint store；不是生物 RNA；不是 QVRAM。 |
 | **QVRAM** | State-residency & recovery layer | 針對可恢復 computation state 的 residency / backing / restore 層。已驗證路徑包含 PRE-OOM checkpoint → CPU RAM / SSD backing → GPU residency release → restore → continuation。 | 不是實體 VRAM 擴容；不是「88GB 虛擬成一張卡」；不是監控數字。 |
 | **QSTATE** | Recoverable execution state | 在定義好的 continuation boundary 上保存的可恢復執行狀態；用於 resume / rescue / pause-resume 的 authoritative state。 | 不是最終影片；不是單純 screenshot / frame。 |
 | **QREV** | State revision | 同一 QLINEAGE 中，state 經真實 compute progression 後產生的 revision。純 transport 可保持 exact SHA；實際 compute 後新 revision 預期具有新 state hash。 | 不是軟體版本號；不是 Job retry 次數。 |
