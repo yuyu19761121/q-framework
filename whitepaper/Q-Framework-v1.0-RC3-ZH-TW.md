@@ -37,7 +37,37 @@ Q-Framework 探索的是另一條路：
 
 ---
 
-## 2. 四大已驗證能力
+## 2. 這不是監控系統：OOM control 已進入真實執行路徑
+
+公開的 **Live Compute** 頁面只是 Q-Framework 的觀察與證據介面。它顯示 GPU / VRAM、QmRNA、QSTATE、branch、heartbeat 與 runtime progress，但 **telemetry 不是 Q-Framework 的核心功能本身**。
+
+Q-Framework 的 production path 已實際介入 MiniMax H3 / ComfyUI 類工作負載的執行生命週期。已驗證的高階流程包括：
+
+- 在 VRAM pressure / PRE-OOM 階段建立可恢復的 checkpoint / QSTATE / QREV；
+- 將需要保留的計算狀態 spill 到 CPU RAM 或 SSD backing store，而不是只記錄顯存數字；
+- 釋放不再需要常駐 GPU 的 residency，重新取得可用 VRAM；
+- 將保存的 state restore 回原 GPU，進行 **same-GPU continuation**；
+- 或 restore 到另一個 GPU worker，進行 **mixed-GPU continuation / rescue**；
+- continuation 後繼續 sampler / model execution，而不是從頭重算整個工作；
+- 透過 lineage、receipt、SHA / numerical evidence 驗證「搬運的是可繼續計算的 state」，而不是只有截圖、最終 frame 或監控資料。
+
+因此 Q-Framework 的研究目標不是「看到 OOM」，而是改變 workload 遇到記憶體壓力時的生命週期：**盡可能在 OOM 前保存可用計算，必要時釋放、轉移、恢復並繼續。**
+
+這與單純在 ComfyUI 中插入一個 VRAM monitor/debug node 的定位不同。Q-Framework 也不等同於「加一個 empty_cache()」或只靠降低解析度／量化／chunk size 來避免單次峰值；這些方法可以是相容的局部優化，但 Q-Framework 處理的是更上層的 **stateful memory-pressure recovery + resumable execution**。
+
+目前公開證據已包含真實 H3 continuation、跨 GPU restore 後完成輸出、約 250 MiB state transport 的 bitwise integrity，以及多 worker execution lineage。核心 pressure scoring、checkpoint packing、residency / eviction / restore sequencing 與 production model-forward 修改仍維持黑箱。
+
+> **Q-Framework 是 OOM-aware execution / recovery implementation，不是 OOM telemetry dashboard。**
+
+同時必須維持 claim discipline：這不代表「任何模型永遠不會 OOM」或「零 OOM 機率」。正確主張是：**Q-Framework 已實作並驗證可在 VRAM 壓力與 OOM recovery 場景中保存、釋放、恢復與延續真實 AI workload 的執行路徑。**
+
+### 名稱釐清
+
+本專案的 **Q-Framework** 與 Unity 社群中的 QFramework、NVIDIA CUDA-Q 或其他同名／近名框架沒有技術隸屬關係。本專案專指此 repository 所描述的異構 AI state virtualization、OOM-aware recovery 與 compute continuation 架構。
+
+---
+
+## 3. 四大已驗證能力
 
 ### 2.1 Mixed-GPU Compute Continuation
 
@@ -89,7 +119,7 @@ Q-Framework 已驗證 execution lineage 跨越 GPU worker、node 與 media/artif
 
 ---
 
-## 3. 大型 State Transport：不是概念圖
+## 4. 大型 State Transport：不是概念圖
 
 一個約 **250 MiB** 的 frozen computation object 已完成 transport-integrity test。
 
@@ -105,7 +135,7 @@ Q-Framework 已驗證 execution lineage 跨越 GPU worker、node 與 media/artif
 
 ---
 
-## 4. 從 synthetic proof 到真實 H3 workload
+## 5. 從 synthetic proof 到真實 H3 workload
 
 Q-Framework 不只停留在 deterministic/synthetic state test。
 
@@ -122,7 +152,7 @@ Q-Framework 不只停留在 deterministic/synthetic state test。
 
 ---
 
-## 5. 四張獨立 22GB GPU 的 production-class test
+## 6. 四張獨立 22GB GPU 的 production-class test
 
 另一項測試讓四張獨立 RTX 2080 Ti 22 GB worker 參與同一 production-class execution lineage。
 
@@ -141,7 +171,7 @@ Q-Framework 不只停留在 deterministic/synthetic state test。
 
 ---
 
-## 6. Node + GPU：跨環境數值一致性
+## 7. Node + GPU：跨環境數值一致性
 
 一個 production-derived numerical task 曾在三個不同 execution environments 中獨立重新計算。
 
@@ -163,7 +193,7 @@ Q-Framework 不使用「SHA 幾乎一樣」這種說法。
 
 ---
 
-## 7. QSTATIC + QmRNA：控制路徑改變，decoded output 保持一致
+## 8. QSTATIC + QmRNA：控制路徑改變，decoded output 保持一致
 
 QSTATIC + QmRNA 的 controlled A/B test 使用相同 reference、seed 與 generation conditions。
 
@@ -182,7 +212,7 @@ QmRNA 如何介入、訊號如何表示、QSTATIC 如何選擇與建立 referenc
 
 ---
 
-## 8. 為什麼這些 SHA 很重要
+## 9. 為什麼這些 SHA 很重要
 
 Q-Framework 不把所有 SHA 混成同一種證據。
 
@@ -196,7 +226,7 @@ Q-Framework 不把所有 SHA 混成同一種證據。
 
 ---
 
-## 9. Q-Framework 真正想改變的是什麼
+## 10. Q-Framework 真正想改變的是什麼
 
 今天許多 AI infrastructure 的思考方式，是把 GPU 當成 workload 的中心。
 
@@ -218,7 +248,7 @@ Q-Framework 正在測試另一種可能：
 
 ---
 
-## 10. 後續驗證階段
+## 11. 後續驗證階段
 
 RC3 不是「完成版」。
 
@@ -245,7 +275,7 @@ RC3 不是「完成版」。
 
 ---
 
-## 11. 公開進度與後續里程碑
+## 12. 公開進度與後續里程碑
 
 未來每當 Q-Framework 解掉一個新的技術難題，公開更新應該帶來至少一種新的可驗證資訊：
 
@@ -264,7 +294,7 @@ RC3 不是「完成版」。
 
 ---
 
-## 12. Experimental Preview：受限技術預覽
+## 13. Experimental Preview：受限技術預覽
 
 Q-Framework 規劃推出 **Experimental Preview**。
 
@@ -288,7 +318,7 @@ Preview 將採受限、封裝、黑箱方式提供。核心演算法與 producti
 
 ---
 
-## 13. 公開與黑箱的界線
+## 14. 公開與黑箱的界線
 
 ### 公開
 - 真實 benchmark result
@@ -321,7 +351,7 @@ Preview 將採受限、封裝、黑箱方式提供。核心演算法與 producti
 
 ---
 
-## 14. Claim Discipline
+## 15. Claim Discipline
 
 Q-Framework 目前不把下列敘述當作已驗證結論：
 
@@ -336,7 +366,7 @@ Q-Framework 目前不把下列敘述當作已驗證結論：
 
 ---
 
-## 15. 結論
+## 16. 結論
 
 Q-Framework 到目前為止最重要的成果，不是某一個單獨的 SHA，也不是某一次影片成功產出。
 
