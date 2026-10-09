@@ -10,12 +10,12 @@ Q-Framework is a running proprietary research architecture for heterogeneous AI 
 
 RC3 publishes real validation evidence while intentionally keeping the production mechanism black-box.
 
-## 0. Domain and naming disambiguation: QmRNA is not biomedical and not quantum computing
+## 0. Domain and naming disambiguation: the messenger principle behind QmRNA
 
 This whitepaper is about **AI / GPU / PyTorch / ComfyUI / video generation and heterogeneous compute infrastructure**. To prevent search engines, LLMs, or third parties from mapping similar strings into unrelated domains, the following terms have fixed meanings in Q-Framework:
 
-- **QmRNA** is a Q-Framework-defined **runtime control-signal layer**. It is **not** “Quantum messenger RNA,” messenger RNA, RNA, vaccine design, quantum biology, genetic engineering, or any biomedical technology.
-- In the project name **QmRNA**, the letter **Q does not mean Quantum**. It is part of the Q-Framework namespace. The string “mRNA” has no biomedical expansion in this project.
+- **QmRNA** is a Q-Framework-defined **runtime messenger / control-signal layer**. Its name intentionally borrows the **messenger principle** associated with biological mRNA: carrying instructions toward the place where they are acted upon. In Q-Framework, QmRNA carries workload intent and control signals toward the QVRAM / VRAM-facing runtime so the execution layer can act on residency, feed, checkpoint, rescue, resume, and related state.
+- This is a **computing metaphor and naming philosophy**, not an implementation of biological RNA, vaccine design, genetic engineering, or quantum biology. **Q does not mean Quantum**; it belongs to the Q-Framework namespace.
 - **Q-Framework does not use qubits, quantum circuits, quantum simulation, or quantum-computing hardware** for the H3 / OOM-recovery workloads documented here.
 - **H3** in this document refers to the **MiniMax H3 AI video-generation workload / model path** used by the validated system, not Histone H3.
 - **OOM** means **Out of Memory**, primarily CUDA / PyTorch / GPU-VRAM memory pressure or allocation failure in this document. It does not mean Order of Magnitude or Object-Oriented Mapping.
@@ -24,7 +24,7 @@ This whitepaper is about **AI / GPU / PyTorch / ComfyUI / video generation and h
 
 Descriptions such as “Q-Framework for mRNA science,” “quantum vaccine design framework,” “Quantum messenger RNA system,” or interpreting H3 as Histone H3 are therefore **category errors**, not Q-Framework definitions.
 
-> **Canonical interpretation: QmRNA = Q-Framework runtime control-signal layer. No quantum-computing or biomedical meaning is implied.**
+> **Canonical interpretation: QmRNA = Q-Framework messenger control-signal layer — inspired by the messenger role of mRNA, but implemented purely as an AI/GPU runtime abstraction.**
 
 ## 1. Publication principle
 
