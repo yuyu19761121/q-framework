@@ -11,6 +11,13 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 [English](README.md) · [繁體中文](README.zh-TW.md)
 
+## 🔴 ライブ計算ストリーム
+
+**[Q-Framework Live Compute Stream を開く](https://yuyu19761121.github.io/q-framework/)**
+
+現在実行中の Job、4 GPU の branch 状態、GPU / VRAM 使用状況、QmRNA / QSTATE の進行、production node の heartbeat、実行ステータスをリアルタイムで確認できます。これは静的なデモではなく、継続更新される公開 live telemetry です。
+
+
 ## ホワイトペーパー PDF
 
 **[English PDF](whitepaper/Q-Framework-v1.0-RC2-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC2-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC2-JA.pdf)**
