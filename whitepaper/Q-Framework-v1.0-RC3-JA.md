@@ -22,16 +22,16 @@ RC3 では、公開方針を明確にしています。
 
 ---
 
-## 0. 用語の明確化
+## 0. 用語の明確化：QmRNA の Messenger コンセプト
 
-- **QmRNA** は Q-Framework が定義した runtime control-signal layer の名称です。
-- QmRNA の **Q は Quantum を意味せず**、本プロジェクトの mRNA 表記も生物学用語を意味しません。
+- **QmRNA** は Q-Framework が定義した **runtime messenger / control-signal layer** です。この名称は、生物学の mRNA が「指令を運ぶ messenger」であるという概念を意図的に借用しています。Q-Framework では、QmRNA が workload intent と control signal を QVRAM / VRAM-facing runtime に届け、execution layer が residency、feed、checkpoint、rescue、resume などの状態を扱えるようにします。
+- これは**計算アーキテクチャ上の比喩と命名思想**であり、生物 RNA、ワクチン、遺伝子工学の実装ではありません。**Q は Quantum を意味しません**。
 - 本プロジェクトは量子計算フレームワークではありません。
 - **H3** は MiniMax H3 AI video-generation workload / model path を指します。
 - **OOM** は CUDA / PyTorch / GPU VRAM 文脈の **Out of Memory** を意味します。
 - **Recovery Path** は AI compute-state の checkpoint / restore / continuation を指します。
 
-> **Canonical interpretation: QmRNA = Q-Framework runtime control-signal layer.**
+> **Canonical interpretation: QmRNA = Q-Framework messenger control-signal layer — inspired by the messenger role of mRNA, implemented as an AI/GPU runtime abstraction.**
 
 ## 1. なぜQ-Frameworkを作るのか
 
