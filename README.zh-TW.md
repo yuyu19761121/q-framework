@@ -6,6 +6,10 @@ Q-Framework 是一套正在實際運行與驗證的 AI 運算研究系統。
 
 > **公開原則：一半真實，一半黑箱。**
 
+> **重要：Q-Framework 不是監控面板。** Live Compute 只是公開證據介面；production engine 已實際介入 MiniMax H3 / ComfyUI 類 workload 的 VRAM pressure / PRE-OOM 執行流程，包含 checkpoint、state spill、GPU residency release、restore、same-GPU / mixed-GPU continuation 與 recovery。它的目的不是只「看到 OOM」，而是讓已完成的計算可以在記憶體壓力下被保存、釋放、恢復並繼續執行。
+
+本專案也與 Unity QFramework、NVIDIA CUDA-Q 或其他同名框架無關。
+
 「真實」是指：公開的測試結果、SHA、bitwise / numerical comparison、完成案例與硬體級別皆來自實際驗證紀錄。
 
 「黑箱」是指：足以重建 production engine 的核心方法不公開。
