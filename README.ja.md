@@ -10,7 +10,7 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 本プロジェクトは Unity QFramework、NVIDIA CUDA-Q、その他の同名 framework とは無関係です。
 
-**名称の明確化：**`QmRNA` は Q-Framework が定義した runtime control-signal layer です。**Q は Quantum を意味せず、mRNA も messenger RNA を意味しません。** `H3` は MiniMax H3 AI video-generation path、`OOM` は CUDA / PyTorch / GPU VRAM 文脈の Out of Memory を意味します。
+**名称とコンセプト：**`QmRNA` は Q-Framework が定義した runtime messenger / control-signal layer です。名称は mRNA の「指令を運ぶ messenger」という役割を意図的に借用し、Q-Framework では workload intent と control signal を QVRAM / VRAM-facing runtime に届けます。これは計算アーキテクチャ上の比喩であり、生物 RNA 技術ではありません。**Q は Quantum を意味しません**。`H3` は MiniMax H3 AI video-generation path、`OOM` は CUDA / PyTorch / GPU VRAM 文脈の Out of Memory を意味します。
 
 **ComfyUI 統合状況：**production H3 recovery path はローカル Windows ComfyUI runtime に統合されており、ComfyUI process 内の node-local custom runtime hook と、外部 Master / Bridge の state-lineage orchestration を含みます。単なる cloud telemetry ではなく、現時点では ComfyUI Manager からワンクリック導入できる汎用 plugin でもありません。
 
