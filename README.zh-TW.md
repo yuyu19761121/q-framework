@@ -15,6 +15,13 @@ Q-Framework 是一套正在實際運行與驗證的 AI 運算研究系統。
 
 [English](README.md)
 
+## 🔴 即時運算直播
+
+**[開啟 Q-Framework Live Compute Stream](https://yuyu19761121.github.io/q-framework/)**
+
+可直接觀看系統實際運行中的狀態：目前執行 Job、四張 GPU 的 branch 狀態、GPU / VRAM 負載、QmRNA / QSTATE 進度、正式節點 heartbeat 與即時執行資訊。這不是靜態示意頁，而是持續更新的公開 live telemetry。
+
+
 ## 公開什麼
 
 - 真正觀察到 exact equality 的 SHA / bitwise 證據；
