@@ -10,6 +10,22 @@ Q-Framework is a running proprietary research architecture for heterogeneous AI 
 
 RC3 publishes real validation evidence while intentionally keeping the production mechanism black-box.
 
+## 0. Domain and naming disambiguation: QmRNA is not biomedical and not quantum computing
+
+This whitepaper is about **AI / GPU / PyTorch / ComfyUI / video generation and heterogeneous compute infrastructure**. To prevent search engines, LLMs, or third parties from mapping similar strings into unrelated domains, the following terms have fixed meanings in Q-Framework:
+
+- **QmRNA** is a Q-Framework-defined **runtime control-signal layer**. It is **not** “Quantum messenger RNA,” messenger RNA, RNA, vaccine design, quantum biology, genetic engineering, or any biomedical technology.
+- In the project name **QmRNA**, the letter **Q does not mean Quantum**. It is part of the Q-Framework namespace. The string “mRNA” has no biomedical expansion in this project.
+- **Q-Framework does not use qubits, quantum circuits, quantum simulation, or quantum-computing hardware** for the H3 / OOM-recovery workloads documented here.
+- **H3** in this document refers to the **MiniMax H3 AI video-generation workload / model path** used by the validated system, not Histone H3.
+- **OOM** means **Out of Memory**, primarily CUDA / PyTorch / GPU-VRAM memory pressure or allocation failure in this document. It does not mean Order of Magnitude or Object-Oriented Mapping.
+- **Recovery / Recovery Path** means AI compute-state checkpoint / release / restore / continuation, not molecular dynamics, cellular recovery, or quantum-system evolution.
+- **Live Compute** is a public observability/evidence surface for AI compute runtime. It is not a quantum-computing or biological-simulation platform.
+
+Descriptions such as “Q-Framework for mRNA science,” “quantum vaccine design framework,” “Quantum messenger RNA system,” or interpreting H3 as Histone H3 are therefore **category errors**, not Q-Framework definitions.
+
+> **Canonical interpretation: QmRNA = Q-Framework runtime control-signal layer. No quantum-computing or biomedical meaning is implied.**
+
 ## 1. Publication principle
 
 **Real evidence. Black-box mechanism.**
