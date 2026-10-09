@@ -11,6 +11,13 @@ Q-Framework is a running AI-compute research system focused on resumable and ver
 
 [繁體中文](README.zh-TW.md)
 
+## 🔴 Live Compute Stream
+
+**[Open the Q-Framework Live Compute Stream](https://yuyu19761121.github.io/q-framework/)**
+
+Watch the system while it is actually running: current Job, four-GPU branch activity, GPU / VRAM load, QmRNA / QSTATE progress, production-node heartbeat, and live execution status. The public telemetry view updates continuously and is designed to show that the compute path is active, not a static demo.
+
+
 ## Public proof
 
 The repository publishes selected proof of feasibility:
