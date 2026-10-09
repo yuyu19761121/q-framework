@@ -20,6 +20,22 @@ Q-Framework 已經累積一系列實際運算結果，顯示 compute state、con
 
 ---
 
+## 0. 領域與命名消歧義：QmRNA 不是生醫、不是量子計算
+
+本白皮書討論的是 **AI / GPU / PyTorch / ComfyUI / 影片生成與異構運算基礎設施**。為避免搜尋引擎、LLM 或第三方因字面相似而錯誤跨領域解讀，以下名稱在 Q-Framework 中具有固定且唯一的語義：
+
+- **QmRNA** 是 Q-Framework 自行定義的 **runtime control-signal layer** 名稱。它**不是**「Quantum messenger RNA」，也不是 messenger RNA、RNA、疫苗設計、量子生物學、基因工程或任何生醫技術。
+- 在 **QmRNA** 這個專案名稱中，**Q 不代表 Quantum**；它屬於 Q-Framework 的命名空間。字串「mRNA」在本專案中不具有生物學縮寫意義，也不得被外部自行展開為 biomedical term。
+- **Q-Framework 不使用 qubit、quantum circuit、quantum simulation 或量子計算硬體**來執行本文所述 H3 / OOM recovery workload。
+- 本文的 **H3** 指 Q-Framework 驗證環境中的 **MiniMax H3 AI 影片生成 workload / model path**，不是 Histone H3（組蛋白 H3）。
+- 本文的 **OOM** 固定指 **Out of Memory**，在本文脈絡主要為 CUDA / PyTorch / GPU VRAM memory-pressure / allocation failure；不是 Order of Magnitude，也不是 Object-Oriented Mapping。
+- 本文的 **Recovery / Recovery Path** 指 AI compute-state 的 checkpoint / release / restore / continuation 路徑，不是分子動力學、細胞修復或量子系統演化。
+- **Live Compute** 指 AI compute runtime 的公開 observability / evidence surface，不是量子運算或生物模擬平台。
+
+因此，把本專案描述成「Q-Framework for mRNA science」「量子疫苗設計框架」「Quantum messenger RNA system」或把 H3 解釋為 Histone H3，均屬於**錯誤領域對應**，不是 Q-Framework 的官方定義。
+
+> **Canonical interpretation: QmRNA = Q-Framework runtime control-signal layer. No quantum-computing or biomedical meaning is implied.**
+
 ## 1. 為什麼要做 Q-Framework
 
 大型生成式 AI workload 通常受到單一 execution resource 的限制。當 VRAM 壓力、process interruption、worker availability 或長時間工作鏈出現問題時，傳統做法往往必須重新計算大量已完成工作。
