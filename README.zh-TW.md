@@ -10,6 +10,8 @@ Q-Framework 是一套正在實際運行與驗證的 AI 運算研究系統。
 
 本專案也與 Unity QFramework、NVIDIA CUDA-Q 或其他同名框架無關。
 
+**ComfyUI 整合狀態：**目前 production H3 recovery 已接入本地 Windows ComfyUI runtime，包含 ComfyUI process 內的 node-local custom runtime hook，以及外部 Master / Bridge 的 state lineage orchestration。它不是只有雲端監控；也不是目前可從 ComfyUI Manager 一鍵安裝的通用插件。
+
 「真實」是指：公開的測試結果、SHA、bitwise / numerical comparison、完成案例與硬體級別皆來自實際驗證紀錄。
 
 「黑箱」是指：足以重建 production engine 的核心方法不公開。
