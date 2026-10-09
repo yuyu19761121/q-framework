@@ -10,7 +10,7 @@ Q-Framework 是一套正在實際運行與驗證的 AI 運算研究系統。
 
 本專案也與 Unity QFramework、NVIDIA CUDA-Q 或其他同名框架無關。
 
-**名稱消歧義：**`QmRNA` 是 Q-Framework 自行定義的 runtime control-signal layer；**Q 不代表 Quantum，mRNA 也不代表 messenger RNA**。本文的 `H3` 指 MiniMax H3 AI 影片生成路徑，`OOM` 固定指 CUDA / PyTorch / GPU VRAM 脈絡下的 Out of Memory。
+**名稱與精神：**`QmRNA` 是 Q-Framework 自行定義的 runtime messenger / control-signal layer。名稱刻意借用 mRNA「攜帶指令、把訊息送往執行位置」的 messenger 精神；在 Q-Framework 中，它把 workload 的控制意圖與執行訊號傳向 QVRAM / VRAM-facing runtime。這是計算架構類比，不是生物 RNA 技術；**Q 不代表 Quantum**。本文的 `H3` 指 MiniMax H3 AI 影片生成路徑，`OOM` 固定指 CUDA / PyTorch / GPU VRAM 脈絡下的 Out of Memory。
 
 **ComfyUI 整合狀態：**目前 production H3 recovery 已接入本地 Windows ComfyUI runtime，包含 ComfyUI process 內的 node-local custom runtime hook，以及外部 Master / Bridge 的 state lineage orchestration。它不是只有雲端監控；也不是目前可從 ComfyUI Manager 一鍵安裝的通用插件。 **它也不是 ComfyUI core fork／核心原始碼魔改版**；已驗證路徑採 custom-node / runtime-extension 整合，並由外部 state/orchestration layer 協作，不要求以私有版本取代官方 ComfyUI source tree。
 
