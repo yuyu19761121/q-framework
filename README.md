@@ -10,6 +10,8 @@ Q-Framework is a running AI-compute research system focused on resumable and ver
 
 This project is unrelated to Unity QFramework, NVIDIA CUDA-Q, or other similarly named frameworks.
 
+**Naming disambiguation:** `QmRNA` is the Q-Framework-defined runtime control-signal layer. **Q does not mean Quantum, and mRNA does not mean messenger RNA.** `H3` refers to the MiniMax H3 AI video-generation path, and `OOM` means Out of Memory in the CUDA / PyTorch / GPU-VRAM context.
+
 **ComfyUI integration status:** the production H3 recovery path is integrated with a local Windows ComfyUI runtime, including a node-local custom runtime hook inside the ComfyUI process plus external Master / Bridge state-lineage orchestration. It is not merely cloud telemetry, and it is not currently packaged as a universal one-click ComfyUI Manager plugin. **It is also not a ComfyUI core fork or core-source modification distribution**; the validated path uses custom-node / runtime-extension integration plus external state/orchestration layers and does not require replacing the official ComfyUI source tree.
 
 **Current public release:** Evidence Whitepaper v1.0 RC3  
