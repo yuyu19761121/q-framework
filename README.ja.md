@@ -10,6 +10,8 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 本プロジェクトは Unity QFramework、NVIDIA CUDA-Q、その他の同名 framework とは無関係です。
 
+**ComfyUI 統合状況：**production H3 recovery path はローカル Windows ComfyUI runtime に統合されており、ComfyUI process 内の node-local custom runtime hook と、外部 Master / Bridge の state-lineage orchestration を含みます。単なる cloud telemetry ではなく、現時点では ComfyUI Manager からワンクリック導入できる汎用 plugin でもありません。
+
 **Version:** Evidence Whitepaper v1.0 RC3  
 **Snapshot:** 2026-10-07
 
