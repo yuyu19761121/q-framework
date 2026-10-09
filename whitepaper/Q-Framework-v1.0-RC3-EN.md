@@ -44,6 +44,33 @@ Public evidence already includes real H3 continuation, completed output after cr
 
 Claim discipline still applies: this does not mean "every model can never OOM" or "zero OOM probability." The supported claim is that **Q-Framework has implemented and validated execution paths that can preserve, release, restore and continue real AI workload state under VRAM-pressure and OOM-recovery scenarios.**
 
+### Where it integrates with ComfyUI: not a cloud observer next to it
+
+The current H3 recovery path is **integrated into a local Windows ComfyUI runtime**. It is not merely an external cloud service observing ComfyUI.
+
+At a public, non-reconstructive level, the integration has four layers:
+
+1. A **node-local runtime hook / custom-node layer inside the ComfyUI process** receives QmRNA / QVRAM control state, creates checkpoints, participates in PRE-OOM / HARD-OOM recovery contracts, and selects supported low-memory attention / paging candidates on validated H3 paths.
+2. A **resilient submit / Master layer** preserves Job seed, lineage, QSTATE, QREV, worker ownership and recovery receipts, and selects same-GPU re-arm or mixed-GPU rescue.
+3. A **Bridge / backing-store layer** preserves and transports recoverable state through CPU RAM / SSD backing, cold storage, restore and cross-worker continuation.
+4. **Live Compute** only displays sanitized evidence and runtime state from the above layers; it is not the recovery engine.
+
+Q-Framework therefore does **not** replace ComfyUI with an unrelated external scheduler and then claim to solve OOM. ComfyUI still executes the model graph and sampler; the supported Q-Framework path adds node-local runtime control, state checkpoint / restore, and external lineage orchestration around and within that execution.
+
+It is also **not currently packaged as a universal one-click ComfyUI Manager plugin**. The production implementation is integrated with the ComfyUI + MiniMax H3 runtime used in the validated system. Packaging a general end-user installer is a separate Experimental Preview / productization task.
+
+### Anti-overclaim boundary
+
+To prevent readers from inventing mechanisms that are not actually claimed, RC3 explicitly does not say that Q-Framework:
+
+- predicts the next contiguous VRAM allocation for every arbitrary PyTorch operator;
+- can automatically rewrite every model or every Attention implementation into chunked execution before OOM;
+- completely replaces ComfyUI's native memory manager.
+
+The validated claim is narrower and stronger: on supported H3 execution paths, the QmRNA / QVRAM / recovery layer can create checkpoints, spill / release / restore state, perform same-GPU or mixed-GPU continuation, and use validated low-memory attention / page-execution controls where those candidates are supported.
+
+In short: **the paper documents recovery capabilities that have actually run; it does not generalize experimental internals into universal PyTorch features.**
+
 ### Name clarification
 
 This project is not affiliated with Unity QFramework, NVIDIA CUDA-Q, or other similarly named frameworks. In this repository, **Q-Framework** refers specifically to the heterogeneous AI state-virtualization, OOM-aware recovery and compute-continuation architecture documented here.
