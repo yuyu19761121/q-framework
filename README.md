@@ -6,6 +6,10 @@ Q-Framework is a running AI-compute research system focused on resumable and ver
 
 > **Publication policy: real evidence, black-box mechanism.**
 
+> **Important: Q-Framework is not a monitoring dashboard.** Live Compute is only the public proof surface. The production engine has been exercised inside MiniMax H3 / ComfyUI-class VRAM-pressure and PRE-OOM execution paths, including checkpointing, state spill, GPU-residency release, restore, same-GPU / mixed-GPU continuation and recovery. The purpose is not merely to observe OOM; it is to preserve useful computation, release memory residency, restore state and continue execution.
+
+This project is unrelated to Unity QFramework, NVIDIA CUDA-Q, or other similarly named frameworks.
+
 **Current public release:** Evidence Whitepaper v1.0 RC3  
 **Snapshot:** 2026-10-07
 
