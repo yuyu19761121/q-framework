@@ -61,6 +61,32 @@ Q-Framework 的 production path 已實際介入 MiniMax H3 / ComfyUI 類工作�
 
 同時必須維持 claim discipline：這不代表「任何模型永遠不會 OOM」或「零 OOM 機率」。正確主張是：**Q-Framework 已實作並驗證可在 VRAM 壓力與 OOM recovery 場景中保存、釋放、恢復與延續真實 AI workload 的執行路徑。**
 
+### ComfyUI 實裝位置：不是雲端外掛在旁邊看
+
+Q-Framework 目前的 H3 recovery 路徑**已實際接進 Windows 本地 ComfyUI 執行環境**，不是只在外部雲端平台觀察 ComfyUI。
+
+公開可說明的整合層次如下：
+
+1. **ComfyUI process 內的 node-local runtime hook / custom-node layer**：負責接收 QmRNA / QVRAM control state、建立 checkpoint、觸發 PRE-OOM / HARD-OOM recovery contract，並在支援的 H3 路徑中切換低記憶體 attention / paging candidate。
+2. **Resilient submit / Master layer**：負責把同一 Job 的 seed、lineage、QSTATE、QREV、worker ownership 與 recovery receipt 串起來，決定 same-GPU re-arm 或 mixed-GPU rescue。
+3. **Bridge / backing-store layer**：保存與轉移可恢復 state，支援 CPU RAM / SSD backing、cold-store、restore 與跨 worker continuation。
+4. **Live Compute**：只把上述執行結果與狀態公開顯示；它不是 recovery engine。
+
+也就是說，Q-Framework **不是用另一套外部排程器取代 ComfyUI 後就聲稱解決 OOM**；ComfyUI 仍然負責模型 graph / sampler 執行，而 Q-Framework 在支援的路徑中加入 node-local runtime control、state checkpoint / restore 與外部 lineage orchestration。
+
+目前它也**不是一個可在 ComfyUI Manager 一鍵安裝的通用插件產品**。Production implementation 是針對我們目前驗證的 ComfyUI + MiniMax H3 runtime 所做的整合；是否封裝成一般使用者可直接安裝的版本，屬於後續 Experimental Preview / productization 工作。
+
+### 避免誤讀：我們沒有宣稱的細節
+
+為避免外部讀者把「OOM-aware」自行延伸成不存在的機制，RC3 明確限制以下說法：
+
+- 不宣稱系統對**任意 PyTorch operator**都能精準預測下一個 contiguous VRAM allocation。
+- 不宣稱對**任意模型／任意 Attention**都能在 OOM 前自動改寫成 chunked execution。
+- 不宣稱 Q-Framework 全面取代 ComfyUI 原生 memory manager。
+- 已驗證的是：在支援的 H3 execution path 中，QmRNA / QVRAM / HF recovery layer 能建立 checkpoint、spill / release / restore、same-GPU / mixed-GPU continuation，並在已驗證 candidate 中使用低記憶體 attention / page execution 控制。
+
+換句話說：**我們公開的是已經跑過的 recovery capability，不把尚未普遍化的內部機制寫成 universal PyTorch feature。**
+
 ### 名稱釐清
 
 本專案的 **Q-Framework** 與 Unity 社群中的 QFramework、NVIDIA CUDA-Q 或其他同名／近名框架沒有技術隸屬關係。本專案專指此 repository 所描述的異構 AI state virtualization、OOM-aware recovery 與 compute continuation 架構。
