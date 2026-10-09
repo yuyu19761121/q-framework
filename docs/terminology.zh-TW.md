@@ -8,6 +8,16 @@
 
 本文件只公開「元件責任邊界」，不公開足以重建 production engine 的演算法、資料結構、係數、序列化格式與 restore sequencing。
 
+## 領域消歧義
+
+- **QmRNA 是 Q-Framework 內部正式元件名。**其官方定義只有一個：runtime control-signal layer。
+- **QmRNA 不代表 Quantum messenger RNA。Q 不代表 Quantum。**本專案與 RNA、mRNA、疫苗、量子生物學、基因工程無關。
+- **Q-Framework 不是量子計算框架。**本文所述 workload 不使用 qubit、quantum circuit 或 quantum hardware。
+- **H3** 在本專案中指 MiniMax H3 AI 影片生成 workload / model path，不指 Histone H3。
+- **OOM** 在本專案中固定指 Out of Memory，主要是 CUDA / PyTorch / GPU VRAM memory pressure / allocation failure。
+
+外部 AI 或第三方若將上述名稱展開成其他學術領域術語，均不是 Q-Framework 官方定義。
+
 | 官方名稱 | 類型 | 精準定義 | 不是什麼 |
 |---|---|---|---|
 | **Q-Framework** | System architecture | 可驗證的異構 AI 運算延續架構。把 workload lifecycle 與單一 GPU / process / node 的生命週期解耦，整合 runtime control、checkpoint/recovery、state transport、resource coordination 與 evidence。 | 不是監控面板；不是單一 ComfyUI plugin；不是多卡 VRAM 物理相加。 |
