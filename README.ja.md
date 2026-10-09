@@ -6,6 +6,10 @@ Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不
 
 > **本リポジトリは実際に稼働しているシステムを記録しますが、プロダクション用の中核エンジンは公開しません。**
 
+> **重要：Q-Framework は監視ダッシュボードではありません。** Live Compute は公開証拠インターフェースにすぎません。production engine は MiniMax H3 / ComfyUI 系 workload の VRAM pressure / PRE-OOM execution path に実際に介入し、checkpoint、state spill、GPU residency release、restore、same-GPU / mixed-GPU continuation、recovery を行います。目的は OOM を見ることではなく、計算状態を保存・解放・復元し、処理を継続することです。
+
+本プロジェクトは Unity QFramework、NVIDIA CUDA-Q、その他の同名 framework とは無関係です。
+
 **Version:** Evidence Whitepaper v1.0 RC3  
 **Snapshot:** 2026-10-07
 
