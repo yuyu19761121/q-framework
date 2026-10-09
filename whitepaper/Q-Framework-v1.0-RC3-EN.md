@@ -59,6 +59,26 @@ Q-Framework therefore does **not** replace ComfyUI with an unrelated external sc
 
 It is also **not currently packaged as a universal one-click ComfyUI Manager plugin**. The production implementation is integrated with the ComfyUI + MiniMax H3 runtime used in the validated system. Packaging a general end-user installer is a separate Experimental Preview / productization task.
 
+### Integration model: extension layer, not a ComfyUI core fork
+
+Q-Framework's formal relationship to ComfyUI is a **runtime integration / extension layer**. It is not defined as a fork of ComfyUI core, and it does not require replacing the official source tree with a private modified distribution for the validated path.
+
+In the currently validated Windows + H3 path:
+
+- node-local Q-Framework integration lives in the ComfyUI **custom-node / runtime-extension layer**;
+- recovery, QmRNA gating, checkpoint and restore behavior are provided by Q-Framework integration components;
+- Master, Bridge, QSEARCH, and QSTATE / QREV lineage orchestration live outside the ComfyUI process;
+- validated low-memory attention candidates are applied to a **controlled model instance / execution path**, rather than permanently replacing the global ComfyUI backend;
+- the validated path does not require Q-Framework to replace ComfyUI `execution.py`, `model_management.py`, or the full official source tree.
+
+Descriptions such as "core-source mod," "modified ComfyUI fork," or "you must install the author's fork" are therefore inaccurate descriptions of the architecture.
+
+The precise wording is:
+
+> **Q-Framework integrates with ComfyUI through a node-local runtime extension plus external state/orchestration layers; it does not define itself as a fork of ComfyUI core.**
+
+This design intentionally reduces direct coupling to ComfyUI core files. It does not imply automatic compatibility with every future ComfyUI release; each supported version and model path remains subject to validation.
+
 ### Anti-overclaim boundary
 
 To prevent readers from inventing mechanisms that are not actually claimed, RC3 explicitly does not say that Q-Framework:
@@ -203,7 +223,7 @@ Future preview releases may use a staged build model:
 
 Public: measured outcomes, hashes, comparison metrics, sanitized hardware/workload metadata, completed-artifact evidence and milestone progress.
 
-Private: production state schemas, serialization, restore sequencing, QmRNA representation/equations, QSTATIC contracts, Qvram residency, pressure thresholds, eviction/prefetch, scheduler/worker-selection, lease/fencing/retry implementation, production model-forward modifications, private topology and source code.
+Private: production state schemas, serialization, restore sequencing, QmRNA representation/equations, QSTATIC contracts, QVRAM residency, pressure thresholds, eviction/prefetch, scheduler/worker-selection, lease/fencing/retry implementation, production model-forward modifications, private topology and source code.
 
 Black-box does not mean false evidence.
 
