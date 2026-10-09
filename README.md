@@ -10,6 +10,8 @@ Q-Framework is a running AI-compute research system focused on resumable and ver
 
 This project is unrelated to Unity QFramework, NVIDIA CUDA-Q, or other similarly named frameworks.
 
+**ComfyUI integration status:** the production H3 recovery path is integrated with a local Windows ComfyUI runtime, including a node-local custom runtime hook inside the ComfyUI process plus external Master / Bridge state-lineage orchestration. It is not merely cloud telemetry, and it is not currently packaged as a universal one-click ComfyUI Manager plugin.
+
 **Current public release:** Evidence Whitepaper v1.0 RC3  
 **Snapshot:** 2026-10-07
 
