@@ -14,6 +14,7 @@
 | Real production sampler state can be recomputed in different node/runtime environments to the same computed-result SHA | Demonstrated | Utility01, H410, and Node B PyTorch reference produced identical recomputed-x SHA |
 | Independent node+GPU execution paths can retain near-matching computation-state fingerprints under the same shared state / lineage | Demonstrated smoke observation | Reported as near-match / highly consistent, not universal bitwise determinism |
 | Cross-environment reconstruction is universally bitwise-identical to the original source state | **Not claimed** | Float32 reverse→forward reconstruction showed max abs error ~4.77e-7 versus source |
+| Q-Framework integrates with ComfyUI without requiring a private core fork on the validated Windows + H3 path | Demonstrated integration path | Node-local integration is provided through the custom-node/runtime-extension layer plus external Master/Bridge orchestration; the validated Node A ComfyUI source tree remains unmodified |
 | QmRNA can operate inside an H3 model-forward candidate path | Demonstrated candidate behavior | It entered H3 model-forward and executed exact FFN token chunking |
 | CPU reference streamed/global attention can reproduce full attention within floating-point tolerance | Demonstrated reference test | Mathematical/reference validation only |
 | A single 22GB GPU completed the full target 15s / 311-aligned-frame H3 workload through newest residency virtualization | **Not yet claimed** | Requires final output + valid continuation receipts |
