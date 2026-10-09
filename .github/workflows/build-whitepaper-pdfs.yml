@@ -1,10 +1,10 @@
-name: Build Q-Framework RC2 PDFs
+name: Build Q-Framework RC3 PDFs
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - "whitepaper/Q-Framework-v1.0-RC2-*.md"
+      - "whitepaper/Q-Framework-v1.0-RC3-*.md"
       - ".github/workflows/build-whitepaper-pdfs.yml"
 
 permissions:
@@ -32,7 +32,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install markdown weasyprint
 
-      - name: Build RC2 PDFs
+      - name: Build RC3 PDFs
         run: |
           python - <<'PY'
           from pathlib import Path
@@ -55,9 +55,9 @@ jobs:
           th, td { border: 1px solid #bbb; padding: 5px; vertical-align: top; }
           """
 
-          files = sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC2-*.md"))
+          files = sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC3-*.md"))
           if len(files) != 3:
-              raise SystemExit(f"expected 3 RC2 markdown files, found {len(files)}")
+              raise SystemExit(f"expected 3 RC3 markdown files, found {len(files)}")
           for mdfile in files:
               body = markdown.markdown(mdfile.read_text(encoding="utf-8"), extensions=["tables", "fenced_code"])
               html = f"<html><head><meta charset='utf-8'><style>{css}</style></head><body>{body}</body></html>"
@@ -66,14 +66,14 @@ jobs:
               print("built", outfile)
           PY
 
-      - name: Commit generated RC2 PDFs
+      - name: Commit generated RC3 PDFs
         run: |
           git config user.name "q-framework-bot"
           git config user.email "59273422+yuyu19761121@users.noreply.github.com"
-          git add whitepaper/Q-Framework-v1.0-RC2-*.pdf
+          git add whitepaper/Q-Framework-v1.0-RC3-*.pdf
           if git diff --cached --quiet; then
-            echo "No RC2 PDF changes."
+            echo "No RC3 PDF changes."
           else
-            git commit -m "Build Q-Framework v1.0 RC2 PDFs"
+            git commit -m "Build Q-Framework v1.0 RC3 PDFs"
             git push origin HEAD:main
           fi
