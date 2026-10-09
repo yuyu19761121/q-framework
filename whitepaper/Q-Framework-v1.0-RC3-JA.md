@@ -22,6 +22,17 @@ RC3 では、公開方針を明確にしています。
 
 ---
 
+## 0. 用語の明確化
+
+- **QmRNA** は Q-Framework が定義した runtime control-signal layer の名称です。
+- QmRNA の **Q は Quantum を意味せず**、本プロジェクトの mRNA 表記も生物学用語を意味しません。
+- 本プロジェクトは量子計算フレームワークではありません。
+- **H3** は MiniMax H3 AI video-generation workload / model path を指します。
+- **OOM** は CUDA / PyTorch / GPU VRAM 文脈の **Out of Memory** を意味します。
+- **Recovery Path** は AI compute-state の checkpoint / restore / continuation を指します。
+
+> **Canonical interpretation: QmRNA = Q-Framework runtime control-signal layer.**
+
 ## 1. なぜQ-Frameworkを作るのか
 
 大規模な生成AI workloadでは、単一のexecution resourceがボトルネックになりやすく、VRAM pressure、process interruption、worker availability、長時間ジョブなどによって、すでに計算した作業を捨てて再計算するケースがあります。
