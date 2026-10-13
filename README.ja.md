@@ -1,67 +1,30 @@
 # Q-Framework
 
-**異種混在型AI基盤のための計算状態仮想化・適応型フロー制御アーキテクチャ**
+**異種 AI コンピューティングの継続性**
 
-Q-Framework は、長時間の生成AIワークロードを「GPUメモリが不足したら終了する処理」ではなく、観測・制御・停止・保存・復元・移動が可能な計算状態として扱うための実験的コンピューティング基盤です。
+Q-Framework は、独立した異種計算資源による協調 AI 実行の可能性を広げる技術アーキテクチャです。公開された成果には、GPU 間の計算継続、完成した AI 動画、異なる環境での一貫した数値結果があります。
 
-> **本リポジトリは実際に稼働しているシステムを記録しますが、プロダクション用の中核エンジンは公開しません。**
+### 主な実証成果
 
-> **重要：Q-Framework は監視ダッシュボードではありません。** Live Compute は公開証拠インターフェースにすぎません。production engine は MiniMax H3 / ComfyUI 系 workload の VRAM pressure / PRE-OOM execution path に実際に介入し、checkpoint、state spill、GPU residency release、restore、same-GPU / mixed-GPU continuation、recovery を行います。目的は OOM を見ることではなく、計算状態を保存・解放・復元し、処理を継続することです。
+- 制御された GPU 間継続テストでの bitwise 一致。
+- MiniMax H3 ワークロードの継続後に完成した動画出力。
+- 独立した 4 基の RTX 2080 Ti 22 GB GPU による 15 秒・540 フレームの生成成果。
+- 約 250 MiB の計算状態移送と SHA-256 一致。
+- 3 環境で同じ再計算結果。
+- QSTATIC / QmRNA 比較で 22 / 22 フレームの一致。
 
-本プロジェクトは Unity QFramework、NVIDIA CUDA-Q、その他の同名 framework とは無関係です。
+### 多様な技術ビジョン
 
-**名称とコンセプト：**`QmRNA` は Q-Framework が定義した runtime messenger / control-signal layer です。名称は mRNA の「指令を運ぶ messenger」という役割を意図的に借用し、Q-Framework では workload intent と control signal を QVRAM / VRAM-facing runtime に届けます。これは計算アーキテクチャ上の比喩であり、生物 RNA 技術ではありません。**Q は Quantum を意味しません**。`H3` は MiniMax H3 AI video-generation path、`OOM` は CUDA / PyTorch / GPU VRAM 文脈の Out of Memory を意味します。
+クリエイターツール、動画制作、企業 AI、エッジコンピューティング、異種ハードウェア、商業連携など幅広い応用可能性があります。各分野は独立した選択肢です。
 
-**ComfyUI 統合状況：**production H3 recovery path はローカル Windows ComfyUI runtime に統合されており、ComfyUI process 内の node-local custom runtime hook と、外部 Master / Bridge の state-lineage orchestration を含みます。単なる cloud telemetry ではなく、現時点では ComfyUI Manager からワンクリック導入できる汎用 plugin でもありません。
+### ホワイトペーパー
 
-**Version:** Evidence Whitepaper v1.0 RC3  
-**Snapshot:** 2026-10-07
+- [日本語](whitepaper/Q-Framework-v1.0-RC3-JA.md)
+- [繁體中文](whitepaper/Q-Framework-v1.0-RC3-ZH-TW.md)
+- [English](whitepaper/Q-Framework-v1.0-RC3-EN.md)
 
-[English](README.md) · [繁體中文](README.zh-TW.md)
+### パートナーシップ
 
-## 🔴 ライブ計算ストリーム
+AI ハードウェア、生成メディア、インフラ、ソフトウェア、応用研究のパートナーとの交流を歓迎します。
 
-**[Q-Framework Live Compute Stream を開く](https://yuyu19761121.github.io/q-framework/)**
-
-現在実行中の Job、4 GPU の branch 状態、GPU / VRAM 使用状況、QmRNA / QSTATE の進行、production node の heartbeat、実行ステータスをリアルタイムで確認できます。これは静的なデモではなく、継続更新される公開 live telemetry です。
-
-
-## ホワイトペーパー PDF
-
-**[English PDF](whitepaper/Q-Framework-v1.0-RC2-EN.pdf)** · **[繁體中文 PDF](whitepaper/Q-Framework-v1.0-RC2-ZH-TW.pdf)** · **[日本語 PDF](whitepaper/Q-Framework-v1.0-RC2-JA.pdf)**
-
-## Sponsor Q-Framework
-
-**[Sponsorship Overview](SPONSORSHIP.md)** · **[繁體中文贊助說明](SPONSORSHIP.zh-TW.md)** · **[Sponsorship Prospectus PDF](sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.pdf)**
-
-Funding, hardware, cloud credits and research collaboration can expand Q-Framework validation capacity while the production engine remains proprietary.
-
-## 公開している概念
-
-- **QmRNA** — runtime telemetry / control plane
-- **Qvram** — persistent compute state / checkpoint / residency layer
-- **Qsearch** — state and working-set retrieval
-- **Qanswer** — heterogeneous CPU/GPU orchestration
-- **QSTATIC** — precomputed visual/static-state source layer
-- **QSTATE / QBLOCK / QLINEAGE / QREV** — state, block, lineage, revision primitives
-
-## Evidence policy
-
-Q-Framework は「構想」「実装」「部分的検証」「実証済み」を分離して記録します。
-
-現在公開可能な実証内容には、クロスGPU状態転送、CPU/RAM を介した continuation、lineage/checkpoint 管理、H3 model-forward 内で動作する QmRNA candidate、exact FFN token chunking、CPU-only global streamed attention の数値検証などが含まれます。
-
-一方、22GB GPU 上での 15秒 full-length H3 の最終 production PASS、完全な streamed-QKV data-plane、汎用 working-set virtualization は引き続き検証中です。
-
-## Disclosure policy
-
-**Open Specification · Open Evidence · Open Reference Interfaces · Closed Production Engine**
-
-本リポジトリでは、実運用の pressure scoring、page/residency selection、eviction/prefetch、restore sequencing、scheduler weight、Qsearch ranking、production streamed-QKV、資格情報・内部ネットワーク情報を公開しません。
-\n\n## Validation Evidence\n\n[Validated Execution Paths](docs/validated-execution-paths.md)\n
-
-## RC3 公開版
-
-最新のEvidence Whitepaper（日本語Markdown）：[Q-Framework-v1.0-RC3-JA.md](whitepaper/Q-Framework-v1.0-RC3-JA.md)
-
-RC3では、実測証拠を公開しながら、production mechanismをブラックボックスとして維持します。
+**Q-Framework — Connecting Compute. Extending Possibility.**
