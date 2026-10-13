@@ -1,5 +1,5 @@
-# Security Policy
+# Q-Framework | Security and Collaboration
 
-Do not publish API keys, tokens, passwords, cookies, private IP addresses, internal hostnames, private storage paths, customer data, or proprietary production-control parameters.
+For security-related contact and responsible coordination, reach the project owner through the repository profile and agree on a suitable private communication channel.
 
-The public reference code is intentionally separated from production infrastructure.
+Q-Framework welcomes collaboration across AI hardware, software, media and infrastructure.
