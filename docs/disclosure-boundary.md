@@ -1,33 +1,13 @@
-# Disclosure Boundary
+# Q-Framework | Public Technology Overview
 
-## Public
-- architectural roles;
-- state-machine concepts;
-- benchmark methodology;
-- sanitized hardware/workload metadata;
-- result hashes and receipts;
-- public interfaces;
-- simplified controller examples;
-- non-sensitive proof-manifest logic.
+Q-Framework presents selected demonstrated outcomes and the potential value of heterogeneous AI computing.
 
-## Abstract only
-- memory-pressure controller;
-- page/residency manager;
-- checkpoint lifecycle;
-- worker selection/recovery;
-- Qsearch active working-set policy;
-- Qanswer operator/task split;
-- QSTATIC selection/continuity contracts.
+## Technology and applications
 
-## Confidential / not published
-- production pressure-scoring formula and coefficients;
-- adaptive feed-rate policy;
-- state-hotness / eviction scoring;
-- prefetch timing and dependency heuristics;
-- checkpoint packing/serialization;
-- restore sequencing;
-- Qsearch ranking/cache heuristics;
-- scheduler weights/failover scoring;
-- lease/fencing internals and retry authority;
-- production streamed-QKV data-plane;
-- credentials, private URLs, LAN addresses and internal storage paths.
+The project brings compute-continuation and multi-worker collaboration concepts to generative AI workloads. Its public materials feature completed engineering outcomes, accessible descriptions of capabilities, and a broad landscape of possible applications.
+
+## Collaboration
+
+Research institutions, hardware companies, software developers, creator-platform partners, and infrastructure providers are welcome to discuss independent application and cooperation opportunities.
+
+[Whitepaper](../whitepaper/Q-Framework-v1.0-RC3-EN.md) · [Partnership](../SPONSORSHIP.md)
