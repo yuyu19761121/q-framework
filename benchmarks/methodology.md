@@ -1,32 +1,17 @@
-# Benchmark Methodology
+# Q-Framework | Public Results Presentation
 
-A Q-Framework benchmark should identify the workload, baseline, Q-Framework configuration, observed resource behavior and terminal result.
+Public engineering demonstrations are described through observable completed outcomes.
 
-## Required metadata
-- benchmark_id
-- timestamp
-- model/version/hash
-- runtime/framework version
-- GPU / physical VRAM
-- CPU / RAM / storage
-- driver/CUDA/runtime
-- width / height / duration / FPS
-- requested frames and model-aligned frames
-- precision / steps / seed
-- baseline outcome
-- Q-Framework outcome
-- wall-clock runtime
-- peak VRAM
-- checkpoint/freeze count
-- restore/resume count
-- QmRNA intervention count
-- failure/retry count
-- final output hash
-- evidence/receipt hash
+## Types of public evidence
 
-## Evidence levels
-- **L0 Proposed**
-- **L1 Static verified**
-- **L2 Runtime partial**
-- **L3 Completed workload**
-- **L4 Reproduced**
+- Numerical comparisons from completed evaluations.
+- Artifact characteristics, including completed output duration and frame count.
+- Matching verification hashes when available for the selected public result.
+- Descriptions of the computing-resource class participating in a published demonstration.
+- A concise explanation of the observed application value.
+
+## Public demonstrations
+
+The multilingual whitepaper presents selected completed computation and generative-video results.
+
+[Read the whitepaper](../whitepaper/Q-Framework-v1.0-RC3-EN.md)
