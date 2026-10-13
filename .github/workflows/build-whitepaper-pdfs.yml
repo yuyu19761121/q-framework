@@ -5,6 +5,7 @@ on:
   push:
     paths:
       - "whitepaper/Q-Framework-v1.0-RC*-*.md"
+      - "sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.md"
       - ".github/workflows/build-whitepaper-pdfs.yml"
 
 permissions:
@@ -58,6 +59,7 @@ jobs:
           files = sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC*-*.md"))
           if len(files) != 9:
               raise SystemExit(f"expected 9 public markdown files, found {len(files)}")
+          files.append(Path("sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.md"))
           for mdfile in files:
               body = markdown.markdown(mdfile.read_text(encoding="utf-8"), extensions=["tables", "fenced_code"])
               html = f"<html><head><meta charset='utf-8'><style>{css}</style></head><body>{body}</body></html>"
@@ -70,7 +72,7 @@ jobs:
         run: |
           git config user.name "q-framework-bot"
           git config user.email "59273422+yuyu19761121@users.noreply.github.com"
-          git add whitepaper/Q-Framework-v1.0-RC*-*.pdf
+          git add whitepaper/Q-Framework-v1.0-RC*-*.pdf sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.pdf
           if git diff --cached --quiet; then
             echo "No RC3 PDF changes."
           else
