@@ -77,5 +77,6 @@ jobs:
             echo "No RC3 PDF changes."
           else
             git commit -m "Build Q-Framework v1.0 Public Whitepaper PDFs"
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
