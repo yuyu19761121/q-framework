@@ -1,80 +1,30 @@
 # Q-Framework
 
-**可驗證的異構 AI 運算延續架構**
+**異構 AI 運算延續技術**
 
-Q-Framework 是一套正在實際運行與驗證的 AI 運算研究系統。
+Q-Framework 致力於建立更靈活的異構 AI 運算協作模式。公開成果涵蓋受控的跨 GPU 運算延續、完成的影片生成輸出，以及可檢核的跨環境結果一致性。
 
-> **公開原則：一半真實，一半黑箱。**
+### 精選實際成果
 
-> **重要：Q-Framework 不是監控面板。** Live Compute 只是公開證據介面；production engine 已實際介入 MiniMax H3 / ComfyUI 類 workload 的 VRAM pressure / PRE-OOM 執行流程，包含 checkpoint、state spill、GPU residency release、restore、same-GPU / mixed-GPU continuation 與 recovery。它的目的不是只「看到 OOM」，而是讓已完成的計算可以在記憶體壓力下被保存、釋放、恢復並繼續執行。
+- 跨 GPU 受控延續測試取得位元一致的運算結果。
+- MiniMax H3 真實影片工作負載完成跨 GPU 延續與輸出。
+- 四張獨立 RTX 2080 Ti 22 GB GPU 協同完成 15 秒、540 幀的生成成果。
+- 約 250 MiB 計算狀態移轉通過一致的 SHA-256 驗證。
+- 三種執行環境取得相同的重新計算結果。
+- QSTATIC 與 QmRNA 測試取得 22／22 幀解碼影像一致結果。
 
-本專案也與 Unity QFramework、NVIDIA CUDA-Q 或其他同名框架無關。
+### 多元技術願景
 
-**名稱與精神：**`QmRNA` 是 Q-Framework 自行定義的 runtime messenger / control-signal layer。名稱刻意借用 mRNA「攜帶指令、把訊息送往執行位置」的 messenger 精神；在 Q-Framework 中，它把 workload 的控制意圖與執行訊號傳向 QVRAM / VRAM-facing runtime。這是計算架構類比，不是生物 RNA 技術；**Q 不代表 Quantum**。本文的 `H3` 指 MiniMax H3 AI 影片生成路徑，`OOM` 固定指 CUDA / PyTorch / GPU VRAM 脈絡下的 Out of Memory。
+可能應用涵蓋創作者工具、專業影片製作、企業與工作站 AI、邊緣運算、跨硬體生態系及商業整合。各項方向可獨立探索，並非依序執行的研發計畫。
 
-**ComfyUI 整合狀態：**目前 production H3 recovery 已接入本地 Windows ComfyUI runtime，包含 ComfyUI process 內的 node-local custom runtime hook，以及外部 Master / Bridge 的 state lineage orchestration。它不是只有雲端監控；也不是目前可從 ComfyUI Manager 一鍵安裝的通用插件。 **它也不是 ComfyUI core fork／核心原始碼魔改版**；已驗證路徑採 custom-node / runtime-extension 整合，並由外部 state/orchestration layer 協作，不要求以私有版本取代官方 ComfyUI source tree。
+### 白皮書
 
-「真實」是指：公開的測試結果、SHA、bitwise / numerical comparison、完成案例與硬體級別皆來自實際驗證紀錄。
+- [繁體中文](whitepaper/Q-Framework-v1.0-RC3-ZH-TW.md)
+- [English](whitepaper/Q-Framework-v1.0-RC3-EN.md)
+- [日本語](whitepaper/Q-Framework-v1.0-RC3-JA.md)
 
-「黑箱」是指：足以重建 production engine 的核心方法不公開。
+### 合作交流
 
-**目前公開版本：** Evidence Whitepaper v1.0 RC3  
-**快照日期：** 2026-10-07
+歡迎硬體、生成式媒體、AI 基礎設施、軟體服務及研究合作夥伴洽談。
 
-[English](README.md)
-
-## 🔴 即時運算直播
-
-**[開啟 Q-Framework Live Compute Stream](https://yuyu19761121.github.io/q-framework/)**
-
-可直接觀看系統實際運行中的狀態：目前執行 Job、四張 GPU 的 branch 狀態、GPU / VRAM 負載、QmRNA / QSTATE 進度、正式節點 heartbeat 與即時執行資訊。這不是靜態示意頁，而是持續更新的公開 live telemetry。
-
-
-## 公開什麼
-
-- 真正觀察到 exact equality 的 SHA / bitwise 證據；
-- numerical tolerance 結果；
-- 已完成輸出的 hash；
-- 去敏感化後的 workload / hardware 級別；
-- 明確的 claim boundary。
-
-詳見 **[Public Proof Pack](docs/public-proof-pack.md)**。
-
-## 黑箱什麼
-
-以下維持 proprietary：
-
-- production state 真實資料結構；
-- checkpoint packing / restore sequencing；
-- QmRNA 訊號格式、控制方程、係數與判斷邏輯；
-- QSTATIC 內部 contract、索引與選擇方式；
-- QVRAM residency 真實實作；
-- memory-pressure threshold；
-- eviction / prefetch policy；
-- scheduler、worker selection、lease / fencing / retry 邏輯；
-- production model-forward 修改；
-- 私有 topology、endpoint 與 source code。
-
-詳見 **[Disclosure Boundary](docs/disclosure-boundary.md)**。
-
-## 已公開驗證結果
-
-- Deterministic continuation：bitwise-identical，max absolute difference = 0.0。
-- 約 250 MiB state transport：exact SHA preserved。
-- 真實 H3 continuation：跨 GPU continuation 後成功產出。
-- 四 Worker production-class execution：15.000 秒 / 540 frames，由四張獨立 RTX 2080 Ti 22 GB worker 共同參與。
-- 跨環境數值一致性：三個 execution environment 得到相同 recomputed-result SHA。
-- QSTATIC + QmRNA controlled equivalence：22 / 22 decoded frame hash 一致。
-
-## 不宣稱
-
-Q-Framework 不宣稱無限 VRAM、零 OOM、universal bitwise determinism、任意模型通用，或多張 GPU 在物理上合併成一張大 GPU。
-
-## 白皮書
-
-- [RC3 Evidence Whitepaper - English](whitepaper/Q-Framework-v1.0-RC3-EN.md)
-- [RC3 Evidence Whitepaper - 繁體中文](whitepaper/Q-Framework-v1.0-RC3-ZH-TW.md)
-
-舊 RC2 保留作歷史快照，但不再代表目前的公開邊界。
-
-**真實證據，核心黑箱。**
+**Q-Framework — Connecting Compute. Extending Possibility.**
