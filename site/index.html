@@ -1,15 +1,25 @@
 <!doctype html>
-<html lang="zh-Hant">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="index,follow">
-<title>Q-Framework｜Heterogeneous AI Compute</title>
-<style>body{margin:0;background:#0a1020;color:#ecf2ff;font:16px/1.8 system-ui,"Noto Sans TC",sans-serif}main{max-width:920px;margin:0 auto;padding:70px 24px}h1{font-size:clamp(34px,6vw,64px);line-height:1.1}h2{margin-top:46px}p{color:#b5c5d9}a{color:#a3d9ff}section{border-top:1px solid #35415a;margin-top:34px;padding-top:10px}.small{font-size:13px}ul{padding-left:22px}li{margin:8px 0}</style>
-</head>
-<body><main><h1>Q-Framework</h1><p>Connecting Compute. Extending Possibility.</p>
-<section><h2>異構 AI 運算技術</h2><p>Q-Framework 探索異構資源協作、計算延續及生成式 AI 的實際應用。公開成果包含跨 GPU 延續、真實影片生成、四卡協同輸出及可驗證結果一致性。</p>
-<ul><li>四張獨立 GPU 協同完成 15 秒、540 幀生成成果</li><li>約 250 MiB 計算狀態移轉取得一致驗證結果</li><li>QSTATIC／QmRNA 受控對照取得 22／22 幀結果一致</li></ul></section>
-<section><h2>技術白皮書</h2><p><a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC3-ZH-TW.md">繁體中文</a> · <a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC3-EN.md">English</a> · <a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC3-JA.md">日本語</a></p></section>
-<section><h2>技術願景與合作</h2><p>可能應用包括影片創作、企業 AI、邊緣運算、跨硬體生態及產業合作。歡迎透過 <a href="https://github.com/yuyu19761121/q-framework">GitHub</a> 聯絡交流。</p></section>
-<p class="small">© Q-Framework</p>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="index,follow"><meta name="description" content="HAVEFUN Q-Framework Temporal Möbius RC4.3: single RTX 2080 Ti H3 successful tests, four-GPU production, heterogeneous supercomputer neural network.">
+<title>Q-Framework × Temporal Möbius | RC4.3</title>
+<style>body{margin:0;background:#0a1020;color:#ecf2ff;font:16px/1.8 system-ui,"Noto Sans TC",sans-serif}main{max-width:920px;margin:0 auto;padding:64px 24px}h1{font-size:clamp(31px,5vw,60px);line-height:1.13}h2{margin-top:40px;font-size:24px}p{color:#b5c5d9}a{color:#a3d9ff}section{border-top:1px solid #35415a;margin-top:30px;padding-top:14px}.small{font-size:13px}li{margin:8px 0}</style>
+</head><body><main>
+<h1>Q-Framework × Temporal Möbius</h1><p>Connecting Compute. Extending Possibility.</p>
+<p><strong>RC4.3 | 單張 RTX 2080 Ti 成功執行 H3，不只是四卡叢集</strong></p>
+<section><h2>單卡原生 AI 運算已有實際成功案例</h2>
+<p>HAVEFUN 的 QmRNA 與原生 Runtime 研究，不只是讓多張舊 GPU 協同工作，更已讓<strong>單張擴充 22GB 的 RTX 2080 Ti 成功執行 H3 影片任務</strong>。</p>
+<ul>
+<li><strong>單卡 QmRNA：</strong>同條件 A1 H3 36 幀／10 Steps 實測，基準流程 PRE-OOM 未直接交付，Guard 模式完整產出 MP4。</li>
+<li><strong>單卡 #370／#371：</strong>A0 完成原生 H3 文生／圖生短片。</li>
+<li><strong>單卡 #365：</strong>A0 依序計算十個 RS，完成 15 秒、360 幀影片；記錄九次 CUDA OOM 後重新提交 RS，總耗時 3 小時 12 分。</li>
+<li><strong>四卡 #361：</strong>四張 RTX 2080 Ti + CPU 接縫，14 分 37 秒交付 15 秒、480×832、24fps 影片。</li>
+</ul></section>
+<section><h2>RC4.3 三語完整技術白皮書</h2>
+<p>繁體中文：<a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md">全文</a> ／ <a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf">PDF</a></p>
+<p>English: <a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-EN.md">Full text</a> / <a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-EN.pdf">PDF</a></p>
+<p>日本語：<a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-JA.md">全文</a> ／ <a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-JA.pdf">PDF</a></p>
+</section><section><h2>長期目標：異質超級電腦神經網絡</h2>
+<p>透過 QmRNA、QVRAM、QSTATE、QSTATIC、QFREEZE 與 Temporal Möbius 建立可追溯的運算與決策閉環。全網自主學習、通用異世代續算及超越 H100/H200 的同負載比較仍屬驗證中的研究目標。</p>
+<p>完整實證範圍請參閱 <a href="https://github.com/yuyu19761121/q-framework/blob/main/docs/claim-ledger.md">Public Claim Ledger</a>。</p>
+</section><p class="small">© Q-Framework · RC4.3 · 2026-10-25</p>
 </main></body></html>

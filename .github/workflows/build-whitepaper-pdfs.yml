@@ -57,8 +57,8 @@ jobs:
           """
 
           files = sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC*-*.md"))
-          if len(files) != 9:
-              raise SystemExit(f"expected 9 public markdown files, found {len(files)}")
+          if len(files) != 12:
+              raise SystemExit(f"expected 12 public markdown files, found {len(files)}")
           files.append(Path("sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.md"))
           for mdfile in files:
               body = markdown.markdown(mdfile.read_text(encoding="utf-8"), extensions=["tables", "fenced_code"])
@@ -74,7 +74,7 @@ jobs:
           git config user.email "59273422+yuyu19761121@users.noreply.github.com"
           git add whitepaper/Q-Framework-v1.0-RC*-*.pdf sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.pdf
           if git diff --cached --quiet; then
-            echo "No RC3 PDF changes."
+            echo "No PDF changes."
           else
             git commit -m "Build Q-Framework v1.0 Public Whitepaper PDFs"
             git pull --rebase origin main
