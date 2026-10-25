@@ -1,0 +1,106 @@
+{
+  "schema_version": "1.0",
+  "publication": "RC4.3-BlackBox",
+  "disclosure": "sanitized_metadata_only",
+  "title": "HAVEFUN Q-Framework and Temporal Mobius - public engineering evidence",
+  "research_goal": "heterogeneous supercomputer neural network",
+  "implementation_disclosure": "owner_only_not_in_public_release",
+  "measurement_policy": "Do not equate native model resolution with delivered/upscaled resolution, pre-OOM with CUDA hard OOM, single-card with four-card, or a segment pipeline with one-pass sampling.",
+  "claims": [
+    {
+      "id": "HF-H3-SINGLE-SHORT",
+      "status": "executed_private_receipts",
+      "hardware": "one memory-expanded RTX 2080 Ti 22GB",
+      "job_ids": [
+        "370",
+        "371"
+      ],
+      "model": "MiniMax H3",
+      "result": "native short video MP4 completed",
+      "limits": "short clips, not a single-pass 15-second model sample"
+    },
+    {
+      "id": "HF-H3-SINGLE-15S",
+      "status": "executed_private_receipts",
+      "hardware": "one memory-expanded RTX 2080 Ti 22GB",
+      "job_ids": [
+        "365"
+      ],
+      "model": "MiniMax H3",
+      "result": {
+        "duration_seconds": 15,
+        "frames": 360,
+        "segments": 10,
+        "elapsed_seconds": 11528,
+        "cuda_oom_events": 9,
+        "completion_mechanism": "retry_of_affected_whole_segments"
+      },
+      "limits": "one worker produced native segments sequentially; OOMs occurred; not OOM-free and not a single native 360-frame sampler"
+    },
+    {
+      "id": "HF-QMRNA-CONTROL",
+      "status": "matched_control_test",
+      "hardware": "same memory-expanded RTX 2080 Ti 22GB",
+      "workload": {
+        "width": 480,
+        "height": 832,
+        "frames": 36,
+        "fps": 24,
+        "steps": 10,
+        "same_reference_and_seed": true
+      },
+      "control": "preventive PRE-OOM, no required single-worker MP4",
+      "candidate": "completed ten steps and produced MP4 with QmRNA control",
+      "limits": "PRE-OOM is not a native CUDA hard OOM; implementation is proprietary"
+    },
+    {
+      "id": "HF-H3-FOUR-GPU",
+      "status": "executed_private_receipts",
+      "hardware": "four independent memory-expanded RTX 2080 Ti 22GB GPUs",
+      "job_ids": [
+        "361"
+      ],
+      "result": {
+        "duration_seconds": 15,
+        "frames": 360,
+        "fps": 24,
+        "output_width": 480,
+        "output_height": 832,
+        "elapsed_seconds": 877
+      },
+      "limits": "four-worker segmented GPU execution and CPU assembly, not one pass or unified 88GB VRAM"
+    },
+    {
+      "id": "HF-CONTINUITY-MATH",
+      "status": "controlled_numerical_test",
+      "result": "cross-GPU 20-step output matched the reference bitwise",
+      "max_absolute_difference": 0,
+      "limits": "bounded numerical test; not arbitrary model portability"
+    },
+    {
+      "id": "HF-STATE-INTEGRITY",
+      "status": "controlled_integrity_test",
+      "result": "approximately 250MiB state movement with consistent verification digests",
+      "limits": "does not imply universal VRAM pooling"
+    },
+    {
+      "id": "HF-QMRNA-VISUAL",
+      "status": "controlled_output_comparison",
+      "result": "22 of 22 decoded frames matched",
+      "limits": "one controlled image-equivalence test"
+    },
+    {
+      "id": "HF-H3-SINGLE-1080P",
+      "status": "owner_reported_awaiting_primary_receipt_verification",
+      "hardware": "one memory-expanded RTX 2080 Ti 22GB",
+      "result": "owner reports H3 1080p completion",
+      "limits": "native model sampling resolution, timing, prompt history and delivery transformation not yet independently verified in public evidence"
+    }
+  ],
+  "security": {
+    "public_scope": "outcome metadata and measurement limitations only",
+    "restricted_scope": "owner-approved anonymized audit extracts",
+    "owner_only": "source, native runtime configurations, private checkpoints and media, authentication and internal services",
+    "publication_policy": "owner review required before public merge"
+  }
+}

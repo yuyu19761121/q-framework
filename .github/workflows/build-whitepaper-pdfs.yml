@@ -4,8 +4,7 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "whitepaper/Q-Framework-v1.0-RC*-*.md"
-      - "sponsorship/Q-Framework-Sponsorship-Prospectus-v1.0-ZH-TW.md"
+      - "whitepaper/Q-Framework-v1.0-RC4.3-*.md"
       - ".github/workflows/build-whitepaper-pdfs.yml"
 
 permissions:
@@ -26,10 +25,13 @@ jobs:
       - name: Sync latest main
         run: git pull --ff-only origin main
 
+      - name: Validate BlackBox before building public PDFs
+        run: python3 scripts/check-public-disclosure.py
+
       - name: Install PDF dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk
+          sudo apt-get install -y fonts-noto-cjk poppler-utils
           python -m pip install --upgrade pip
           pip install markdown weasyprint
 
@@ -66,6 +68,9 @@ jobs:
               HTML(string=html, base_url=".").write_pdf(outfile)
               print("built", outfile)
           PY
+
+      - name: Validate BlackBox in rendered public PDFs
+        run: python3 scripts/check-public-disclosure.py --scan-generated-pdfs
 
       - name: Commit generated Public Whitepaper PDFs
         run: |

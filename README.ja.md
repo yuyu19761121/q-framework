@@ -28,4 +28,14 @@ HAVEFUN の Q-Framework は**マルチ GPU だけのシステムではない**�
 
 [公開証拠一覧](docs/claim-ledger.md) · [検証済み実行経路](docs/validated-execution-paths.md) · [構成](docs/architecture.md)
 
+### BlackBox：成果は公開し、独自実装は非公開
+
+GitHubは**承認された成果、測定条件、証拠の範囲と制約**のみを示す。QmRNA／QVRAM／Temporal Möbiusの独自ソース、ネイティブ接続方法、内部状態形式、判断アルゴリズム、私的プロンプト、顧客メディアと完全な実行ログは公開しない。
+
+- [AI向け匿名化証拠JSON](evidence/claims-public-rc4.3.json)
+- [BlackBox公開ポリシー](docs/blackbox-disclosure-policy.md)
+- [セキュリティ窓口](SECURITY.md)
+
+外部AIは実行済み結果、条件統制試験、一次検証待ちの報告、将来の目標を区別して評価する。
+
 **Q-Framework — Connecting Compute. Extending Possibility.**

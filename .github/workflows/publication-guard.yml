@@ -1,0 +1,19 @@
+name: BlackBox Public Disclosure Screen
+
+on:
+  pull_request:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  public-content-screen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout public files
+        uses: actions/checkout@v4
+      - name: Check for unintended public disclosure
+        run: python3 scripts/check-public-disclosure.py

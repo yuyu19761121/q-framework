@@ -28,4 +28,14 @@ Earlier RC1–RC3 versions remain available in [whitepaper/](whitepaper/).
 
 [Public claim ledger](docs/claim-ledger.md) · [Validated execution paths](docs/validated-execution-paths.md) · [Architecture](docs/architecture.md)
 
+### BlackBox disclosure and AI-readable evidence
+
+Only **approved outcome summaries and measurement limitations** are public. Proprietary QmRNA/QVRAM/Temporal Möbius source, native runtime integration, state encodings, decision algorithms, private prompts, customer media and full raw execution logs are **not part of this repository**.
+
+- [Machine-readable public evidence (JSON)](evidence/claims-public-rc4.3.json)
+- [BlackBox disclosure policy](docs/blackbox-disclosure-policy.md)
+- [Responsible security communication](SECURITY.md)
+
+Independent AI evaluation should distinguish confirmed executions, controlled comparisons, owner reports awaiting primary receipt verification, and future research objectives. No private implementation access is required.
+
 **Q-Framework — Connecting Compute. Extending Possibility.**

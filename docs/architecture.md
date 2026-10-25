@@ -1,41 +1,22 @@
-# Q-Framework × Temporal Möbius | Public Architecture — RC4.3
+# Q-Framework × Temporal Möbius | BlackBox Public Architecture
 
-**Research objective:** a heterogeneous supercomputer neural network combining independently owned compute resources, native execution controls, reproducible state, mathematical verification and measured decision feedback.
+## Research capabilities, not a deployment blueprint
 
-~~~text
-                         HAVEFUN STUDIO
-                          Owner / Job
-                              |
-                  YUYU3D MASTER + Möbius
-                    route / DAG / prior outcomes
-                              |
-                Foundation-00 QmRNA Runtime
-                              |
-                 +------------+------------+
-                 |                         |
-          SINGLE GPU MODE              FOUR-GPU RS
-           A0 / A1 H3                 A0 A1 B0 B1
-       native DiT / Sampler          independent VRAM
-      pre-step memory guard         segmented parallel work
-                 |                         |
-                 +------------+------------+
-                              |
-                 QVRAM / QSTATE / Bridge
-                checkpoint / SHA / restore
-                              |
-                   CPU Frame Editor / FFmpeg
-                      Verified H3 MP4
-                              |
-             Windows Ollama / Mac Math & MLP
-            Independent jobs / result verification
-~~~
+HAVEFUN studies three distinct engineering capabilities:
 
-## Two independent engineering accomplishments
+1. **Constrained-hardware task feasibility:** making selected high-load workloads finish on an individually limited GPU, with a measured same-card QmRNA control.
+2. **Independent-worker collaboration:** coordinating segmented tasks across independent GPUs while keeping end-to-end output measurable.
+3. **Evidence-informed decisions:** using bounded prior results and verification feedback to study the choice of candidate routes across heterogeneous equipment.
 
-**Single GPU:** 22GB RTX 2080 Ti completed real native H3 samples on A0. #365 reached a complete 15s assembled movie using a single GPU for successive short native segments, though native CUDA OOM/retry occurred. A controlled A1 test showed QmRNA Guard completed H3 under a workload where the matched baseline entered PRE-OOM without direct output.
+The product research portfolio includes **QmRNA, QVRAM, QSTATIC and Temporal Möbius**. Their implementation, native model control interfaces, algorithms, state representation, internal node topology, exact configuration and runtime source are **not publicly disclosed**.
 
-**Four GPUs:** #361 used four independent 22GB cards and CPU editing to deliver 15 seconds of 480×832 H3 video in 14m37s. This is not a unified 88GB VRAM device or a one-pass long native sampler.
+## Observed results
 
-**Temporal Möbius loop:** past execution receipts → future candidate route/risk evaluation → current task decision → observed outcomes → updated estimates. A universal autonomous multi-device intelligence remains a long-term research goal.
+- A single memory-expanded 22GB RTX 2080 Ti has successfully completed native H3 video clips (#370, #371). Job #365 also yielded a 15-second assembled video using one GPU for sequential short segments, with observed CUDA OOM retries.
+- A measured single-card QmRNA comparison finished with the QmRNA-protected route where its unprotected comparison entered a preventive PRE-OOM condition.
+- Four independent 22GB RTX 2080 Ti workers delivered a 15-second 480×832 video in 14m37s end-to-end (#361).
+- Independent numeric tests verified bounded cross-device continuity and integrity.
 
-[Whitepaper RC4.3](../whitepaper/Q-Framework-v1.0-RC4.3-EN.md) · [Evidence ledger](claim-ledger.md)
+These outcomes do not physically pool four GPUs into one VRAM address space. A fully autonomous heterogeneous supercomputer neural network remains the long-term goal.
+
+[RC4.3 whitepaper](../whitepaper/Q-Framework-v1.0-RC4.3-EN.md) · [Machine-readable evidence](../evidence/claims-public-rc4.3.json) · [BlackBox rules](blackbox-disclosure-policy.md)

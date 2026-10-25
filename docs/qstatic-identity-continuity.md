@@ -10,4 +10,4 @@ A controlled multi-worker experiment involving four independent GPU resources pr
 
 The broader technology landscape includes character-based video production, parallel media creation, visual composition, creative workflows, and collaborative generative-media systems.
 
-[Q-Framework technology overview](../whitepaper/Q-Framework-v1.0-RC3-EN.md)
+[Q-Framework technology overview](../whitepaper/Q-Framework-v1.0-RC4.3-EN.md)

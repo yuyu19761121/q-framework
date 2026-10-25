@@ -1,18 +1,16 @@
-# Q-Framework | Validated Execution Paths — RC4.3
+# Q-Framework | Validated Execution Summaries — BlackBox Public
 
-| Workload | Proven route | Native output and boundary |
+| Case | Publicly shareable outcome | Evidence boundary |
 |---|---|---|
-| QmRNA controlled A/B (2026-10-04) | A1 single 22GB GPU, 36f/10 Steps | Unprotected baseline PRE-OOM, no single-worker MP4; QmRNA Guard completed and wrote MP4 |
-| Studio H3 short clips #370 / #371 | A0 single 22GB GPU | H3 native text-to-video/image-to-video MP4s, ~39 frames/16fps/~2.437s |
-| H3 native 48-frame sample | A0 single 22GB GPU, 480×832, 24fps, 14 Steps | Completed 2 seconds of native video |
-| Job #365 15-second single-GPU production | A0 performs 10 × 36-frame native RS serially | 15s/360f assembled MP4, 3h12m08s; 9 native CUDA OOMs followed by fresh RS submissions |
-| Job #361 four-GPU golden delivery | A0/A1/B0/B1, 10 RS + CPU 9/9 | 15s/360f/24fps/480×832 completed in 14m37s |
-| Job #135 four-GPU production | Separate 36fps line | 15s/540 frames and final hash |
-| Controlled numerical continuation | 20 Steps GPU0→GPU1 | Bitwise identical, max absolute difference 0.0 |
-| CUDA memory movement | ~250 MiB cross-GPU, separate Q7 32MiB CUDA | SHA checked, physical allocation release and restore |
-| QmRNA decoded output A/B | Same-seed 22-frame run | 22/22 frames match |
-| Mac heterogeneous mathematics | 24/24 Math-Stream batches | Actual LAN work, independent recomputation and SHA validation |
+| Single GPU native H3 (#370, #371) | Native short MP4 outputs completed on one memory-expanded 22GB RTX 2080 Ti | Not a 15-second single-pass sampler |
+| One GPU assembled video (#365) | 15s/360f final video from ten sequential short RS; elapsed 3h12m08s | Nine CUDA OOM events led to new segment submissions |
+| Single GPU QmRNA A/B | Same-card 36f/10 steps: baseline PRE-OOM did not directly deliver; protected route completed | PRE-OOM != HARD_OOM; proprietary control internals withheld |
+| Four GPU production (#361) | 15s/360f/24fps/480×832 produced in 14m37s | Different workload than single-card run; CPU assembly |
+| Numerical continuation | 20-step cross-GPU controlled result matched bitwise | Does not prove arbitrary GPU-generation portability |
+| State transport | Approximately 250 MiB with matching verification hashes | Does not pool VRAM |
+| Visual comparison | 22/22 decoded frames matched | Specific controlled experiment |
+| H3 single-GPU 1080p | Owner reports successful completion | Native receipt verification pending |
 
-**Owner-reported 1080p:** a completed single-GPU H3 result is reported but remains pending original native receipt and resolution verification.
+Sanitized outcome summaries are public. Native graph layouts, full raw logs, model settings, runtime source, original Owner media and private prompts are not public evidence artifacts.
 
-Different workloads must not be used for unqualified per-card speed comparisons. [RC4.3 full paper](../whitepaper/Q-Framework-v1.0-RC4.3-EN.md).
+[Machine-readable claims](../evidence/claims-public-rc4.3.json) · [Disclosure policy](blackbox-disclosure-policy.md)

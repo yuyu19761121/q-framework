@@ -1,21 +1,19 @@
-# Q-Framework | Public Claim Ledger — RC4.3
+# Q-Framework | RC4.3 Public Engineering Evidence
 
-**Scope:** each claim below refers to its measured native workload. Single-card feasibility and multi-card throughput are separate results.
+**Evidence-only publication:** proprietary implementation and original media are not published. Each result has a bounded test scope and separate private receipts.
 
-| Technical claim | Evidence | Correct interpretation |
+| Claim | Measured or reported result | Status / limits |
 |---|---|---|
-| Single-GPU successful H3 execution | A0 jobs #370 and #371; subsequent 48-frame native H3 on a 22GB RTX 2080 Ti | Successful native short video clips; not automatically 15-second one-pass output |
-| QmRNA changed single-GPU feasibility | 2026-10-04 A1, same Static/Seed, 480×832, 36 frames, 10 steps | Baseline PRE-OOM/no single-worker MP4; QmRNA Pre-step Guard completed MP4. PRE-OOM is not CUDA hard OOM |
-| Full 15-second video on only one GPU | #365, A0 10 sequential RS of 36 frames | 15s/360 frames, 3h12m08s, with 9 CUDA OOM events followed by new-prompt full-segment retries |
-| Four-GPU fast production | #361, A0/A1/B0/B1, 10 RS, CPU 9/9 seams | 15s 480×832 24fps / 360f, 14m37s end to end |
-| Native model execution hook | QmRNA DiT ENTER/EXIT; H3 Gate receipt #341 | Verified connection to model execution, not proof that all Q modules always fire |
-| Control/output equivalence | 22f QmRNA same-Seed comparison | 22/22 decoded frames identical; 76s versus 81s observed once |
-| Cross-GPU numerical continuation | Controlled 20 Steps GPU0→GPU1 | Bitwise-identical, max absolute difference 0.0 |
-| Physical state transport | ~250 MiB GPU→CPU/Bridge→GPU | Three SHA-256 values match; four 22GB GPUs are not unified 88GB memory |
-| Real CUDA offload/restore | Separate Q7 32 MiB test | Allocation 33,554,432→0→33,554,432; not necessarily triggered in job #361 |
-| Native single-GPU H3 1080p | Owner-reported successful task | Await primary history, sampler resolution, frames, output and hash before independent publication |
-| Heterogeneous supercomputer neural network | Research objective plus bounded Mac/Windows/GPU mathematical experiments | No universal autonomous AI or matched H100/H200 superiority claim |
+| Single 22GB RTX 2080 Ti completed native H3 short clips | Studio #370 / #371 produced MP4 outputs | Completed, short duration, not one-pass 15 seconds |
+| Single GPU completed a 15-second segmented output | #365, ten sequential video segments, 360 frames, 3h12m08s | Completed with nine CUDA OOM events followed by retries; not OOM-free |
+| QmRNA changes feasibility on the same card | Controlled 480×832 / 36-frame / 10-step comparison: baseline PRE-OOM and no expected output versus successful QmRNA-protected output | Controlled A/B; PRE-OOM is not CUDA HARD_OOM |
+| Four 22GB GPU workers delivered video quickly | #361, 15s, 360f, 24fps, 480×832, 14m37s | End-to-end segmented GPU generation and CPU assembly |
+| Exact controlled numerical continuation | Cross-GPU 20 steps matched comparison, max absolute error 0.0 | Bounded numerical test, not arbitrary-model universal continuity |
+| Validated state integrity | Approximately 250 MiB moved with consistent digests | Controlled transport, not unified 88GB VRAM |
+| Matching visual output in a controlled comparison | QmRNA evaluation: 22 of 22 decoded frames identical | Bounded comparison; not all workflows |
+| Single-card H3 1080p completion | Research Owner reports successful run | Await native-sampling and artifact receipts for independent verification |
+| Heterogeneous supercomputer neural network | End-state research objective | Full autonomous generalization not yet verified |
 
-The public documentation intentionally excludes owner-only imagery, full private prompts, node keys and credentials.
+**BlackBox rule:** reviewers may access approved synthetic demonstrations and sanitized evidence summaries. Complete runtime configuration, source, model patching details, private media and credentials stay Owner-only.
 
-[Complete RC4.3 English whitepaper](../whitepaper/Q-Framework-v1.0-RC4.3-EN.md) · [繁體中文](../whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md) · [日本語](../whitepaper/Q-Framework-v1.0-RC4.3-JA.md)
+[AI-readable JSON](../evidence/claims-public-rc4.3.json) · [BlackBox policy](blackbox-disclosure-policy.md) · [繁體中文白皮書](../whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md)

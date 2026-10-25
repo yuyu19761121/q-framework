@@ -27,6 +27,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Validate BlackBox before public site deployment
+        run: python3 scripts/check-public-disclosure.py
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
