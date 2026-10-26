@@ -20,6 +20,10 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 
 [公開架構網頁](site/multi-node.html) · [工程路線圖](docs/multi-node-roadmap.md) · [網頁實際截圖](assets/multi-node-plan.png)。**四張 GPU 完成影片產線已驗證；四台 Mac Brain＋四台 Windows Worker 為八裝置目標，非八機已同步完成。**
 
+### 中英日圖片圖庫
+
+[**查看九張正式公開圖片**](docs/visual-gallery.md)：中／英／日招募海報、Q-Framework 完整架構圖、單卡與多卡運算比較圖。公開圖為視覺示意，實測成果與尚未完成的研發計畫分開標示。
+
 ### RC4.3 完整技術白皮書
 
 | 語言 | 全文 Markdown | PDF |

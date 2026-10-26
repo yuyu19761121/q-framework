@@ -21,6 +21,19 @@ PUBLIC_CODE_ALLOWLIST = {
     "streaming/youtube-live/Test-LivePreview.ps1",
 }
 CODE_SUFFIXES = {".py", ".js", ".ts", ".tsx", ".jsx", ".ps1", ".psm1", ".sh", ".bat", ".cmd", ".exe", ".dll", ".so", ".pyd"}
+# Explicit owner-approved public visual assets only; all other binary media remain blocked.
+PUBLIC_IMAGE_ALLOWLIST = {
+    "assets/multi-node-plan.png",
+    "assets/public-gallery/zh-TW/recruitment-poster.webp",
+    "assets/public-gallery/zh-TW/framework-architecture.webp",
+    "assets/public-gallery/zh-TW/single-vs-multi-gpu.webp",
+    "assets/public-gallery/en/recruitment-poster.webp",
+    "assets/public-gallery/en/framework-architecture.webp",
+    "assets/public-gallery/en/single-vs-multi-gpu.webp",
+    "assets/public-gallery/ja/recruitment-poster.webp",
+    "assets/public-gallery/ja/framework-architecture.webp",
+    "assets/public-gallery/ja/single-vs-multi-gpu.webp",
+}
 BINARY_REJECT_SUFFIXES = {".safetensors", ".pt", ".pth", ".ckpt", ".gguf", ".ggml", ".bin", ".npz", ".npy", ".zip", ".7z", ".rar", ".pem", ".key", ".p12", ".mp4", ".mov", ".avi", ".wav", ".mp3", ".jpg", ".jpeg", ".png", ".webp"}
 PRIVATE_PREFIXES = ("private/", "internal/", "runtime/", "checkpoints/", "model_weights/", "weights/", "data/raw/", "owner-only/", "secrets/", "customer_media/")
 PUBLICATION_PREFIXES = ("whitepaper/", "docs/", "benchmarks/", "sponsorship/", "site/", "evidence/")
@@ -62,7 +75,7 @@ def main() -> int:
         p = Path(path)
         if path.startswith(PRIVATE_PREFIXES):
             problems.append(f"{path}: private path must never be published")
-        if p.suffix.lower() in BINARY_REJECT_SUFFIXES:
+        if p.suffix.lower() in BINARY_REJECT_SUFFIXES and path not in PUBLIC_IMAGE_ALLOWLIST:
             problems.append(f"{path}: binary or private media must not be committed")
         if p.suffix.lower() in CODE_SUFFIXES and path not in PUBLIC_CODE_ALLOWLIST:
             problems.append(f"{path}: unapproved executable source in public repository")

@@ -20,6 +20,10 @@ HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax 
 
 [Public architecture & staged eight-device roadmap](site/multi-node.html) · [Engineering plan](docs/multi-node-roadmap.md) · [Architecture screenshot](assets/multi-node-plan.png). **Four-GPU video delivery is verified; four macOS Brain + four Windows Worker hosts are a target, not a completed eight-host demonstration.**
 
+### Public image gallery (ZH / EN / JA)
+
+[**Open the 9-image gallery**](docs/visual-gallery.md) — recruitment posters, complete architecture diagrams, and single-GPU versus multi-GPU operation comparisons in three languages. The images are illustrative; validated results and planned features remain separately labeled.
+
 ### RC4.3 technical whitepapers (full-length)
 
 | Language | Markdown | PDF |

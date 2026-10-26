@@ -20,6 +20,10 @@ HAVEFUN の Q-Framework は**マルチ GPU だけのシステムではない**�
 
 [公開構成ページ](site/multi-node.html) · [工程計画](docs/multi-node-roadmap.md) · [実際のページ画像](assets/multi-node-plan.png)。**4 GPU の動画生成は実証済み。macOS Brain 4台＋Windows Worker 4台の8デバイスは今後の目標。**
 
+### 日本語・英語・繁體中文 画像ギャラリー
+
+[**9枚の公開画像を見る**](docs/visual-gallery.md) — 参加募集、システム構成、単一GPU／複数GPU比較の3言語版。実証済みの成果と開発中の計画は区別しています。
+
 ### RC4.3 技術白書（全文）
 
 | 言語 | Markdown | PDF |
