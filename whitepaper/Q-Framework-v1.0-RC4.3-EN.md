@@ -18,7 +18,7 @@ The Q-Framework research portfolio includes QmRNA, QVRAM and QSTATIC for memory-
 
 - **Studio #370 and #371:** completed native MiniMax H3 short-video generation on a single GPU and produced decodable MP4s. These were short clips, not one-pass native 15-second inference.
 - **Job #365:** one GPU sequentially executed ten short native video segments. The segments were assembled into a **15-second, 360-frame** output. End-to-end execution took **3 hours 12 minutes 08 seconds**. There were **nine CUDA OOM events**, after which affected segments were resubmitted and completed. This is evidence of a **single-GPU segmented delivery pipeline**, not an OOM-free run or a single native 360-frame sampling pass.
-- **Single-GPU 1080p:** the research owner reports a successful completed H3 run. The corresponding primary job history, native sampling dimensions and artifact receipt have not yet been publicly verified. Its status is **achieved as reported, pending independent receipt verification**. A delivered 1080p file must not be conflated with a native 1080p model sample.
+- **26 Oct 2026, verified single-GPU 1080p-class final movie:** One memory-expanded RTX 2080 Ti 22GB completed **10/10 native 1088×1920 H3 RS segments**, cropped and trimmed without upscaling to a verified **1080×1920, 5-second, 120-frame, 24fps MP4**. **Zero recorded CUDA OOM events**, **1h 39m 16s** elapsed; final-media integrity confirmed, owner visual-quality review pending. This is segmented generation, not a one-pass 120-frame native sample.
 
 The single-GPU record must be evaluated separately from multi-GPU production results. Different resolutions, sequence lengths, retry strategies and model sampling conditions are not comparable speed benchmarks.
 
@@ -61,15 +61,25 @@ Separate controlled experiments recorded:
 
 These observations were not all produced within the same H3 video job. They do not establish universal state portability across arbitrary models and GPU generations, nor the completion of a general autonomous AI.
 
-## 2026-10-26 — verified single-GPU native high-resolution H3 segments
+## 26 October 2026 — verified single-GPU 1080p-class native H3 RS **and complete five-second film**
 
-**Core result: a single memory-expanded RTX 2080 Ti 22GB successfully executed native high-resolution MiniMax H3 video generation.** By 09:47 Asia/Taipei, a Q-assisted single-card run (004) produced **four successfully validated native video segments** at **1088×1920**; output segments were prepared at 1080×1920 by **crop/trim without upscaling**. This is not low-resolution 480p generation enlarged for delivery.
+**A completed, receipt-backed result:** A single **memory-expanded RTX 2080 Ti 22GB GPU** ran a Q-assisted MiniMax H3 workflow, producing **ten out of ten native high-resolution video segments and an assembled 1080×1920 five-second MP4**. Native per-segment GPU results and final-media integrity are separately documented.
 
-**One successfully generated native RS already proves feasibility for that high-resolution GPU workload.** Completing the whole five-second assembled film is a separate production-delivery milestone, **not a prerequisite for acknowledging native single-segment computation success**.
+| Measure | Confirmed single-GPU result |
+|---|---|
+| Hardware | **One RTX 2080 Ti expanded to ~22GB VRAM** (not factory 11GB) |
+| Native MiniMax H3 segments | **10/10 succeeded**, natively generated at **1088×1920 / 22 frames each** |
+| Delivered output | **1080×1920, 9:16, 5.000 seconds, 24fps, 120 frames, MP4** |
+| Output transform | Crop and temporal trim (12 delivered frames per RS), **no upscaling** |
+| Recorded CUDA OOM | **Zero in this run** |
+| Total elapsed time | **1 hour 39 minutes 16 seconds** |
+| Verification | Native execution and RS receipts; final dimensions and media-integrity digest; **owner visual-quality review pending** |
 
-**Additional Owner-reported contrast:** for a 1080p, 9:16, five-second workload objective, bare H3 without the Q-series reached OOM, whereas the Q-assisted route produced video segments. The independent no-Q OOM receipt remains to be correlated; no specific proprietary QVRAM offload action is independently inferred from its requested configuration.
+The result establishes **both native 1080p-class H3 RS feasibility on one card and verified completion of a five-second 1080p final movie**. Each segment was natively generated at 1088×1920, then cropped and trimmed to the delivery canvas. This was **not** low-resolution-to-1080p upscaling and **not** one uninterrupted native 120-frame sampling pass.
 
-**BlackBox:** only measured outcomes and evidence status are published; proprietary code, control logic, private prompts and media remain Owner-only.
+**Evidence limits:** Five seconds is the final video's **playback duration, not generation latency** (the run took 1h 39m 16s). A zero-OOM result for one bounded task does not establish universal OOM immunity. Q assistance was active, but isolated causal proof of a particular QVRAM physical spill/resume operation is not claimed. The owner's separate no-Q H3 OOM report still awaits matching primary error evidence.
+
+**BlackBox:** Proprietary runtime internals, model integration, private prompts/media, customer data and complete control strategies are not published.
 
 ## 6. Long-term objective — heterogeneous supercomputer neural network
 
@@ -85,9 +95,9 @@ External AI researchers and tools should grade claims by evidence type, not by m
 
 | Evidence status | Meaning | Example |
 |---|---|---|
-| Executed with identifiable receipts | Completed job with bounded original media/compute records | #365 single-GPU segmented video; #361 four-GPU delivery |
+| Executed with identifiable receipts | Traceable native computation, final movie and integrity receipts | **26 Oct 2026 single-GPU 1080p / 5s / 120f / 10 RS completed**; #365 single-GPU segmented film; #361 four-GPU delivery |
 | Controlled comparative result | Same device and matched input under alternative execution policy | QmRNA PRE-OOM comparison |
-| Owner-reported, awaiting primary verification | Reported completion with incomplete independently available receipts | Single-GPU 1080p |
+| Owner-reported, awaiting primary verification | Comparison-side original error not yet matched | **Separate bare-H3 no-Q OOM report**, not the verified Q-assisted 1080p movie |
 | Research objective | Plausible future architecture, not an accomplished general result | Fully adaptive heterogeneous neural supercomputer |
 
 Review may use sanitized measurements, approved synthetic workloads and owner-authorized audit reports. Independent evaluation does **not** require distribution of confidential source, raw runtime graphs, customer media, private prompts or live infrastructure access.
