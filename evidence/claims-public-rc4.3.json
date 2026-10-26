@@ -97,10 +97,22 @@
       "limits": "native model sampling resolution, timing, prompt history and delivery transformation not yet independently verified in public evidence"
     },
     {
-      "id": "HF-H3-1080-5S-Q-NOQ-20261026",
-      "status": "owner_reported_comparison_partial_native_candidate_receipts",
+      "id": "HF-H3-SINGLE-NATIVE-HIRES-RS-20261026",
+      "status": "verified_native_single_gpu_rs",
       "date": "2026-10-26",
-      "research_claim": "Owner reports bare H3 encountered OOM while Q-assisted processing generated video for a 5-second, 9:16, 1080p workload goal",
+      "hardware": "one memory-expanded RTX 2080 Ti 22GB",
+      "model": "MiniMax H3",
+      "result": "Four native H3 RS videos generated successfully at 1088x1920, delivered as 1080x1920 RS via crop/trim without upscaling",
+      "observation": "2026-10-26 09:47 Asia/Taipei",
+      "evidence_grade": "native H3 per-RS success confirmed by private execution and media receipts",
+      "significance": "The successful native RS establishes high-resolution H3 GPU-workload feasibility on the single card independently of the assembled five-second final movie",
+      "limits": "Five-second final-film assembly is a separate delivery contract. The no-Q baseline OOM is a distinct owner-reported contrast. No private prompts, media or proprietary runtime logic are published."
+    },
+    {
+      "id": "HF-H3-1080-5S-Q-NOQ-20261026",
+      "status": "owner_reported_q_vs_no_q_contrast",
+      "date": "2026-10-26",
+      "research_claim": "Owner reports bare H3 encountered OOM while Q-assisted processing generated H3 video RS for the 1080p / 9:16 / five-second workload objective",
       "related_private_test": "004 (not proven to be the same exact paired test)",
       "hardware": "one memory-expanded RTX 2080 Ti 22GB",
       "last_native_readback": {
@@ -114,7 +126,7 @@
         "delivery_transform": "crop and trim, no upscaling",
         "complete_5_second_120_frame_mp4_verified": false
       },
-      "limitations": "No independently located Q-free CUDA OOM receipt, no matched paired source and settings, no confirmed QVRAM physical spill/recovery; run 002 was not a bare no-Q baseline. Owner-reported full 5s completion remains pending complete original receipts. Proprietary execution details and private media withheld."
+      "limitations": "The no-Q error record has not been independently correlated with the successful Q path. This is separate from the already verified single-card native high-resolution RS completion; a complete five-second assembly is not required to prove native RS feasibility."
     }
   ],
   "security": {

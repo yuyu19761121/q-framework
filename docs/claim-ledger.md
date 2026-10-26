@@ -11,7 +11,8 @@
 | Exact controlled numerical continuation | Cross-GPU 20 steps matched comparison, max absolute error 0.0 | Bounded numerical test, not arbitrary-model universal continuity |
 | Validated state integrity | Approximately 250 MiB moved with consistent digests | Controlled transport, not unified 88GB VRAM |
 | Matching visual output in a controlled comparison | QmRNA evaluation: 22 of 22 decoded frames identical | Bounded comparison; not all workflows |
-| 2026-10-26 H3 1080p / 9:16 / 5s Q-versus-no-Q | Owner reports bare H3 OOM and video generated with Q assistance. Separately traced Q-path test 004: 4 of 10 native segments complete at 09:47; native 1088×1920 to delivery 1080×1920 via crop/trim, no upscaling | Owner-reported A/B, partial Q-path native receipts verified; complete 5s media, no-Q error and matched A/B evidence still pending. Prior 002 was not Q-free |
+| **Verified single-card native high-resolution H3 RS** (2026-10-26) | One RTX 2080 Ti 22GB, Q-assisted: **four native 1088×1920 H3 RS videos succeeded**; cropped without scaling to 1080×1920 for segment delivery | **Native high-resolution RS computation verified**. Full five-second assembly is a distinct delivery milestone, not a precondition for this result |
+| **Owner-reported Q vs no-Q comparison** (2026-10-26) | Owner reports bare H3 OOM versus Q-assisted video generation at 1080p / 9:16 / 5s target | Original no-Q error receipt still to be matched; independent physical QVRAM offload not inferred |
 | Single-card H3 1080p completion | Research Owner reports successful run | Await native-sampling and artifact receipts for independent verification |
 | Heterogeneous supercomputer neural network | End-state research objective | Full autonomous generalization not yet verified |
 

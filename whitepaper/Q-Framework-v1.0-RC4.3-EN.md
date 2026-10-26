@@ -61,15 +61,15 @@ Separate controlled experiments recorded:
 
 These observations were not all produced within the same H3 video job. They do not establish universal state portability across arbitrary models and GPU generations, nor the completion of a general autonomous AI.
 
-## 2026-10-26 addendum — single-card 1080p portrait / five-second Q-series comparison
+## 2026-10-26 — verified single-GPU native high-resolution H3 segments
 
-**Owner report:** with a five-second, 9:16, 1080p H3 workload target, the route **without the Q-series framework** encountered OOM while the **Q-series-assisted route** was able to generate video. This is a reported feasibility contrast deserving primary-record verification, **not yet a fully receipt-matched public A/B benchmark**.
+**Core result: a single memory-expanded RTX 2080 Ti 22GB successfully executed native high-resolution MiniMax H3 video generation.** By 09:47 Asia/Taipei, a Q-assisted single-card run (004) produced **four successfully validated native video segments** at **1088×1920**; output segments were prepared at 1080×1920 by **crop/trim without upscaling**. This is not low-resolution 480p generation enlarged for delivery.
 
-**Read-only original execution evidence as of 09:47 Asia/Taipei on 26 October:** a separately traceable single-card Q-path test (004) on one memory-expanded RTX 2080 Ti 22GB had completed **four of ten native H3 video segments**, with a fifth executing. The verified segments were generated at **1088×1920 native resolution** and converted into 1080×1920 delivery segments through **crop/trim without upscaling**. This is not a 480p image enlarged to 1080p. The **complete five-second, 120-frame output was not yet verified** at that snapshot.
+**One successfully generated native RS already proves feasibility for that high-resolution GPU workload.** Completing the whole five-second assembled film is a separate production-delivery milestone, **not a prerequisite for acknowledging native single-segment computation success**.
 
-**Remaining evidence:** the actual native no-Q OOM receipt; confirmation the Owner-reported control and candidate used matched model/seed, hardware and task conditions; which Q behaviors actually fired; and the complete five-second output's frame count, time and validation digest. Earlier run 002 requested a QmRNA gate and **cannot be represented as a fully unprotected control**. A requested QVRAM option is not itself proof of physical memory spill/recovery.
+**Additional Owner-reported contrast:** for a 1080p, 9:16, five-second workload objective, bare H3 without the Q-series reached OOM, whereas the Q-assisted route produced video segments. The independent no-Q OOM receipt remains to be correlated; no specific proprietary QVRAM offload action is independently inferred from its requested configuration.
 
-Only the comparison claim, measured public-safe output characteristics and evidentiary limits are disclosed. Runtime implementations, proprietary logic and private owner content remain BlackBox.
+**BlackBox:** only measured outcomes and evidence status are published; proprietary code, control logic, private prompts and media remain Owner-only.
 
 ## 6. Long-term objective — heterogeneous supercomputer neural network
 
