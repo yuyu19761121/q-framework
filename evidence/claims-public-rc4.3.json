@@ -147,6 +147,29 @@
         "recorded_cuda_oom_events_on_q_assisted_run": 0
       },
       "limitations": "Owner-reported no-Q OOM lacks a matched original failure receipt. Verified Q-assisted native segments and five-second film do not isolate individual QVRAM offload/resume activity."
+    },
+    {
+      "id": "HF-MULTINODE-ROADMAP-20261026",
+      "status": "public_research_roadmap_not_eight_device_verified",
+      "date": "2026-10-26",
+      "target": {
+        "macos_brain_devices": 4,
+        "windows_worker_hosts": 4,
+        "total_heterogeneous_devices": 8
+      },
+      "verified_foundations": [
+        "bounded four-discrete-GPU video delivery (#361)",
+        "bounded distributed math and numerical integrity studies",
+        "single-card 1080p-class H3 final film"
+      ],
+      "phases": [
+        "P0 bounded verified foundations",
+        "P1 one remote worker receipt loop - integration",
+        "P2 eight-device expansion - planned",
+        "P3 learning -> isolated smoke -> evaluation - research",
+        "P4 independent public benchmarks - pending"
+      ],
+      "limits": "Eight refers to target devices, not eight simultaneously verified native-inference hosts or GPUs; no physical unified 88GB VRAM; BlackBox implementation and original node identities not public"
     }
   ],
   "security": {

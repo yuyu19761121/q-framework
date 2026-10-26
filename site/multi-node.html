@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark"><meta name="description" content="HAVEFUN Q-Framework × Temporal Möbius multi-node heterogeneous computing roadmap: verified four-GPU evidence, proposed eight-device macOS Brain and Windows Worker plan.">
+<title>HAVEFUN Q-Framework｜多節點異質運算架構與發展計劃</title>
+<style>
+:root{color-scheme:dark;--ink:#eef5ff;--muted:#a5b9d1;--deep:#07101d;--edge:#273c56;--blue:#62c9ff;--mint:#62e4c0;--amber:#f6c77a}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 60% -10%,#17324e 0%,#0b1729 32%,#07101d 75%);font:16px/1.65 system-ui,-apple-system,"Noto Sans TC","Noto Sans CJK TC",sans-serif;color:var(--ink)}
+.page{max-width:1280px;margin:0 auto;padding:36px 34px 76px}
+nav{display:flex;justify-content:space-between;align-items:center;gap:18px;padding-bottom:25px;border-bottom:1px solid var(--edge);font-size:13px;color:var(--muted)}
+nav strong{letter-spacing:.13em;color:#f0f7ff}nav a,a{color:#a0dfff;text-decoration:none}nav a:hover,a:hover{text-decoration:underline}
+.top{padding:42px 0 20px}.eyebrow{color:var(--mint);font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase}
+h1{font-size:clamp(34px,5vw,59px);line-height:1.17;letter-spacing:-.035em;max-width:950px;margin:13px 0 18px}
+h1 span{color:var(--blue)}.intro{max-width:1050px;font-size:18px;color:#bed0e7;margin:0}
+.meta{display:flex;flex-wrap:wrap;gap:10px;margin:26px 0 5px}.pill{border:1px solid #33506c;border-radius:999px;padding:7px 12px;background:#10243a;color:#bdd8ef;font-size:12px;font-weight:700}.pill.ok{border-color:#206951;background:#0b3029;color:#91f1c5}.pill.plan{border-color:#725837;background:#2d271d;color:#ffdda8}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin:30px 0}.stat{background:linear-gradient(145deg,#132b44,#101e30);border:1px solid #31506d;padding:21px;border-radius:18px}.stat b{display:block;font-size:35px;line-height:1.15}.stat span{display:block;margin-top:9px;color:var(--muted);font-size:13px}
+.panel{border:1px solid #27405d;background:linear-gradient(160deg,#0e2034,#0a1728);border-radius:24px;padding:30px;margin:20px 0}
+.sectionheading{display:flex;justify-content:space-between;gap:20px;align-items:baseline;margin-bottom:20px}.sectionheading h2{margin:0;font-size:25px}.sectionheading small{color:var(--muted);font-size:12px}
+.arch{display:grid;gap:18px;justify-items:center}.stage{padding:17px 24px;border:1px solid #45617f;border-radius:17px;text-align:center;min-width:310px;background:#17314b}.stage b{font-size:17px}.stage p{margin:6px 0 0;color:#bfd0e6;font-size:13px}
+.arrow{height:30px;width:2px;background:linear-gradient(var(--mint),var(--blue));position:relative}.arrow:after{content:"";position:absolute;bottom:-2px;left:-5px;border:6px solid transparent;border-top-color:var(--blue)}
+.stage.master{background:linear-gradient(120deg,#174b65,#173651);border-color:#4ab5ca}
+.twocol{width:100%;display:grid;grid-template-columns:1fr 1fr;gap:18px}.node{padding:24px;border-radius:18px;border:1px solid #365273;background:#122840;min-height:174px}
+.node .tag{font-size:12px;letter-spacing:.12em;color:var(--mint);font-weight:800}.node:nth-child(2) .tag{color:#f2c37a}.node h3{font-size:22px;margin:6px 0}.node p{font-size:14px;color:#bdcfe4;margin:0}
+.merge{font-size:13px;color:#96c4e3;letter-spacing:.03em}
+.check{background:#122e37;border-color:#2e806e}.check p{max-width:780px}
+.roadmap{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}.phase{border:1px solid #364a62;padding:15px;border-radius:14px;min-height:210px;background:#10233a}.phase b{font-size:26px;color:var(--blue)}.phase h3{font-size:15px;margin:6px 0}.phase p{color:#b9cade;font-size:13px;margin:8px 0}.phase small{display:inline-block;margin-top:5px;font-size:11px;letter-spacing:.04em;color:#a6e9d5}.phase.future small{color:#f9d5a3}
+.notes{display:grid;grid-template-columns:1fr 1fr;gap:20px}.note{padding:20px;border-radius:16px;border:1px solid #36516d;background:#102239}.note b{display:block;margin-bottom:6px}.note p{color:#b9cadd;font-size:14px;margin:0}
+.bottom{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;align-items:center;color:#9fb4cd;font-size:12px;padding-top:20px}
+@media(max-width:860px){.roadmap{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:1fr}.twocol,.notes{grid-template-columns:1fr}.page{padding:18px}.panel{padding:18px}.stage{min-width:0;width:100%}}
+@media(max-width:530px){.roadmap{grid-template-columns:1fr}.sectionheading{display:block}h1{font-size:32px}.intro{font-size:16px}}
+@media print{body{background:#07101d}.page{max-width:none}nav a{display:none}}
+</style></head><body><main class="page">
+<nav><strong>HAVEFUN / Q-FRAMEWORK × TEMPORAL MÖBIUS</strong><div><a href="https://github.com/yuyu19761121/q-framework">GitHub</a>　·　<a href="https://github.com/yuyu19761121/q-framework/blob/main/whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf">技術白皮書 PDF</a></div></nav>
+<header class="top"><div class="eyebrow">PUBLIC ARCHITECTURE · 26 OCT 2026</div><h1>多節點異質運算計劃<br><span>從單卡突破，走向跨裝置智慧聯算。</span></h1><p class="intro">Temporal Möbius 規劃連接 Brain 推理、GPU/CPU Worker 與 Master 調度層，將可拆分的 AI 工作變成可追蹤、可驗算、可回復的運算閉環。展示的是<b>公開概念架構與分階段驗收</b>，不是實際內網接線圖。</p><div class="meta"><span class="pill ok">VERIFIED · 特定工作負載</span><span class="pill">INTEGRATING · 跨主機整合</span><span class="pill plan">ROADMAP · 八裝置目標</span></div></header>
+<section class="stats" aria-label="milestones"><div class="stat"><b>1 GPU</b><span>單張擴充版 RTX 2080 Ti 22GB，1080p／5 秒 H3 成片已驗證</span></div><div class="stat"><b>4 GPU</b><span>Job #361：四張獨立 GPU 完成 480p／15 秒影片產線</span></div><div class="stat"><b>8 DEVICES</b><span>目標：4 台 macOS Brain＋4 台 Windows Worker；尚非八機完成實績</span></div></section>
+<section class="panel" id="architecture"><div class="sectionheading"><h2>多節點協作架構</h2><small>PUBLIC CONCEPT / NOT A NETWORK WIRING DIAGRAM</small></div><div class="arch">
+<div class="stage"><b>OWNER APPROVED TASK</b><p>授權任務 · 隱私素材保護 · BlackBox</p></div><div class="arrow" aria-hidden="true"></div>
+<div class="stage master"><b>TEMPORAL MÖBIUS MASTER</b><p>任務規劃 · 分段派工 · 資源路由 · 狀態與證據管理</p></div><div class="arrow" aria-hidden="true"></div>
+<div class="twocol"><div class="node"><div class="tag">BRAIN LAYER / PLANNED</div><h3>4 × macOS Brain</h3><p>推理 · 數學 · 策略評估 · 學習與品質比較。跨機閉環持續整合，非已完成的四機通用 AI。</p></div><div class="node"><div class="tag">COMPUTE LAYER / PLANNED</div><h3>4 × Windows Worker</h3><p>GPU／CPU 生成 · 影片 RS · 分散工作 · 任務執行與回執。四卡影片成功不等於八主機聯算成功。</p></div></div><div class="merge">↓　每個子任務回報成功／失敗、時間與一致性證據　↓</div>
+<div class="stage check"><b>VERIFIED RESULTS & FEEDBACK</b><p>獨立驗算 · 隔離 Smoke · 品質評估 · 成片驗收 · 未來路由決策回饋</p></div></div></section>
+<section class="panel" id="roadmap"><div class="sectionheading"><h2>五階段工程驗收路線</h2><small>VERIFIED VS INTEGRATION VS RESEARCH</small></div><div class="roadmap">
+<div class="phase"><b>P0</b><h3>已驗證的基礎</h3><p>單卡 1080p H3 完整成片；四 GPU #361 產線；特定數學／狀態測試。</p><small>VERIFIED / BOUNDED</small></div>
+<div class="phase future"><b>P1</b><h3>一台 Worker 閉環</h3><p>認證、領題、實算、提交、回執、心跳與失敗重新驗證。</p><small>IN INTEGRATION</small></div>
+<div class="phase future"><b>P2</b><h3>八裝置整合</h3><p>四 Brain＋四 Worker，驗證心跳、分流、故障隔離與負載。</p><small>PLANNED</small></div>
+<div class="phase future"><b>P3</b><h3>學習與自動 Smoke</h3><p>每次學習後做隔離測試，以品質、速度和正確性回饋評分。</p><small>RESEARCH</small></div>
+<div class="phase future"><b>P4</b><h3>公開可重複基準</h3><p>用匿名化收據呈現成功率、效能、錯誤與一致性。</p><small>AWAITING PROOF</small></div>
+</div></section>
+<section class="notes"><div class="note"><b>核心準則｜可完成性優先</b><p>把成功率、執行時間、OOM 與成果品質分別衡量；「正在運算」不等於成功。「8 台裝置」也不是 8 張 GPU 或一塊可定址的 88GB VRAM。</p></div><div class="note"><b>BLACKBOX｜可驗證，不洩漏</b><p>不揭露私人素材、Prompt、模型接入、程式碼、內部 IP、節點身份、憑證、完整日誌或實際接線。Owner 控制授權、停止、回滾與資訊公開。</p></div></section>
+<div class="bottom"><div>Q-Framework — Connecting Compute. Extending Possibility.</div><div><a href="https://github.com/yuyu19761121/q-framework/blob/main/docs/multi-node-roadmap.md">公開技術計劃</a>　·　2026-10-26</div></div></main></body></html>

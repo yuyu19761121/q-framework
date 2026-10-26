@@ -16,6 +16,10 @@ HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax 
 
 **26 October 2026 — verified single-GPU H3 1080p-class breakthrough:** A single memory-expanded **RTX 2080 Ti 22GB** completed **10/10 native 1088×1920 H3 RS segments** and assembled the final **1080×1920, 5-second, 120-frame, 24fps MP4**, with **zero recorded CUDA OOM** and **no upscaling**. The complete run took **1h 39m 16s**; five seconds is playback duration, not generation latency. Native-RS and final-film receipts are verified; visual quality awaits owner review. The owner-reported unassisted H3 OOM comparison remains separately uncorrelated. [Evidence](docs/claim-ledger.md).
 
+### Multi-node compute roadmap
+
+[Public architecture & staged eight-device roadmap](site/multi-node.html) · [Engineering plan](docs/multi-node-roadmap.md) · [Architecture screenshot](assets/multi-node-plan.png). **Four-GPU video delivery is verified; four macOS Brain + four Windows Worker hosts are a target, not a completed eight-host demonstration.**
+
 ### RC4.3 technical whitepapers (full-length)
 
 | Language | Markdown | PDF |

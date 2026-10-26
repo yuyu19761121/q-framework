@@ -9,7 +9,7 @@
 | Numerical continuation | 20-step cross-GPU controlled result matched bitwise | Does not prove arbitrary GPU-generation portability |
 | State transport | Approximately 250 MiB with matching verification hashes | Does not pool VRAM |
 | Visual comparison | 22/22 decoded frames matched | Specific controlled experiment |
-| H3 single-GPU 1080p | Owner reports successful completion | Native receipt verification pending |
+| H3 single-GPU 1080p (2026-10-26) | One 22GB RTX 2080 Ti generated 10/10 native 1088×1920 RS; final 1080×1920, 5s, 120f MP4 verified, no upscaling; no CUDA OOM recorded in this run | Private native and final media receipts verified, Owner visual QC pending; not a single uninterrupted 120-frame native pass |
 
 Sanitized outcome summaries are public. Native graph layouts, full raw logs, model settings, runtime source, original Owner media and private prompts are not public evidence artifacts.
 

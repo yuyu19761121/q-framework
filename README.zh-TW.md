@@ -16,6 +16,10 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 
 **2026/10/26｜單卡 1080p 已正式成片！**單張**擴充 22GB 的 RTX 2080 Ti**，在 Q 系列輔助路徑下完成 **10／10 支原生 1088×1920 MiniMax H3 RS**，只裁切及截幀、**沒有升頻**，組成完整 **1080×1920、5 秒、120 幀、24fps MP4**。本輪 **0 次 CUDA OOM 紀錄**，完成耗時 **1 小時 39 分 16 秒**（5 秒是影片長度，不是生成延遲）。原生運算、成片規格及雜湊驗證均有回執，影片視覺品質待 Owner 驗收。Owner 回報的無 Q OOM 對照仍待配對失敗原始證據。[技術證據](docs/claim-ledger.md)。
 
+### 多節點異質運算計劃
+
+[公開架構網頁](site/multi-node.html) · [工程路線圖](docs/multi-node-roadmap.md) · [網頁實際截圖](assets/multi-node-plan.png)。**四張 GPU 完成影片產線已驗證；四台 Mac Brain＋四台 Windows Worker 為八裝置目標，非八機已同步完成。**
+
 ### RC4.3 完整技術白皮書
 
 | 語言 | 全文 Markdown | PDF |

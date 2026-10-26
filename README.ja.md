@@ -16,6 +16,10 @@ HAVEFUN の Q-Framework は**マルチ GPU だけのシステムではない**�
 
 **2026年10月26日・単一GPUの1080p完成動画に成功：**VRAM拡張版 **RTX 2080 Ti 22GB×1** でネイティブ **1088×1920 H3 RSを10/10個**生成。クロップとトリミングのみでアップスケールせず、**1080×1920／5秒／120フレーム／24fps MP4**を完成。CUDA OOM記録 **0回**、総所要時間 **1時間39分16秒**（5秒は映像の再生時間）。RSと完成映像の技術レシートは検証済み、画質はオーナー確認待ち。QなしH3のOOM対照は元エラーとの照合待ち。[証拠](docs/claim-ledger.md)。
 
+### マルチノード異種計算計画
+
+[公開構成ページ](site/multi-node.html) · [工程計画](docs/multi-node-roadmap.md) · [実際のページ画像](assets/multi-node-plan.png)。**4 GPU の動画生成は実証済み。macOS Brain 4台＋Windows Worker 4台の8デバイスは今後の目標。**
+
 ### RC4.3 技術白書（全文）
 
 | 言語 | Markdown | PDF |

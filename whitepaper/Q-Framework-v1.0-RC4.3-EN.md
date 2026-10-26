@@ -89,6 +89,36 @@ HAVEFUN seeks a network of independent GPU, CPU, workstation and other authorize
 
 **Still requiring generalization:** continuous autonomous learning across the whole network, native model-state restoration across arbitrary device generations, broadly validated automatic decision quality and strictly matched H100/H200 performance comparisons.
 
+## 6A. Multi-node heterogeneous compute plan (public roadmap)
+
+**Objective:** Under Owner authorization, coordinate distinct macOS/Windows, CPU/GPU and reasoning/production nodes for divisible math, inference, video-RS generation, verification and feedback tasks. **This is an engineering roadmap, not a claim that an eight-device native video inference network has already shipped.**
+
+| Role | Intended work | Evidence status |
+|---|---|---|
+| Master / orchestration | Authorized task admission, verifiable work partitioning, route selection, receipts and Owner stop/rollback rights | Validated bounded multi-GPU video workflow; unified cross-host orchestration remains under integration |
+| Brain / reasoning and evaluation | Bounded mathematical work, candidate route assessment, quality scoring and learning feedback across a target of four macOS devices | Limited distributed-math and training experiments exist; continuous autonomous closed loop not yet fully verified |
+| Windows GPU/CPU Workers | Execute compatible RS or numerical tasks, report performance, completion and errors; target four Windows worker hosts | Four discrete GPUs completed one bounded production workload; generalized cross-host Worker protocol still being validated |
+
+**Target fleet: four macOS Brain devices plus four Windows Worker hosts = eight heterogeneous devices.** The number **eight is a deployment target, not eight verified simultaneous compute nodes or eight GPUs**. The completed #361 four-GPU video pipeline and the planned eight-host topology are different evidence claims. Four separate 22GB GPUs do not form one directly addressable 88GB GPU.
+
+**Planned closed loop:**
+
+`Owner-approved request → Master task/RS partition → Brain reasoning + Worker execution → per-task receipts and independent checks → delivery / QC → experience feedback → next-route evaluation`
+
+Each step must yield a task identifier, state, node-independent success or failure receipt, latency and verifiable output. Planned engineering gates include worker identity compatibility, heartbeat, timeout, idempotent claim/submit, offline recovery, recovery after failure, quality checks and Owner-authorized cancellation. **These are acceptance criteria, not blanket claims of current functionality.** QmRNA, QVRAM, QSTATIC, QAnswer and Temporal Möbius are named functional modules; proprietary orchestration, internal state representation and model integration remain BlackBox.
+
+| Phase | Acceptance gate | Status |
+|---|---|---|
+| **P0 measured foundations** | Single-GPU 1080p/5s film, #361 four-GPU 480p/15s film, bounded numerical/integrity tests | Verified within stated scopes |
+| **P1 one remote Worker loop** | Identity, claim, compute, submit, receipt, heartbeat, failure and independent re-check | Integration in progress |
+| **P2 eight-device rollout** | Four Brain + four Windows Worker devices with observable availability, scheduling, isolation and failover | Planned, not fully verified |
+| **P3 learning-to-smoke loop** | Learning output triggers isolated smoke, Master/Möbius evaluation of quality, consistency and throughput | Research stage |
+| **P4 public benchmark** | Per-workload completion rate, runtime, node contributions, OOM/failure counts and output consistency | Awaiting verified dataset |
+
+The principal metrics are **task feasibility first, then speed, correctness, reliability and resource use**. Do not infer universal cross-generation GPU model-state continuation or fully autonomous heterogeneous neural computation from a bounded four-GPU video production case.
+
+Public diagram and stage details: [multi-node architecture page](../site/multi-node.html) · [public roadmap](../docs/multi-node-roadmap.md). Internal node names, IPs, authentication, native runtime and owner media are not published.
+
 ## 7. Guidance for independent AI evaluation
 
 External AI researchers and tools should grade claims by evidence type, not by marketing language.
