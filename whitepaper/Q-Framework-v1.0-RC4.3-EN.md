@@ -61,6 +61,16 @@ Separate controlled experiments recorded:
 
 These observations were not all produced within the same H3 video job. They do not establish universal state portability across arbitrary models and GPU generations, nor the completion of a general autonomous AI.
 
+## 2026-10-26 addendum — single-card 1080p portrait / five-second Q-series comparison
+
+**Owner report:** with a five-second, 9:16, 1080p H3 workload target, the route **without the Q-series framework** encountered OOM while the **Q-series-assisted route** was able to generate video. This is a reported feasibility contrast deserving primary-record verification, **not yet a fully receipt-matched public A/B benchmark**.
+
+**Read-only original execution evidence as of 09:47 Asia/Taipei on 26 October:** a separately traceable single-card Q-path test (004) on one memory-expanded RTX 2080 Ti 22GB had completed **four of ten native H3 video segments**, with a fifth executing. The verified segments were generated at **1088×1920 native resolution** and converted into 1080×1920 delivery segments through **crop/trim without upscaling**. This is not a 480p image enlarged to 1080p. The **complete five-second, 120-frame output was not yet verified** at that snapshot.
+
+**Remaining evidence:** the actual native no-Q OOM receipt; confirmation the Owner-reported control and candidate used matched model/seed, hardware and task conditions; which Q behaviors actually fired; and the complete five-second output's frame count, time and validation digest. Earlier run 002 requested a QmRNA gate and **cannot be represented as a fully unprotected control**. A requested QVRAM option is not itself proof of physical memory spill/recovery.
+
+Only the comparison claim, measured public-safe output characteristics and evidentiary limits are disclosed. Runtime implementations, proprietary logic and private owner content remain BlackBox.
+
 ## 6. Long-term objective — heterogeneous supercomputer neural network
 
 HAVEFUN seeks a network of independent GPU, CPU, workstation and other authorized compute resources that can collaborate through verifiable tasks, protected computation state, historical outcomes and progressively improved decision policies.

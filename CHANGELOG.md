@@ -1,5 +1,9 @@
 # Public Releases
 
+## 2026-10-26 — 1080p single-GPU Q/no-Q observation (BlackBox)
+
+Added an Owner-reported contrast for a five-second portrait H3 workload. Verified a related Q-assisted single-card native-segment output; separated cropped 1080p delivery from the native 1088p-wide sample. Did not claim a complete five-second original receipt, independently verified no-Q baseline, or proven physical QVRAM spill. Updated the AI-readable evidence data and the three public whitepapers while preserving source/privacy restrictions.
+
 ## October 2026 — RC4.3 BlackBox publication hardening
 
 - Replaced public RC4.3 whitepaper text in English, Traditional Chinese and Japanese with BlackBox-safe descriptions of measured outcomes and limits.

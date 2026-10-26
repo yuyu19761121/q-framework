@@ -95,6 +95,26 @@
       "hardware": "one memory-expanded RTX 2080 Ti 22GB",
       "result": "owner reports H3 1080p completion",
       "limits": "native model sampling resolution, timing, prompt history and delivery transformation not yet independently verified in public evidence"
+    },
+    {
+      "id": "HF-H3-1080-5S-Q-NOQ-20261026",
+      "status": "owner_reported_comparison_partial_native_candidate_receipts",
+      "date": "2026-10-26",
+      "research_claim": "Owner reports bare H3 encountered OOM while Q-assisted processing generated video for a 5-second, 9:16, 1080p workload goal",
+      "related_private_test": "004 (not proven to be the same exact paired test)",
+      "hardware": "one memory-expanded RTX 2080 Ti 22GB",
+      "last_native_readback": {
+        "observed_local_time": "2026-10-26 09:47 Asia/Taipei",
+        "q_path_native_segments_complete": 4,
+        "target_segments": 10,
+        "native_segment_width": 1088,
+        "native_segment_height": 1920,
+        "delivery_width": 1080,
+        "delivery_height": 1920,
+        "delivery_transform": "crop and trim, no upscaling",
+        "complete_5_second_120_frame_mp4_verified": false
+      },
+      "limitations": "No independently located Q-free CUDA OOM receipt, no matched paired source and settings, no confirmed QVRAM physical spill/recovery; run 002 was not a bare no-Q baseline. Owner-reported full 5s completion remains pending complete original receipts. Proprietary execution details and private media withheld."
     }
   ],
   "security": {

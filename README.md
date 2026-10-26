@@ -14,6 +14,8 @@ HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax 
 
 The owner reports an additional **single-card H3 1080p completion**. This is an owner-reported achieved result **pending native prompt/history, actual sampler dimensions, and media receipt verification**, not a published independent performance benchmark.
 
+**26 Oct 2026 — new 1080p / 9:16 / 5s report:** The owner reports that bare H3 (without Q-series assistance) hit OOM while the Q-assisted route generated video. In a separately traceable Q-path run, four native 1088×1920 segments were verified by 09:47 (cropped, not upscaled, for 1080×1920 delivery); the full five-second final file and no-Q baseline receipt remained unverified at that point. This is a **reported A/B contrast pending matched primary receipts**, not a new fully audited five-second benchmark. [Read the bounded evidence](docs/claim-ledger.md).
+
 ### RC4.3 technical whitepapers (full-length)
 
 | Language | Markdown | PDF |

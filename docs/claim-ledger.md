@@ -11,6 +11,7 @@
 | Exact controlled numerical continuation | Cross-GPU 20 steps matched comparison, max absolute error 0.0 | Bounded numerical test, not arbitrary-model universal continuity |
 | Validated state integrity | Approximately 250 MiB moved with consistent digests | Controlled transport, not unified 88GB VRAM |
 | Matching visual output in a controlled comparison | QmRNA evaluation: 22 of 22 decoded frames identical | Bounded comparison; not all workflows |
+| 2026-10-26 H3 1080p / 9:16 / 5s Q-versus-no-Q | Owner reports bare H3 OOM and video generated with Q assistance. Separately traced Q-path test 004: 4 of 10 native segments complete at 09:47; native 1088×1920 to delivery 1080×1920 via crop/trim, no upscaling | Owner-reported A/B, partial Q-path native receipts verified; complete 5s media, no-Q error and matched A/B evidence still pending. Prior 002 was not Q-free |
 | Single-card H3 1080p completion | Research Owner reports successful run | Await native-sampling and artifact receipts for independent verification |
 | Heterogeneous supercomputer neural network | End-state research objective | Full autonomous generalization not yet verified |
 
