@@ -1,0 +1,77 @@
+name: Capture public multi-node architecture page
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main"]
+    paths:
+      - "site/multi-node.html"
+      - ".github/workflows/capture-multi-node-page.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: q-framework-multi-node-screenshot
+  cancel-in-progress: true
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync canonical branch
+        run: git pull --ff-only origin main
+      - name: Check BlackBox public content
+        run: python3 scripts/check-public-disclosure.py
+      - name: Setup capture runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install browser
+        run: |
+          npm install --no-save --no-package-lock playwright@1.56.1
+          npx playwright install chromium --with-deps
+      - name: Capture real rendered public page
+        run: |
+          mkdir -p assets
+          node <<'JS'
+          const { chromium } = require('playwright');
+          const path = require('path');
+          (async () => {
+            const browser = await chromium.launch({headless:true});
+            const page = await browser.newPage({viewport:{width:1440,height:1050},deviceScaleFactor:1});
+            await page.goto('file://' + path.resolve('site/multi-node.html'),{waitUntil:'load'});
+            await page.evaluate(() => document.fonts.ready);
+            const title = await page.title();
+            if (!title.includes('多節點')) throw new Error('Unexpected page title: ' + title);
+            if (await page.locator('#architecture').count() !== 1) throw new Error('Missing public architecture diagram');
+            await page.screenshot({path:'assets/multi-node-plan.png',fullPage:true,animations:'disabled'});
+            await browser.close();
+            console.log('Captured real 1440px browser screenshot of public architecture page');
+          })().catch(err=>{ console.error(err); process.exit(1); });
+          JS
+      - name: Check captured file
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path("assets/multi-node-plan.png")
+          sig=p.read_bytes()[:8]
+          assert sig == b"\x89PNG\r\n\x1a\n" and p.stat().st_size>10000
+          print("Public screenshot:",p,p.stat().st_size,"bytes")
+          PY
+      - name: Commit screenshot to public repository
+        run: |
+          git config user.name "q-framework-bot"
+          git config user.email "59273422+yuyu19761121@users.noreply.github.com"
+          git add assets/multi-node-plan.png
+          if git diff --cached --quiet; then
+            echo "Screenshot unchanged."
+          else
+            git commit -m "Capture public multi-node architecture page screenshot"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
