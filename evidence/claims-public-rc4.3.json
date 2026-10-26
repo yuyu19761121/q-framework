@@ -5,7 +5,7 @@
   "title": "HAVEFUN Q-Framework and Temporal Mobius - public engineering evidence",
   "research_goal": "heterogeneous supercomputer neural network",
   "implementation_disclosure": "owner_only_not_in_public_release",
-  "measurement_policy": "Do not equate native model resolution with delivered/upscaled resolution, pre-OOM with CUDA hard OOM, single-card with four-card, or a segment pipeline with one-pass sampling.",
+  "measurement_policy": "Distinguish native 1088x1920 H3 RS sampling from non-upscaled 1080x1920 final delivery; five-second playback duration from 1h39m16s generation/assembly time; preventive PRE-OOM from CUDA hard OOM; single-card vs four-card runs; segmented assembly vs single-pass 120-frame sampling.",
   "claims": [
     {
       "id": "HF-H3-SINGLE-SHORT",
@@ -91,42 +91,62 @@
     },
     {
       "id": "HF-H3-SINGLE-1080P",
-      "status": "owner_reported_awaiting_primary_receipt_verification",
-      "hardware": "one memory-expanded RTX 2080 Ti 22GB",
-      "result": "owner reports H3 1080p completion",
-      "limits": "native model sampling resolution, timing, prompt history and delivery transformation not yet independently verified in public evidence"
+      "status": "verified_private_native_rs_and_complete_single_gpu_1080p_film",
+      "hardware": "one memory-expanded RTX 2080 Ti approximately 22GB VRAM (factory 11GB card modified)",
+      "result": {
+        "native_rs_succeeded": 10,
+        "native_rs_total": 10,
+        "native_rs_width": 1088,
+        "native_rs_height": 1920,
+        "native_rs_frames_each": 22,
+        "final_delivery_width": 1080,
+        "final_delivery_height": 1920,
+        "final_delivery_fps": 24,
+        "final_delivery_frames": 120,
+        "final_duration_seconds": 5,
+        "final_mp4_verified": true,
+        "delivery_transform": "crop and temporal trim, no upscaling",
+        "recorded_cuda_oom_events": 0,
+        "total_elapsed_seconds": 5956,
+        "owner_visual_quality_status": "pending owner review"
+      },
+      "limits": "bounded single GPU Q-assisted segmented execution, not a single 120-frame native sample; five-second playback is not five-second computation; zero recorded OOM for this run not universal OOM immunity; no independently isolated causal QVRAM physical spill/resume proof",
+      "date": "2026-10-26",
+      "model": "MiniMax H3",
+      "evidence_grade": "native RS receipts (10 of 10) and final video media specifications and SHA integrity receipt in owner-controlled validation environment"
     },
     {
       "id": "HF-H3-SINGLE-NATIVE-HIRES-RS-20261026",
-      "status": "verified_native_single_gpu_rs",
+      "status": "verified_native_single_gpu_rs_and_complete_five_second_final",
       "date": "2026-10-26",
       "hardware": "one memory-expanded RTX 2080 Ti 22GB",
       "model": "MiniMax H3",
-      "result": "Four native H3 RS videos generated successfully at 1088x1920, delivered as 1080x1920 RS via crop/trim without upscaling",
-      "observation": "2026-10-26 09:47 Asia/Taipei",
-      "evidence_grade": "native H3 per-RS success confirmed by private execution and media receipts",
-      "significance": "The successful native RS establishes high-resolution H3 GPU-workload feasibility on the single card independently of the assembled five-second final movie",
-      "limits": "Five-second final-film assembly is a separate delivery contract. The no-Q baseline OOM is a distinct owner-reported contrast. No private prompts, media or proprietary runtime logic are published."
+      "result": "10/10 native 1088x1920 H3 RS videos generated successfully on one GPU, cropped and trimmed without upscaling to a verified 1080x1920 / 5-second / 120-frame MP4",
+      "observation": "2026-10-26 after final-film receipt validation, Asia/Taipei",
+      "evidence_grade": "ten private native RS execution and media receipts plus final delivered video hash and frame-count validation",
+      "significance": "Both native 1080p-class RS workload feasibility and complete five-second 1080p final movie now verified on a single memory-expanded 22GB RTX 2080 Ti",
+      "limits": "1h39m16s total elapsed, not five-second compute latency; independent Q-free failure still owner-reported; visual quality requires owner review; no proprietary media or runtime detail released"
     },
     {
       "id": "HF-H3-1080-5S-Q-NOQ-20261026",
       "status": "owner_reported_q_vs_no_q_contrast",
       "date": "2026-10-26",
-      "research_claim": "Owner reports bare H3 encountered OOM while Q-assisted processing generated H3 video RS for the 1080p / 9:16 / five-second workload objective",
+      "research_claim": "Owner reports unassisted H3 encountered OOM under related 1080p-class workload; independently verified Q-assisted single GPU produced complete five-second 1080p final MP4.",
       "related_private_test": "004 (not proven to be the same exact paired test)",
       "hardware": "one memory-expanded RTX 2080 Ti 22GB",
       "last_native_readback": {
-        "observed_local_time": "2026-10-26 09:47 Asia/Taipei",
-        "q_path_native_segments_complete": 4,
+        "observed_local_time": "2026-10-26 final receipt verified, Asia/Taipei",
+        "q_path_native_segments_complete": 10,
         "target_segments": 10,
         "native_segment_width": 1088,
         "native_segment_height": 1920,
         "delivery_width": 1080,
         "delivery_height": 1920,
-        "delivery_transform": "crop and trim, no upscaling",
-        "complete_5_second_120_frame_mp4_verified": false
+        "delivery_transform": "crop and temporal trim; no upscaling",
+        "complete_5_second_120_frame_mp4_verified": true,
+        "recorded_cuda_oom_events_on_q_assisted_run": 0
       },
-      "limitations": "The no-Q error record has not been independently correlated with the successful Q path. This is separate from the already verified single-card native high-resolution RS completion; a complete five-second assembly is not required to prove native RS feasibility."
+      "limitations": "Owner-reported no-Q OOM lacks a matched original failure receipt. Verified Q-assisted native segments and five-second film do not isolate individual QVRAM offload/resume activity."
     }
   ],
   "security": {
