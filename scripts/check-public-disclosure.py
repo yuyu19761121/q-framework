@@ -95,7 +95,9 @@ def main() -> int:
             problems.append("evidence/claims-public-rc4.3.json: invalid public disclosure class")
 
     if args.scan_generated_pdfs:
-        for pdf in sorted((ROOT / "whitepaper").glob("Q-Framework-v1.0-RC4.3-*.pdf")):
+        pdf_paths = sorted((ROOT / "whitepaper").glob("Q-Framework-v1.0-RC4.3-*.pdf"))
+        pdf_paths += sorted((ROOT / "whitepaper").glob("Q-Framework-v1.0-RC4.4-*-REVIEW.pdf"))
+        for pdf in pdf_paths:
             try:
                 extracted = subprocess.run(["pdftotext", str(pdf), "-"], check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode("utf-8", "replace")
             except (OSError, subprocess.CalledProcessError):

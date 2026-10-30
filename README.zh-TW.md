@@ -26,6 +26,10 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 
 [**查看九張正式公開圖片**](docs/visual-gallery.md)：中／英／日招募海報、Q-Framework 完整架構圖、單卡與多卡運算比較圖。公開圖為視覺示意，實測成果與尚未完成的研發計畫分開標示。
 
+### RC4.4 繁體中文審閱稿｜2026-10-30
+
+[**閱讀 RC4.4 審閱全文**](whitepaper/Q-Framework-v1.0-RC4.4-ZH-TW-REVIEW.md) · [**查看 RC4.4 審閱版 PDF**](whitepaper/Q-Framework-v1.0-RC4.4-ZH-TW-REVIEW.pdf)。本版以原生 4K H3 運算避免 CUDA HARD OOM 為首要研究驗收指標，並記錄跨 GPU 同 Block 分食、QSTATIC／QFREEZE 恢復和真實張量驗證。**這是供 Owner 審閱的新版本，未取代既有五語 RC4.3 正式白皮書；影片成片另行驗收。**
+
 ### RC4.3 完整技術白皮書
 
 | 語言 | 全文 Markdown | PDF |
