@@ -31,7 +31,7 @@ jobs:
       - name: Install PDF dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y fonts-noto-cjk poppler-utils
+          sudo apt-get install -y fonts-noto-cjk fonts-dejavu-core poppler-utils
           python -m pip install --upgrade pip
           pip install markdown weasyprint
 
@@ -45,7 +45,7 @@ jobs:
           css = """
           @page { size: A4; margin: 18mm 16mm 18mm 16mm; }
           body {
-            font-family: "Noto Sans CJK TC", "Noto Sans CJK JP", sans-serif;
+            font-family: "DejaVu Sans", "Noto Sans CJK TC", "Noto Sans CJK JP", sans-serif;
             line-height: 1.65; font-size: 10.5pt; color: #161616;
           }
           h1 { font-size: 24pt; margin: 0 0 10mm 0; }
@@ -59,8 +59,8 @@ jobs:
           """
 
           files = sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC4.3-*.md"))
-          if len(files) != 3:
-              raise SystemExit(f"expected 3 RC4.3 markdown files, found {len(files)}")
+          if len(files) != 5:
+              raise SystemExit(f"expected 5 RC4.3 markdown files, found {len(files)}")
           for mdfile in files:
               body = markdown.markdown(mdfile.read_text(encoding="utf-8"), extensions=["tables", "fenced_code"])
               html = f"<html><head><meta charset='utf-8'><style>{css}</style></head><body>{body}</body></html>"
