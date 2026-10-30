@@ -31,8 +31,8 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 | 繁體中文 | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md) | [下載](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf) |
 | English | [Read](whitepaper/Q-Framework-v1.0-RC4.3-EN.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-EN.pdf) |
 | 日本語 | [読む](whitepaper/Q-Framework-v1.0-RC4.3-JA.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-JA.pdf) |
-| Español | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | 由 GitHub Actions 產生 |
-| Português (Brasil) | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | 由 GitHub Actions 產生 |
+| Español | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ES.pdf) |
+| Português (Brasil) | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.pdf) |
 
 原 RC1–RC3 歷史版本保留於 [whitepaper/](whitepaper/)。
 
