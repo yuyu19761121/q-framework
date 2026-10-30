@@ -1,0 +1,219 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><title>Q-Framework RC4.4 REVIEW</title><style>
+@page {size:A4;margin:19mm 18mm 19mm 18mm;@top-right{content:"HAVEFUN  /  Q-FRAMEWORK";color:#64748b;font-size:8pt;letter-spacing:.08em;}@bottom-left{content:"RC4.4  |  REVIEW DRAFT  |  2026-10-30";color:#64748b;font-size:8pt;}@bottom-right{content:counter(page);color:#64748b;font-size:9pt}}
+@page:first{@top-right{content:""} @bottom-left{content:""} @bottom-right{content:""}}
+*{box-sizing:border-box}html{font-family:"Noto Sans CJK TC","Noto Sans CJK JP",sans-serif;color:#243244}body{line-height:1.72;font-size:10pt;word-break:normal}
+h1{font-size:28pt;line-height:1.23;color:#102237;letter-spacing:-.03em;margin:24mm 0 9mm 0}h2{font-size:16pt;line-height:1.36;color:#16436b;margin:11mm 0 4mm;border-bottom:1px solid #b7c9d9;padding-bottom:2.5mm;break-after:avoid}h3{font-size:12pt;color:#194d72;margin:8mm 0 3mm;break-after:avoid}p{margin:0 0 3.5mm}strong{color:#153c5c}blockquote{margin:5mm 0 7mm 0;padding:5mm 6mm;background:#f4f7fa;border-left:3px solid #5888a5;color:#46576c;break-inside:avoid}blockquote p{margin:0}
+table{border-collapse:collapse;width:100%;font-size:8.45pt;line-height:1.48;margin:4mm 0 6mm;table-layout:auto}thead{display:table-header-group}tr{break-inside:avoid}th{background:#e9f1f7;color:#143a57;text-align:left;font-weight:700}td,th{border:1px solid #d2dee7;padding:2.6mm 2.9mm;vertical-align:top;overflow-wrap:anywhere}tbody tr:nth-child(even){background:#fafcfd}
+ul,ol{margin:2mm 0 5mm;padding-left:6mm}li{margin:2mm 0}code{font-size:.9em;background:#eef2f6;padding:.08em .25em;border-radius:2px}a{color:#1c638d}
+h1 + h2{border:none;font-size:17pt;margin-top:0;padding-bottom:0;max-width:160mm;color:#216185}h1 + h2 + p{font-size:10.5pt;color:#54697a;margin-bottom:12mm}
+</style></head><body><h1>HAVEFUN Q-Framework × Temporal Möbius</h1>
+<h2>RC4.4｜BlackBox 公開研究白皮書・繁體中文審閱稿</h2>
+<p><strong>2026 年 10 月 30 日｜由 RC4.3 帶狀增補，不覆寫歷史成果</strong><br />
+<strong>核心命題：使受限 VRAM 的 GPU 執行原生 4K H3 運算而不發生 CUDA OOM；並驗證同一工作區塊可由異質節點共同計算、合併、恢復。</strong></p>
+<blockquote>
+<p><strong>公開範圍與版本狀態</strong>：這是供 Owner 審閱的 RC4.4 草稿，而非已核准的正式公開版本。所有技術主張依據已保存的試驗收據分級；不公開原始碼、私有模型接線、內部位址、憑證、控制參數、原始影像與客戶媒體。測試時觀測「沒有 OOM」不能自動外推為所有工作負載永遠不會 OOM。</p>
+</blockquote>
+<h3>版本摘要：RC4.4 的真正重點</h3>
+<p>本版維持 RC4.3 已驗證的單卡 1080p、四 GPU 影片交付和 QmRNA 對照成果，新增 <strong>2026 年 10 月 30 日</strong>原生 4K DiT／QKV 長跑與觀測、跨 GPU 同 Block 分食合併、QSTATIC／QFREEZE 狀態驗證、故障節點接手、1024×N DRIP 與 OOM 異卡路由修補。</p>
+<p><strong>首要驗收目標是 4K 計算本身是否避免 CUDA OOM，並且在長時間原生 H3 計算期間能留存進度。</strong> 影片最終輸出、畫面品質和跨節點端到端加速是不同層次的證據，<strong>不應拿「尚未交付新影片」否定已完成的 4K 計算與分算實驗</strong>。反之，部分分塊測試通過也不能假稱「整個 4K 工作已全部完成」。</p>
+<table>
+<thead>
+<tr>
+  <th>證據層級</th>
+  <th>本版判定方式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>A｜已交付並核驗</td>
+  <td>原生運算與可解碼媒體、尺寸／時長／雜湊等相符</td>
+</tr>
+<tr>
+  <td>B｜實機技術測試 PASS</td>
+  <td>真實 GPU 張量、真 H3 權重或原生擷取輸入；有合併／差異／簽章收據，但非完整影片</td>
+</tr>
+<tr>
+  <td>C｜原生 4K 執行觀測</td>
+  <td>對應 Job 的實際 Sampler／DiT／QKV 記錄、顯存與故障事件；不要求先完成 MP4</td>
+</tr>
+<tr>
+  <td>D｜程式修補／隔離驗證</td>
+  <td>源碼修正與單項測試通過；仍需區分是否已載入正式長跑程序</td>
+</tr>
+<tr>
+  <td>E｜待整合驗收</td>
+  <td>已有現成能力，但指定原生 Job 的整合、復原或比較尚無完整收據</td>
+</tr>
+</tbody>
+</table>
+<h2>1｜研究問題：不是增加實體顯存，而是提高任務可完成性</h2>
+<p>單張 RTX 2080 Ti 的實體容量和原始算力不會因軟體改變。HAVEFUN Q-Framework 探索的是：在有限 VRAM 下，透過 QmRNA、QVRAM、QSTATIC、QFREEZE、QAnswer 與 Temporal Möbius 的<strong>既有協同機制</strong>，使較大模型與較高解析度的運算可被安排、分頁、檢查、接手與完成。重點依序是<strong>不 OOM／可恢復／結果正確</strong>，其後才比較速度、吞吐和能耗。</p>
+<p>Temporal Möbius 不等於多張顯卡固定分工。相同 Job → RS → Sampler Step → DiT Block 之內，還能將 Query／Key-Value 範圍切為更小的可驗證子片；有授權的裝置可以中途加入或離開，使用既有 Master 身分、租約與 QSTATIC 回執交接。這是已有分項實測的技術主線，<strong>不是 RC4.4 新創建的另一套系統</strong>。</p>
+<h2>2｜RC4.3 既有實證完整保留</h2>
+<table>
+<thead>
+<tr>
+  <th>歷史成果</th>
+  <th>工作負載及觀察</th>
+  <th>限制</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>單卡 1080p H3，2026-10-26</td>
+  <td>RTX 2080 Ti 擴充 22GB，10／10 原生 1088×1920 RS；交付 1080×1920、5 秒、120 幀 MP4；該輪 0 CUDA OOM；總耗時 1 小時 39 分 16 秒</td>
+  <td>分段再裁切組片，沒有升頻；非一次原生 120 幀 Sampler；視覺 QC 另計</td>
+</tr>
+<tr>
+  <td>單卡 #365</td>
+  <td>10 個 RS 串行組成 15 秒、360 幀，3 小時 12 分 08 秒</td>
+  <td>曾有 9 次 CUDA OOM 並重送相關 RS，不是零 OOM 成果</td>
+</tr>
+<tr>
+  <td>四卡 Gold #361</td>
+  <td>4 張 RTX 2080 Ti＋CPU 接縫，15 秒、360 幀、480×832，端到端 14 分 37 秒</td>
+  <td>不能將四卡 VRAM 當作單張直接定址 88GB</td>
+</tr>
+<tr>
+  <td>QmRNA 同卡 A/B</td>
+  <td>480×832、36 幀、10 Steps：參考路徑 PRE-OOM；QmRNA Guard 路徑完成 MP4</td>
+  <td>PRE-OOM 是事前保護，不等於 CUDA HARD OOM</td>
+</tr>
+<tr>
+  <td>受控一致性</td>
+  <td>20 Steps 跨 GPU 位元一致、約 250 MiB 狀態傳輸比對、22／22 畫面一致</td>
+  <td>各為特定測試，不代表所有模型任意續算</td>
+</tr>
+<tr>
+  <td>T245 真 4K 歷史成果</td>
+  <td>單卡原生 4K 等級 RS01（2176×3840 原生），裁切交付 2160×3840、12 幀、0.5 秒片段，原片與 Gold 副本雜湊一致</td>
+  <td>RS01 成功不代表整個原 Job 所有 RS 都已完成</td>
+</tr>
+<tr>
+  <td>ENG172／T248 QFREEZE</td>
+  <td>單卡原生 H3 480×832、5 幀、2 Steps，冷恢復剩餘運算並輸出可解碼 MP4</td>
+  <td>是小型原生恢復實證，不可直接當作 4K T259 同點恢復完成</td>
+</tr>
+</tbody>
+</table>
+<p><strong>關鍵：</strong>真正有必要拿來比較的，是同硬體、同原生模型、同解析度、同 Steps、同輸入與相同時間窗口的 CUDA OOM 事件、峰值 VRAM、有效計算秒數與正確性；不同影片長度的端到端時間不能當作直接的硬體性能比。</p>
+<h2>3｜RC4.4 新增：真正 H3 Attention 的同 Block 跨 GPU 分食</h2>
+<p><strong>已存在且經實測通過的基線</strong>包含跨卡 KV 分工、同一個真 H3 Block 的 Q 分片、可合併的穩定 softmax 統計量，以及 Master 獨立驗算／簽章與原生候選消費。新版本將這些既有事實正式納入公開證據分類。</p>
+<table>
+<thead>
+<tr>
+  <th>測試</th>
+  <th>內容</th>
+  <th>可公開的結果</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>ENG166｜真權重雙節點分工</td>
+  <td>兩張 GPU 使用一致的 MiniMax H3 權重和可重建測試輸入，分別算不同 KV 子區間，再合併局部 m/z/u</td>
+  <td>合併 PASS；受控誤差級別約 7.63×10⁻⁶；測試輸入為確定性合成 X</td>
+</tr>
+<tr>
+  <td>ENG206／207｜真 H3 原生抓取</td>
+  <td>原生影片擷取 825 token 的 H3 RoPE 輸入，同一 Block 由 B0 計算 Q0–415、B1 計算 Q416–824</td>
+  <td>825／825 Query 合併 PASS；Master 抽樣 312 點 max-abs 約 6.00×10⁻⁷；Ed25519 簽章，A1 隔離原生 Attention／out_proj 消費 PASS</td>
+</tr>
+<tr>
+  <td>ENG213｜分 KV 的穩定合併</td>
+  <td>真 H3 已套 RoPE 的 QKV，825 Queries × 56 heads × 128 維，共 5,913,600 個輸出值</td>
+  <td>m/z/u 合併 PASS；max-abs 約 6.56×10⁻⁶、RMSE 約 2.16×10⁻⁷；本項不是新 GPU 全程計算或正式 Sampler 接線</td>
+</tr>
+<tr>
+  <td>2026-10-30 真 H3 分工驗證</td>
+  <td>B0、B1 各處理相異 Query 範圍，Master CPU 另抽查 200 點</td>
+  <td>825 Query 完整覆蓋，max-abs 約 6.51×10⁻⁷，Ed25519 簽章核驗通過；屬獨立技術驗證</td>
+</tr>
+</tbody>
+</table>
+<p>上述結果證明同一計算 Block 可以在已驗證條件下跨 GPU 拆成更小的工作並合併驗證，<strong>並不要求把完整 Block 永久綁定單一顯卡</strong>。但特定 4K T259 原生 Sampler 尚未全面啟用這些候選並持續消費，不能把小規模 PASS 擴寫為「整部 4K 影片已跨節點完成」。</p>
+<h2>4｜RC4.4 新增：2026-10-30 原生 4K H3 長跑與無 OOM 研究</h2>
+<p><strong>主要目標：原生 H3 4K 的 QKV／DiT 長時間計算可以繼續運作、避免 CUDA HARD OOM。</strong> 影片輸出不是本輪 Smoke 的首要通過條件；前台應以真實 GPU 工作、原生 Sampler／QKV 事件、監控時間戳和 CUDA 錯誤紀錄為主，而不是只靠是否已有成片。</p>
+<p>本日有單卡原生 4K 工作依原 T245 技術條件運行：原生約 <strong>2176×3840、22 幀、8 Sampler Steps</strong>，分別在 A0 與 B1 進行驗證；修復後可觀察 QKV_STREAM、DiT Block 進度、FFN 分塊、實際 GPU 活動和 VRAM 使用。不同的 4K Job 應以各自 Prompt、硬體與實際事件獨立記錄。</p>
+<p><strong>重要範圍差異：</strong>10 月 30 日曾存在一筆修補前的 B1 原生 H3 CUDA OOM 記錄；其後調整原有 Gate／DiT 路徑，才有新的 4K 長跑觀測。不能把前筆 OOM 刪去，也不能因此否定修復後在 4K QKV 階段<strong>未觀測到新的 CUDA OOM</strong>的有效運算區間。A0 曾有監控器 timeout 中斷，但原生 QKV／GPU 活動持續出現；timeout 不是 CUDA OOM，必須分別歸類。</p>
+<table>
+<thead>
+<tr>
+  <th>4K 核心觀測項目</th>
+  <th>本日成果／狀態</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>原生高解析度</td>
+  <td>2176×3840 等級、22 幀、8 Steps 的 H3 真實 QKV／DiT 工作已啟動</td>
+</tr>
+<tr>
+  <td>修補後 GPU 原生運作</td>
+  <td>既有正式程序記錄 QKV_STREAM、DiT Block、FFN／QKV 分頁與 GPU 活動；相關時段未觀測新 OOM</td>
+</tr>
+<tr>
+  <td>VRAM 壓力管理</td>
+  <td>依各 Job 實測顯存與分頁追蹤；不把預防性 PRE-OOM、監控 timeout 或節點斷電混同 CUDA HARD OOM</td>
+</tr>
+<tr>
+  <td>成功標準</td>
+  <td><strong>4K 原生有效計算區間，無 CUDA HARD OOM 且計算狀態可追蹤</strong>；需以有起訖時間及完整錯誤日誌的收據核實整段聲明</td>
+</tr>
+<tr>
+  <td>非本輪必要條件</td>
+  <td>最終 MP4 交付；其後可作獨立成果與影像 QC，但不阻擋單項無 OOM 判定</td>
+</tr>
+</tbody>
+</table>
+<p>因此，<strong>RC4.4 不再把「沒有新成片」當作原生 4K 計算的失敗條件</strong>。對外發表時應明確載明所觀測的時間範圍、發生／未發生 CUDA OOM 的工作區間及所用硬體，避免宣稱「所有 4K 作業必然不 OOM」。</p>
+<h2>5｜RC4.4 新增：QSTATIC／QFREEZE 同 Job 狀態延續與故障復原</h2>
+<p>Möbius 的研究目標不是把中斷事件當作計算全部歸零。原有機制能以 Job／RS／Step／Block／Q-KV 子片描述進度，檢查可驗證的最後安全邊界，在不同授權節點上接續必要工作。<strong>游標是一種定位，不是張量快照；真正可恢復的內容必須能驗證與載入。</strong></p>
+<p>10 月 30 日的 T259 B1 工作遭遇實際主機斷電。原工作保留了 4K QKV 頁面游標及工作身份；舊規劃 8 Steps × 50 Blocks × 224 Q 頁 × 224 KV 頁為 <strong>20,070,400 個規劃 QUE 位置</strong>。偵測到的位置約在 <strong>193 萬個 QUE 序號</strong>附近，這不能直接當作全部已完成或已有可恢復的張量。</p>
+<p><strong>今日新增實證：</strong>同一工作的 A1 新補算分支建立 Step0 QSTATE，冷儲存大小約 <strong>21.95 MB</strong>；Node B 既有 Compute Bridge 核對完整檔案 SHA 與大小，CPU 可解讀真實 Sampler 狀態。另有兩份副本 ACK，達成所記錄的 D3 保存級別。B1 的 RTX 2080 Ti 也已真實載入狀態張量至 CUDA，再搬回 CPU 比對內容完整，往返約 <strong>278 ms</strong>。這證明真實新生計算狀態可以跨節點保留並由另一 GPU 載入，<strong>但不是說斷電前 B1 精確中斷點的快照已被找回</strong>。</p>
+<table>
+<thead>
+<tr>
+  <th>復原能力</th>
+  <th>已知證據與界線</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>斷電定位</td>
+  <td>既有 QKV 游標及原 Job 身分保存，能逆向對應規劃 Step／Block／頁面；不等於中斷張量本身已持久化</td>
+</tr>
+<tr>
+  <td>新生 QSTATE</td>
+  <td>A1 新建 Step0 原生狀態可讀、SHA 比對及雙副本成功</td>
+</tr>
+<tr>
+  <td>異卡 GPU 重新載入</td>
+  <td>B1 GPU 對該新生狀態完成 CUDA 真載入與 SHA 一致性檢查</td>
+</tr>
+<tr>
+  <td>同一原 Job 自動完成接續</td>
+  <td>仍須有有效租約、必要原生 Sampler 消費及後續工作回執；本日尚未宣稱全鏈 PASS</td>
+</tr>
+</tbody>
+</table>
+<h2>6｜RC4.4 新增：Worker 動態 JOIN／LEAVE 與節點自我復原</h2>
+<p>在原有 QSTATIC／QAnswer 接棒測試中，三個 Worker 的動態承接、租約到期重派、拒收重複提交及拒收未授權 Worker 均已有驗證記錄。同一 Block 內 Q／KV 子片也有 0／1／2 GPU 加入的隔離實驗；它證明可以拆分和合併，不等於任何小型測試都必然比單機更快。</p>
+<p>10 月 30 日另外有一項<strong>現役 Node B 自動恢復</strong>：兩張 GPU 的 ComfyUI Worker 曾離線，原 watchdog 在確認 Resource Manager 無任務、無租約及資源空閒後，修正既有的 FREE＋OFFLINE 自啟條件。原 Worker 復原到 ONLINE／IDLE，兩卡佇列可查。這是<strong>實際節點服務自動恢復 PASS</strong>，不同於該節點已完成新的 4K 分片運算。</p>
+<h2>7｜RC4.4 新增：1024×N DRIP、HARD OOM 異卡候選與速度導向派工</h2>
+<p>沿用既有 QmRNA／Compute Bridge／Master 的工程，DRIP 頁面規模以 <strong>1024×N</strong> 表達動態候選，而非僵化限制在特定固定頁數。10 月 30 日原始碼已增加候選處理及策略檢查，但活動中的部分原生程序仍有既存頁面上限，<strong>未經安全邊界及正式程序重載不得假稱新策略已在現役 4K Job 全面生效</strong>。</p>
+<p>另外修正既有 OOM 接手邏輯：確認為 <strong>CUDA HARD OOM</strong> 時不把工作重新派回剛 OOM 的同一張卡；須先確認可信 SHA、有效冷狀態／副本、資源管理器的真空閒與合法候選，再考慮從其他節點復原。對正常主動轉移，Möbius 應根據同類原生工作配對數量、時間、複製與網路成本及可靠性選擇預期較快的節點；不能用低工作量小分頁的表面 QUE/s 誤當真正性能提升。</p>
+<p><strong>本日結果屬原程式修補、隔離路由測試 PASS。</strong> 由於既有活動中的 Bridge／Sampler 未任意中斷重載，還不能宣稱正式 Job 已完成一次 HARD OOM 自動異卡轉生。RC4.4 將它列為技術增補與待整合驗收，不會混為已交付成片。</p>
+<h2>8｜驗證規範：4K「沒有 OOM」究竟如何成立</h2>
+<p><strong>優先指標 P0 — 4K 原生計算可持續且無 CUDA HARD OOM。</strong> 一個有效的無 OOM 實證區間需具備對應原生 Job 的起訖時間、實際進入 Sampler／DiT／QKV 的事件、VRAM 遙測、錯誤記錄與中斷分類；非 OOM 的斷電、人工停止、網路中斷或 timeout 應單獨歸類。若僅取得某時刻的 <code>queue_running</code>，只能說當時有運行，不能替代整個時間窗的錯誤檢查。</p>
+<p><strong>次要指標 P1 — 能在必要時 Freeze／恢復／異地接手。</strong> 分別驗證有效原生狀態、核驗摘要、跨節點載入、租約與回收，以及原生 Sampler 是否消費答案；不因某一環節缺乏證據便否認已驗證的分算與恢復能力。</p>
+<p><strong>指標 P2 — 多卡比單卡有可重現的速度收益。</strong> 僅在同任務、同模型、同輸出、相同驗證範圍下比較端到端耗時、CPU/GPU空轉與通訊成本。<strong>最後成片與視覺品質屬可獨立驗收的 P3，不是本次 P0 的前置條件。</strong></p>
+<h2>9｜BlackBox、來源與對外公開界線</h2>
+<ul>
+<li><strong>公開：</strong>原生負載種類、硬體級別、必要的分塊規模、觀測結果、相對誤差、歷史成功與本日待驗差距。</li>
+<li><strong>僅限核准評估：</strong>去識別的執行收據與量測方式，經 Owner 同意後方可審查。</li>
+<li><strong>Owner-only：</strong>原生 Hook、模型接入、計算狀態格式、完整路由／安全設定、私有工單、憑證、客戶媒體與原始提示詞。</li>
+</ul>
+<p>本白皮書的依據是 HAVEFUN 權威 CURRENT／TEST CURRENT 的既存實測記錄及其對應原始收據索引，並對照 RC4.3 公開白皮書與 Claim Ledger；<strong>本審閱稿並未額外重跑 GPU 測試，也不聲稱取得更新後的影片或現場 Owner QC</strong>。所有已核驗 Gold 基線維持有效，所有未完成研究與正式整合項目繼續累加。</p>
+<p><strong>HAVEFUN Q-Framework — Connecting Compute. Extending Possibility.</strong></p>
+<p>版本說明：RC4.4 審閱稿｜2026-10-30｜繁體中文｜公開供 Owner 審閱，不代表已核准為正式定稿。</p>
+</body></html>
