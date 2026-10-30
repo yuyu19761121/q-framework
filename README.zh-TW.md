@@ -1,5 +1,7 @@
 # Q-Framework × Temporal Möbius
 
+**語言版本：** [English](README.md) · **繁體中文** · [日本語](README.ja.md) · [Español](README.es.md) · [Português (Brasil)](README.pt-BR.md)
+
 **單張 RTX 2080 Ti 的 H3 成功實例 · 四卡高速交付 · 異質超級電腦神經網絡**
 
 HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張擴充至 22GB 的 RTX 2080 Ti** 上，實際成功執行 MiniMax H3 原生影片生成。QmRNA 的顯存壓力管理、狀態延續與 Temporal Möbius 決策，同時研究「原本無法完成的任務如何變成可完成」以及「異質節點如何協同提高整體效率」。
@@ -31,8 +33,8 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 | 繁體中文 | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md) | [下載](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf) |
 | English | [Read](whitepaper/Q-Framework-v1.0-RC4.3-EN.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-EN.pdf) |
 | 日本語 | [読む](whitepaper/Q-Framework-v1.0-RC4.3-JA.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-JA.pdf) |
-| Español | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | 由 GitHub Actions 產生 |
-| Português (Brasil) | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | 由 GitHub Actions 產生 |
+| Español | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ES.pdf) |
+| Português (Brasil) | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.pdf) |
 
 原 RC1–RC3 歷史版本保留於 [whitepaper/](whitepaper/)。
 
