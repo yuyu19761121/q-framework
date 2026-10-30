@@ -29,6 +29,8 @@ HAVEFUN の Q-Framework は**マルチ GPU だけのシステムではない**�
 | 言語 | Markdown | PDF |
 |---|---|---|
 | 日本語 | [読む](whitepaper/Q-Framework-v1.0-RC4.3-JA.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-JA.pdf) |
+| Español | [読む](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | GitHub Actions で生成 |
+| Português (Brasil) | [読む](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | GitHub Actions で生成 |
 | 繁體中文 | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf) |
 | English | [Read](whitepaper/Q-Framework-v1.0-RC4.3-EN.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-EN.pdf) |
 
