@@ -26,6 +26,10 @@ HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax 
 
 [**Open the 9-image gallery**](docs/visual-gallery.md) — recruitment posters, complete architecture diagrams, and single-GPU versus multi-GPU operation comparisons in three languages. The images are illustrative; validated results and planned features remain separately labeled.
 
+### RC4.4 owner review draft (Traditional Chinese, 30 October 2026)
+
+[Read the RC4.4 review draft](whitepaper/Q-Framework-v1.0-RC4.4-ZH-TW-REVIEW.md) · [RC4.4 review PDF](whitepaper/Q-Framework-v1.0-RC4.4-ZH-TW-REVIEW.pdf). **Review edition only, not a replacement for the approved RC4.3 five-language whitepapers.** Focus: measurable native 4K H3 operation without CUDA HARD OOM, plus bounded distributed compute, recovery and checkpoint evidence. Final video delivery is a separate criterion.
+
 ### RC4.3 technical whitepapers (full-length)
 
 | Language | Markdown | PDF |
