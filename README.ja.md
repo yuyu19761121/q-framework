@@ -1,5 +1,7 @@
 # Q-Framework × Temporal Möbius
 
+**言語：** [English](README.md) · [繁體中文](README.zh-TW.md) · **日本語** · [Español](README.es.md) · [Português (Brasil)](README.pt-BR.md)
+
 **単一 RTX 2080 Ti の H3 成功事例 · 4 GPU 生産ライン · 異種スーパーコンピュータ・ニューラルネットワーク**
 
 HAVEFUN の Q-Framework は**マルチ GPU だけのシステムではない**。VRAM を拡張した**単一の RTX 2080 Ti 22GB** で、MiniMax H3 のネイティブ動画生成に**実際に成功**している。QmRNA の VRAM 圧力管理と状態継続、Temporal Möbius の経路判断は、「処理可能か」と「異種装置でどう効率良く完了するか」を同時に研究する。
@@ -29,8 +31,8 @@ HAVEFUN の Q-Framework は**マルチ GPU だけのシステムではない**�
 | 言語 | Markdown | PDF |
 |---|---|---|
 | 日本語 | [読む](whitepaper/Q-Framework-v1.0-RC4.3-JA.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-JA.pdf) |
-| Español | [読む](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | GitHub Actions で生成 |
-| Português (Brasil) | [読む](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | GitHub Actions で生成 |
+| Español | [読む](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ES.pdf) |
+| Português (Brasil) | [読む](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.pdf) |
 | 繁體中文 | [閱讀](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf) |
 | English | [Read](whitepaper/Q-Framework-v1.0-RC4.3-EN.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-EN.pdf) |
 
