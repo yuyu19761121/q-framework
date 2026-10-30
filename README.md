@@ -31,8 +31,8 @@ HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax 
 | English | [Full whitepaper](whitepaper/Q-Framework-v1.0-RC4.3-EN.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-EN.pdf) |
 | 繁體中文 | [技術白皮書](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ZH-TW.pdf) |
 | 日本語 | [技術白書](whitepaper/Q-Framework-v1.0-RC4.3-JA.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-JA.pdf) |
-| Español | [Documento completo](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | PDF generado por GitHub Actions |
-| Português (Brasil) | [Documento completo](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | PDF gerado pelo GitHub Actions |
+| Español | [Documento completo](whitepaper/Q-Framework-v1.0-RC4.3-ES.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-ES.pdf) |
+| Português (Brasil) | [Documento completo](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.md) | [PDF](whitepaper/Q-Framework-v1.0-RC4.3-PT-BR.pdf) |
 
 Earlier RC1–RC3 versions remain available in [whitepaper/](whitepaper/).
 
