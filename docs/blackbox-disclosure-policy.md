@@ -10,6 +10,12 @@
 
 **OWNER-ONLY (never published):** source code and patches for QmRNA, QVRAM, QSTATIC, QFREEZE and Temporal Mobius; native node graphs, runtime hooks, configuration values, decision weights and state encodings; private checkpoint tensors; server and worker access; raw client photos, prompts, audio, video and other identifiable content; credentials, tokens and internal service paths.
 
+## Additional BlackBox boundaries for runtime research
+
+Runtime paging parameters, historical or active execution limits, adaptive-control settings, memory budgets, checkpoint or recovery formats, durability and replica topology, state-transfer measurements, validation methods, and node handoff policies are **OWNER-ONLY**. This applies even when a measurement comes from a successful test, a prior whitepaper, or a review draft. Do not publish exact values, value ranges, configuration examples, formulas, receipt excerpts, or comparisons that allow those values to be inferred.
+
+For public summaries, describe only approved outcome-level findings and their limitations. Keep exact engineering observations in access-controlled CURRENT and TEST CURRENT, not in GitHub, public PDF artifacts, READMEs, translations, or investor materials. Translating a confidential detail does not make it eligible for disclosure.
+
 ## BlackBox technical evidence
 
 Public results must distinguish:
