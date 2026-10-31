@@ -55,7 +55,7 @@ Se trata de una medición de **producción de vídeo de extremo a extremo**, no 
 Otros experimentos controlados registraron:
 
 - Una carga numérica de 20 pasos que continuó entre distintas GPU con un resultado idéntico bit a bit y una diferencia absoluta máxima medida de **0,0**.
-- Un traslado de aproximadamente **250 MiB** de estado de cómputo con resúmenes de verificación coincidentes en los extremos correspondientes.
+- Se completaron pruebas controladas de coherencia entre dispositivos; no se divulgan los volúmenes de datos internos ni los métodos de verificación.
 - Coincidencia en **22 de 22** fotogramas de vídeo decodificados en una comparación acotada de QmRNA.
 - Tareas matemáticas heterogéneas Windows/macOS, recomputación independiente y ensayos limitados de entrenamiento de pesos de modelos.
 
