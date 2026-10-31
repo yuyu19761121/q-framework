@@ -55,7 +55,7 @@ Essa é uma medição de **produção de vídeo de ponta a ponta**, não um benc
 Experimentos controlados distintos registraram:
 
 - Uma carga numérica de 20 etapas que continuou entre GPUs com resultado idêntico bit a bit e diferença absoluta máxima medida de **0,0**.
-- Aproximadamente **250 MiB** de transferência de estado computacional, com resumos criptográficos de verificação correspondentes nas extremidades relevantes.
+- Foram realizados testes controlados de consistência entre dispositivos; não são divulgados volumes de dados internos nem métodos de verificação.
 - **22 de 22** quadros de vídeo decodificados coincidentes em uma comparação delimitada de QmRNA.
 - Tarefas matemáticas heterogêneas Windows/macOS, recomputação independente e ensaios limitados de treinamento de pesos de modelos.
 
