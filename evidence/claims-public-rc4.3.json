@@ -80,7 +80,7 @@
     {
       "id": "HF-STATE-INTEGRITY",
       "status": "controlled_integrity_test",
-      "result": "approximately 250MiB state movement with consistent verification digests",
+      "result": "controlled cross-device consistency result; internal data volumes and validation details withheld",
       "limits": "does not imply universal VRAM pooling"
     },
     {
