@@ -6,6 +6,10 @@
 
 HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax H3 video tests have **succeeded on a single memory-expanded RTX 2080 Ti 22 GB GPU**. QmRNA's low-memory execution control, computation-state continuity, and Temporal Möbius scheduling address both *whether a task can finish* and *how a heterogeneous system should execute it*.
 
+### October 31, 2026: Native 4K AI video produced through OOM prevention and compute rebirth
+
+**We have moved beyond native 4K computation experiments to a real native-resolution H3 MP4 output.** Our existing OOM-prevention and cross-device recovery capabilities have supported real high-resolution video delivery. This is a practical milestone for HAVEFUN Q-Framework × Temporal Möbius, not just a theoretical architecture. [Read the inventor-led RC4.5 whitepaper (Traditional Chinese)](whitepaper/Q-Framework-v1.0-RC4.5-ZH-TW.md).
+
 ### Demonstrated results
 
 - **New: single-card 1080p final H3 video:** 10/10 native high-resolution segments and a verified complete five-second 1080×1920 film on one memory-expanded 22GB RTX 2080 Ti, no recorded OOM, no upscaling.
