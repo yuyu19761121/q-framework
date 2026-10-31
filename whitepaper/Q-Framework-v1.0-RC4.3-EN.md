@@ -55,7 +55,7 @@ This is an **end-to-end video production** measurement, not a per-card native sa
 Separate controlled experiments recorded:
 
 - A 20-step numerical workload continuing across GPUs with a bitwise-identical result and measured maximum absolute difference **0.0**.
-- Approximately **250 MiB** of computation-state movement with matching verification digests at the relevant endpoints.
+- Controlled cross-device consistency research was completed; private data volumes and verification methods are not disclosed.
 - **22 of 22** matching decoded video frames in a bounded QmRNA comparison.
 - Heterogeneous Windows/macOS mathematical tasks, independent recomputation and limited model-weight training trials.
 
