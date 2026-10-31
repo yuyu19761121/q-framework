@@ -7,6 +7,7 @@ on:
       - "whitepaper/Q-Framework-v1.0-RC4.3-*.md"
       - "whitepaper/Q-Framework-v1.0-RC4.4-*-REVIEW.md"
       - "whitepaper/Q-Framework-v1.0-RC4.4-*-REVIEW.html"
+      - "whitepaper/Q-Framework-v1.0-RC4.5-*.md"
       - ".github/workflows/build-whitepaper-pdfs.yml"
 
 permissions:
@@ -70,6 +71,14 @@ jobs:
               HTML(string=html, base_url=".").write_pdf(outfile)
               print("built", outfile)
 
+          # RC4.5 inventor-led public whitepaper: render new Markdown into its PDF.
+          for mdfile in sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC4.5-*.md")):
+              body = markdown.markdown(mdfile.read_text(encoding="utf-8"), extensions=["tables", "fenced_code"])
+              html = f"<html><head><meta charset='utf-8'><style>{css}</style></head><body>{body}</body></html>"
+              outfile = mdfile.with_suffix(".pdf")
+              HTML(string=html, base_url=".").write_pdf(outfile)
+              print("built inventor-led", outfile)
+
           # Review drafts: use their approved print-ready HTML as PDF source.
           # Leave the existing five RC4.3 PDFs and their generation logic intact.
           for htmlfile in sorted(Path("whitepaper").glob("Q-Framework-v1.0-RC4.4-*-REVIEW.html")):
@@ -85,7 +94,7 @@ jobs:
         run: |
           git config user.name "q-framework-bot"
           git config user.email "59273422+yuyu19761121@users.noreply.github.com"
-          git add whitepaper/Q-Framework-v1.0-RC4.3-*.pdf whitepaper/Q-Framework-v1.0-RC4.4-*-REVIEW.pdf
+          git add whitepaper/Q-Framework-v1.0-RC4.3-*.pdf whitepaper/Q-Framework-v1.0-RC4.4-*-REVIEW.pdf whitepaper/Q-Framework-v1.0-RC4.5-*.pdf
           if git diff --cached --quiet; then
             echo "No PDF changes."
           else
