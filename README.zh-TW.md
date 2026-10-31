@@ -10,6 +10,10 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 
 **我們不只成功推動原生 4K H3 運算，也已將防止 OOM 與跨設備運算恢復的技術成果帶到真正的影片交付。原生 4K 等級 MP4 已成功生成，並完成影片完整性驗證。** 這是 Q-Framework × Temporal Möbius 從突破硬體限制走向運算持續性的實際成果。[閱讀發明者白皮書 RC4.5](whitepaper/Q-Framework-v1.0-RC4.5-ZH-TW.md)。
 
+### 系統意外斷電後，跨 GPU 原生運算重生完整性：PASS
+
+**HAVEFUN Temporal Möbius 已完成原生 H3 運算狀態跨 GPU 恢復驗證：移轉前後 SHA-256 完全一致、異地副本 2/2 PASS，恢復後原生 H3 運算成功重新執行。** 這是系統實際經歷斷電後的運算延續成果，不只是重新啟動程式。[閱讀跨卡重生完整性驗證報告](whitepaper/Q-Framework-RC4.5-Cross-GPU-Rebirth-Integrity-ZH-TW.md)。
+
 ### 真實單卡與多卡技術成果
 
 - **最新突破：單卡 1080p 完整成片：**10／10 原生高解析度 RS 成功，完成 1080×1920／5 秒／120 幀影片，不升頻、不記錄 CUDA OOM，GPU 只有一張 RTX 2080 Ti 22GB 擴充版。
