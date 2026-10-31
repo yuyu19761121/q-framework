@@ -26,6 +26,12 @@ HAVEFUN 的 Q-Framework **不只是多卡 GPU 系統**。我們已經在**單張
 
 [**查看九張正式公開圖片**](docs/visual-gallery.md)：中／英／日招募海報、Q-Framework 完整架構圖、單卡與多卡運算比較圖。公開圖為視覺示意，實測成果與尚未完成的研發計畫分開標示。
 
+### 最新白皮書｜RC4.5 發明者版本（繁體中文）
+
+[**閱讀 RC4.5：我們正在重新定義 AI 運算的未來**](whitepaper/Q-Framework-v1.0-RC4.5-ZH-TW.md)
+
+**Beyond OOM. Beyond Hardware. Beyond Boundaries.** 從 AI 產業面臨的硬體成本、運算中斷與閒置算力出發，介紹我們已取得的原生高解析度生成、運算重生、跨設備協作成果，以及技術授權、運算服務與異質算力平台三項商業方向。公開版僅揭露成果與市場價值，不揭露 BlackBox 核心機制。
+
 ### RC4.4 繁體中文審閱稿｜2026-10-30
 
 [**閱讀 RC4.4 審閱全文**](whitepaper/Q-Framework-v1.0-RC4.4-ZH-TW-REVIEW.md) · [**查看 RC4.4 審閱版 PDF**](whitepaper/Q-Framework-v1.0-RC4.4-ZH-TW-REVIEW.pdf)。本版以原生高解析度 H3 運算避免 CUDA HARD OOM 為研究目標，僅公開核准的結果與限制。**這是供 Owner 審閱的新版本，未取代既有五語 RC4.3 正式白皮書；影片成片另行驗收。**
