@@ -10,6 +10,10 @@ HAVEFUN's Q-Framework is **not only a multi-GPU system**. Actual native MiniMax 
 
 **We have moved beyond native 4K computation experiments to a real native-resolution H3 MP4 output.** Our existing OOM-prevention and cross-device recovery capabilities have supported real high-resolution video delivery. This is a practical milestone for HAVEFUN Q-Framework × Temporal Möbius, not just a theoretical architecture. [Read the inventor-led RC4.5 whitepaper (Traditional Chinese)](whitepaper/Q-Framework-v1.0-RC4.5-ZH-TW.md).
 
+### Verified Cross-GPU Rebirth Following Unexpected Power Loss
+
+**Following a real power-interruption event, HAVEFUN Temporal Möbius demonstrated native H3 state recovery across GPUs: identical SHA-256 before and after state transfer, 2/2 remote replica checks passed, and native H3 GPU computation resumed successfully.** This is more than restarting a process—it is a verifiable recovery of native computation state. [Read the Cross-GPU Rebirth Integrity Report (Traditional Chinese)](whitepaper/Q-Framework-RC4.5-Cross-GPU-Rebirth-Integrity-ZH-TW.md).
+
 ### Demonstrated results
 
 - **New: single-card 1080p final H3 video:** 10/10 native high-resolution segments and a verified complete five-second 1080×1920 film on one memory-expanded 22GB RTX 2080 Ti, no recorded OOM, no upscaling.
